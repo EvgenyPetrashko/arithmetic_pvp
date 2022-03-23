@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.arithmetic_pvp">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="arithmetic_pvp"
         android:name="${applicationName}"

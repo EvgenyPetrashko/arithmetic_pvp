@@ -1,8 +1,14 @@
+import 'package:arithmetic_pvp/logic/network_client.dart';
+import 'package:arithmetic_pvp/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'logic/auth.dart';
+
 class RegisterPage extends StatefulWidget{
+  const RegisterPage({Key? key}) : super(key: key);
+
 
   @override
   State<RegisterPage> createState() =>  _RegisterPageState();
@@ -13,11 +19,32 @@ class _RegisterPageState extends State<RegisterPage>{
   final _registerFormKey = GlobalKey<FormState>();
 
   bool _passwordObscure = true;
+  
+  bool _submitBtnDisabled = false;
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  late Auth auth_client;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    auth_client = Auth(NetworkClient());
+  }
+
+  bool _isEmailValid(String email) {
+    String pattern = r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(email);
+  }
+
+  bool _isPasswordValid(String password){
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+    RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(password);
   }
 
 
@@ -44,8 +71,14 @@ class _RegisterPageState extends State<RegisterPage>{
                       children: [
                         // Username/Nickname
                         TextFormField(
+                          controller: _usernameController,
                           validator: (value){
                             // some  nickname validation
+                            if (value == null || value.isEmpty){
+                              return "Enter your username";
+                            }else if (value.length < 6){
+                              return "Your username must contain at least 6 characters";
+                            }
                             return null;
                           },
                           decoration: const InputDecoration(
@@ -59,9 +92,15 @@ class _RegisterPageState extends State<RegisterPage>{
                         // Mail
                         const SizedBox(height: 20,),
                         TextFormField(
+                          controller: _emailController,
                           validator: (value){
                             // some email validation
-
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            }else if (!_isEmailValid(value)){
+                              return 'Wrong email';
+                            }
+                            return null;
                           },
                           decoration: const InputDecoration(
                               labelText: "E-Mail",
@@ -73,6 +112,7 @@ class _RegisterPageState extends State<RegisterPage>{
                         ),
                         const SizedBox(height: 20,),
                         TextFormField(
+                          controller: _passwordController,
                           obscureText: _passwordObscure,
                           decoration: InputDecoration(
                               labelText: "Password",
@@ -90,9 +130,33 @@ class _RegisterPageState extends State<RegisterPage>{
                                 },
                               )
                           ),
+                          validator: (value){
+                            if (value == null || value.isEmpty){
+                              return "Enter your password";
+                            }else if (!_isPasswordValid(value)){
+                              return "Password must contain at least\n1 lower case char, 1 upper case char,\n1 number and be at least 8 char long";
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 10,),
-                        ElevatedButton(onPressed: () {}, child: const Text("Register", style: TextStyle(fontSize: 18),)),
+                        ElevatedButton(onPressed: () async {
+                          _submitBtnDisabled = true;
+                          if (_registerFormKey.currentState!.validate()) {
+                            var responseMap = await auth_client.register(_usernameController.text, _emailController.text, _passwordController.text);
+                            var report = responseMap.keys.first;
+                            var status = responseMap[report] ?? false;
+                            if (status){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                            }else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(report)),
+                              );
+                            }
+                          }
+                          _submitBtnDisabled = false;
+                        }, child: const Text("Register", style: TextStyle(fontSize: 18),)),
                         const SizedBox(height: 30,),
                         const Text("Do you already have an account?"),
                         TextButton(onPressed: (){}, child: const Text("Login"))
@@ -100,9 +164,7 @@ class _RegisterPageState extends State<RegisterPage>{
                     ),
                   ),
                   width: 300,
-
                 )
-
               ],
             ),
           )
