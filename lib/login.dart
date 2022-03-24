@@ -1,5 +1,5 @@
+import 'package:arithmetic_pvp/home.dart';
 import 'package:arithmetic_pvp/logic/network_client.dart';
-import 'package:arithmetic_pvp/main.dart';
 import 'package:arithmetic_pvp/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -137,11 +137,11 @@ class _LoginPageState extends State<LoginPage> {
                                         'refresh', reportMap["refresh"] ?? "");
                                     await prefs.setString(
                                         "access", reportMap["access"] ?? "");
+                                    Navigator.popUntil(context, (route) => false);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyHomePage()));
+                                            builder: (context) => HomePage()));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
