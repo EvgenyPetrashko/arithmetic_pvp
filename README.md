@@ -51,23 +51,23 @@ Play our game if you want to:
 
 * Login and Register functionality (api calls to backend server)
 * Welcome Page (Users get to know the application)
-* Profile Page (Users can check own information(username, raiting, money)) - beta
-* Achivements (User can can check own achivements) - beta
+* Profile Page (Users can check own information (username, rating, money)) - beta
+* Achievements (User can can check own achievements)
 * Main Game (Template of the game) - beta
 
 ### TODO
 * Multiplayer mode
-* Singlplayer mode
-* Raiting system
-* Levels in singleplayer mode
+* Single-player mode
+* Rating system
+* Levels in single-player mode
 * Statistics after end of the game + Statistics for the whole period
-* Possibility to buy skins, using in-game currency
+* Possibility to buy skins using in-game currency
 * Multilanguage app
 
 
 ## Screenshots
 
-![Screenshots](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/sreenshots/screens.png)
+![Screenshots](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/screenshots/screens.png)
 
 
 ## Contacts
