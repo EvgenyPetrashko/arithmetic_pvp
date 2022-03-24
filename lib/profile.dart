@@ -1,3 +1,4 @@
+import 'package:arithmetic_pvp/achievements.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -177,7 +178,14 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Container(
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AchievementsPage(),
+                    ),
+                  );
+                },
                 child: const Text(
                   "See more",
                   style: TextStyle(
