@@ -12,7 +12,7 @@ class WelcomePage extends StatefulWidget{
 
 class _WelcomePageState extends State<WelcomePage>{
   final PageController _welcomePageController = PageController();
-  final _keysList = [GlobalKey<_ColoredCircleState>(), GlobalKey<_ColoredCircleState>(), GlobalKey<_ColoredCircleState>()];
+  final _keysList = [GlobalKey<_ColoredCircleState>(), GlobalKey<_ColoredCircleState>(), GlobalKey<_ColoredCircleState>(), GlobalKey<_ColoredCircleState>()];
 
 
   @override
@@ -23,7 +23,7 @@ class _WelcomePageState extends State<WelcomePage>{
     // change circles color on page swap
     _welcomePageController.addListener(() {
       var pageValue = _welcomePageController.page ?? 0;
-      if ((pageValue < 0.70) || (pageValue >= 0.70 && pageValue < 1.70) || (pageValue >= 1.70)){
+      if ((pageValue < 0.70) || (pageValue >= 0.70 && pageValue < 1.70) || (pageValue >= 1.70 && pageValue < 2.70) || (pageValue >= 2.70)){
         for (var i = 0; i < _keysList.length; i++){
           var intPageValue = pageValue.round();
           if (intPageValue == i){
@@ -39,46 +39,49 @@ class _WelcomePageState extends State<WelcomePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-                child:
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Expanded(
+                  child:
                   PageView(
                     controller: _welcomePageController,
                     children: const [
-                      WelcomeInfoPage(text: "Hello my friend!\nThis is Arithmetic PvP - place of growing your verbal math abilities", assetPath: "assets/dark_logo.svg"),
+                      WelcomeInfoPage(text: "Hello, my friend!\nThis is Arithmetic PvP - place of growing your verbal math abilities", assetPath: "assets/dark_logo.svg"),
                       WelcomeInfoPage(text: "Here you can compete with any player and check the power of your brain", assetPath: "assets/thinking.svg"),
-                      WelcomeInfoPage(text: "Invite your friends.\nBuy epic skins.\nWin!", assetPath: "assets/celebration.svg", isFinalPage: true,)
-                  ],
-                )
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ColoredCircle(key: _keysList[0], color: Colors.blue,),
-                const SizedBox(width: 5),
-                ColoredCircle(key: _keysList[1],),
-                const SizedBox(width: 5,),
-                ColoredCircle(key: _keysList[2],)
-              ],
-            ),
-            const SizedBox(height: 10,)
-          ],
+                      WelcomeInfoPage(text: "Invite your friends.\nBuy epic skins.\nWin!", assetPath: "assets/celebration.svg"),
+                      RegisterPage()
+                    ],
+                  )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ColoredCircle(key: _keysList[0], color: Colors.blue,),
+                  const SizedBox(width: 5),
+                  ColoredCircle(key: _keysList[1],),
+                  const SizedBox(width: 5,),
+                  ColoredCircle(key: _keysList[2],),
+                  const SizedBox(width: 5,),
+                  ColoredCircle(key: _keysList[3],)
+                ],
+              ),
+              const SizedBox(height: 10,)
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 
 }
 
 class WelcomeInfoPage extends StatelessWidget{
-  const WelcomeInfoPage({Key? key, required this.text, required this.assetPath, this.isFinalPage = false}) : super(key: key);
+  const WelcomeInfoPage({Key? key, required this.text, required this.assetPath}) : super(key: key);
 
   final String text;
   final String assetPath;
-  final bool isFinalPage;
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,15 +102,6 @@ class WelcomeInfoPage extends StatelessWidget{
             )
           )
         ),
-        Visibility(
-            child: ElevatedButton(
-                onPressed: (){
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
-                  },
-                child: const Text("Login/Register")),
-            visible: isFinalPage,
-        )
       ],
     );
   }
