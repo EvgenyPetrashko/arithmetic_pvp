@@ -3,7 +3,7 @@ import 'package:arithmetic_pvp/some.dart';
 import 'package:flutter/material.dart';
 import 'game.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override

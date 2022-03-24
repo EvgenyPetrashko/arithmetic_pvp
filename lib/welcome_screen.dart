@@ -46,8 +46,8 @@ class _WelcomePageState extends State<WelcomePage>{
                   PageView(
                     controller: _welcomePageController,
                     children: const [
-                      WelcomeInfoPage(text: "Hello, my friend!\nThis is Arithmetic PvP - place of growing your verbal math abilities", assetPath: "assets/dark_logo.svg"),
-                      WelcomeInfoPage(text: "Here you can compete with any player and check the power of your brain", assetPath: "assets/thinking.svg"),
+                      WelcomeInfoPage(text: "Hello there!\nThis is Arithmetic PvP - place of developing your verbal math abilities", assetPath: "assets/dark_logo.svg"),
+                      WelcomeInfoPage(text: "Here you can compete with any player and check the power of your mind", assetPath: "assets/thinking.svg"),
                       WelcomeInfoPage(text: "Invite your friends.\nBuy epic skins.\nWin!", assetPath: "assets/celebration.svg"),
                       RegisterPage()
                     ],

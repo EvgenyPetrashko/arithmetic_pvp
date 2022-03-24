@@ -24,7 +24,7 @@ class _SomePageState extends State<SomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -34,7 +34,7 @@ class _SomePageState extends State<SomePage> {
             margin: const EdgeInsets.only(top: 30, bottom: 40),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 50, right: 50),
+            padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
             child: Text(
               i.toString(),
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
