@@ -61,11 +61,21 @@ Play our game if you want to:
 
 ## Features
 
-* feature1
-* feature2
-* feature3
-* feature4
-* feature5
+* Login and Register functionality (api calls to backend server)
+* Welcome Page (Users get to know the application)
+* Profile Page (Users can check own information(username, raiting, money)) - beta
+* Achivements (User can can check own achivements) - beta
+* Main Game (Template of the game) - beta
+
+### TODO
+* Multiplayer mode
+* Singlplayer mode
+* Raiting system
+* Levels in singleplayer mode
+* Statistics after end of the game + Statistics for the whole period
+* Possibility to buy skins, using in-game currency
+* Multilanguage app
+
 
 ## Screenshots
 
