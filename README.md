@@ -10,6 +10,43 @@ Play our game if you want to:
 * Find new friends with same interests
 * Compete!
 
+### Built With
+
+[Flutter](https://flutter.dev/)
+
+
+### Usage
+1) Clone the repo:
+    ```
+    git clone https://github.com/EvgenyPetrashko/arithmetic_pvp.git
+    ```
+2) Check your flutter environment:
+    ```
+    flutter doctor
+    ```
+3) After opening project in your IDE get all dependencies:
+    ```
+    flutter pub get
+    ```
+    * In case of problems, try first
+    ```
+    flutter clear
+    ```
+   
+4) Choose the device (virtual or physical) to run the project and launch:
+    ```
+    flutter run
+    ```
+5) OR Build a package using:
+    ```
+    flutter build
+    ```
+  with one of these parameters: apk, appbundle, ios
+
+### Get already built APK here
+
+[Apk-Link](https://github.com/kamilain1/chucknorris/blob/master/app-release.apk)
+
 ## Getting Started
 1) smth
 2) smth
