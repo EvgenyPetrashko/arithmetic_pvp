@@ -1,5 +1,7 @@
+import 'package:arithmetic_pvp/login.dart';
 import 'package:arithmetic_pvp/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,12 +35,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  late SharedPreferences prefs;
+
   @override
   void initState() {
     super.initState();
-    // Redirecting to the welcome page
-    WidgetsBinding.instance
-      ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomePage())));
+    redirecting();
+
+  }
+
+  void redirecting() async {
+    prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey("isFirstTime")){
+      prefs.setBool("isFirstTime", false);
+      // Redirecting to the welcome page
+      WidgetsBinding.instance
+          ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
+    }else{
+      WidgetsBinding.instance
+          ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())));
+    }
   }
   
   @override

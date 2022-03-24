@@ -23,13 +23,13 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  late Auth auth_client;
+  late Auth authClient;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    auth_client = Auth(NetworkClient());
+    authClient = Auth(NetworkClient());
   }
 
   bool _isEmailValid(String email) {
@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           decoration: InputDecoration(
                               labelText: "Password",
                               border: const OutlineInputBorder(),
-                              fillColor: Color(0xFFE2E1E1),
+                              fillColor: const Color(0xFFE2E1E1),
                               filled: true,
                               suffixIcon: IconButton(
                                 icon: Icon(_passwordObscure
@@ -163,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (_registerFormKey.currentState!.validate()) {
                                 if (!_submitBtnDisabled) {
                                   _submitBtnDisabled = true;
-                                  var responseMap = await auth_client.register(
+                                  var responseMap = await authClient.register(
                                       _usernameController.text,
                                       _emailController.text,
                                       _passwordController.text);
@@ -173,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => LoginPage()));
+                                            builder: (context) => const LoginPage()));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(report)),
@@ -201,7 +201,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
+                                      builder: (context) => const LoginPage()));
                             },
                             child: const Text("Login"))
                       ],
