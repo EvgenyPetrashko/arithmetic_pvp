@@ -1,5 +1,7 @@
 # ArithmeticPvP app
 
+Team ***Brawlers***
+
 ## About The Project
 Arithmetic PvP is a verbal counting online game. Players compete in calculating various expressions, starting from primitive ones, such as 2+2, ending with extremely hard containing several-digit numbers. There is also a single-player mode, where you can run the endless mode and constantly improve your skill, or play campain which has levels of increasing complexity. 
 
@@ -15,7 +17,7 @@ Play our game if you want to:
 [Flutter](https://flutter.dev/)
 
 
-### Usage
+## Usage
 1) Clone the repo:
     ```
     git clone https://github.com/EvgenyPetrashko/arithmetic_pvp.git
@@ -43,21 +45,7 @@ Play our game if you want to:
     ```
   with one of these parameters: apk, appbundle, ios
 
-### Get already built APK here
-
-[Apk-Link](https://github.com/kamilain1/chucknorris/blob/master/app-release.apk)
-
-## Getting Started
-1) smth
-2) smth
-    ```
-    some code
-    ```
-3) smth
-4) smth
-    ```
-    some code
-    ```
+### Get already built APK [here](https://github.com/kamilain1/chucknorris/blob/master/app-release.apk)
 
 ## Features
 
