@@ -1,3 +1,4 @@
+import 'package:arithmetic_pvp/home.dart';
 import 'package:arithmetic_pvp/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // Redirecting to the welcome page
     WidgetsBinding.instance
-      ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
+      ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage())));
   }
   
   @override

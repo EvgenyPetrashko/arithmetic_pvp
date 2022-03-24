@@ -205,6 +205,19 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+  transparent_image:
+    dependency: "direct main"
+    description:
+      name: transparent_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+=======
+>>>>>>> f4961c7a17e99ada0989dfa2759c2c0fdbf0bc63
+>>>>>>> Stashed changes
   typed_data:
     dependency: transitive
     description:
