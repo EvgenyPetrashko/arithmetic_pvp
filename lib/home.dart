@@ -1,7 +1,6 @@
 import 'package:arithmetic_pvp/profile.dart';
 import 'package:arithmetic_pvp/some.dart';
 import 'package:flutter/material.dart';
-
 import 'game.dart';
 
 class HomePage extends StatefulWidget{
@@ -12,7 +11,6 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage> {
-
   int _selectedIndex = 0;
   final List _children = [
     const GamePage(),
@@ -52,7 +50,6 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
-
       ),
     );
   }

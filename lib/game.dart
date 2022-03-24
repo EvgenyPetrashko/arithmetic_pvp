@@ -35,8 +35,10 @@ class _GamePageState extends State<GamePage> {
           ),
           Container(
             padding: const EdgeInsets.only(left: 50, right: 50),
-            child: Text(i.toString(),
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+            child: Text(
+              i.toString(),
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
