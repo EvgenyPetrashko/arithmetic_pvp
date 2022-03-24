@@ -1,15 +1,16 @@
 import 'package:arithmetic_pvp/home.dart';
 import 'package:arithmetic_pvp/logic/network_client.dart';
+import 'package:arithmetic_pvp/logic/storage.dart';
 import 'package:arithmetic_pvp/register.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 
-import 'home.dart';
 import 'logic/auth.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -19,24 +20,26 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _passwordObscure = true;
 
-  bool _submitBtnDisabled = false;
-
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  late Auth auth_client;
-  late SharedPreferences prefs;
+  late Auth authClient;
+  final Storage _storage = Storage();
+
+  var _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    auth_client = Auth(NetworkClient());
+    authClient = Auth(NetworkClient());
+    _storage.init();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+        body: LoadingOverlay(
+      child: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -99,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                               labelText: "Password",
                               border: const OutlineInputBorder(),
-                              fillColor: Color(0xFFE2E1E1),
+                              fillColor: const Color(0xFFE2E1E1),
                               filled: true,
                               suffixIcon: IconButton(
                                 icon: Icon(_passwordObscure
@@ -110,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                                     _passwordObscure = !_passwordObscure;
                                   });
                                 },
-                              ),),
+                              )),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Enter your password";
@@ -124,25 +127,28 @@ class _LoginPageState extends State<LoginPage> {
                         ElevatedButton(
                             onPressed: () async {
                               if (_registerFormKey.currentState!.validate()) {
-                                if (!_submitBtnDisabled) {
-                                  _submitBtnDisabled = true;
-                                  var responseMap = await auth_client.login(
+                                if (!_isLoading) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  _isLoading = true;
+                                  var responseMap = await authClient.login(
                                       _usernameController.text,
                                       _passwordController.text);
                                   var reportMap = responseMap.keys.first;
                                   var status = responseMap[reportMap] ?? false;
                                   if (status) {
-                                    prefs =
-                                        await SharedPreferences.getInstance();
-                                    await prefs.setString(
+                                    await _storage.setString(
                                         'refresh', reportMap["refresh"] ?? "");
-                                    await prefs.setString(
+                                    await _storage.setString(
                                         "access", reportMap["access"] ?? "");
-                                    Navigator.popUntil(context, (route) => false);
+                                    Navigator.popUntil(
+                                        context, (route) => false);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => HomePage()));
+                                            builder: (context) =>
+                                                const HomePage()));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
@@ -150,7 +156,9 @@ class _LoginPageState extends State<LoginPage> {
                                               reportMap["error"] ?? "Error")),
                                     );
                                   }
-                                  _submitBtnDisabled = false;
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
                                 }
                               }
                             },
@@ -172,7 +180,8 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterPage()));
+                                      builder: (context) =>
+                                          const RegisterPage()));
                             },
                             child: const Text("Register")),
                       ],
@@ -185,6 +194,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
+      isLoading: _isLoading,
+    ));
   }
 }

@@ -18,8 +18,6 @@ class _WelcomePageState extends State<WelcomePage>{
   @override
   void initState() {
     super.initState();
-    //Navigator.removeRouteBelow(context, Navigator.);
-    //Navigator.popUntil(context, (route) => route.);
     // change circles color on page swap
     _welcomePageController.addListener(() {
       var pageValue = _welcomePageController.page ?? 0;
@@ -111,23 +109,31 @@ class WelcomeInfoPage extends StatelessWidget{
 
 class ColoredCircle extends StatefulWidget{
 
-  ColoredCircle({Key? key, this.color = Colors.grey}) : super(key: key);
+  const ColoredCircle({Key? key, this.color = Colors.grey}) : super(key: key);
 
-  Color color;
-
+  final Color color;
   @override
-  State<StatefulWidget> createState() => _ColoredCircleState();
+  State<ColoredCircle> createState() => _ColoredCircleState();
 
 }
 
 class _ColoredCircleState extends State<ColoredCircle>{
+
+  late Color _color;
+
+  @override
+  void initState() {
+    super.initState();
+    _color = widget.color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 10,
       height: 10,
       decoration: BoxDecoration(
-        color: widget.color,
+        color: _color,
         shape: BoxShape.circle,
       ),
     );
@@ -136,7 +142,7 @@ class _ColoredCircleState extends State<ColoredCircle>{
 
   changeColor(Color givenColor){
     setState(() {
-      widget.color = givenColor;
+      _color = givenColor;
     });
   }
 

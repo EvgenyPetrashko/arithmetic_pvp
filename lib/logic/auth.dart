@@ -19,9 +19,9 @@ class Auth{
 
   Future<Map<String, bool>> register(String username, String email, String password) async {
     try {
-      var response = await client.getApi().post("api/v1/users/",
+      await client.getApi().post("api/v1/users/",
           data: jsonEncode({"username": username, "email": email, "password": _encodePassword(password)}));
-      print(response);
+      //print(response);
     } on DioError catch (e) {
       var strStatusCode = e.response?.statusCode.toString() ?? "0";
       if (strStatusCode == "400"){
