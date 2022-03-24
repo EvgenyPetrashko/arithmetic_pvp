@@ -111,16 +111,22 @@ class WelcomeInfoPage extends StatelessWidget{
 
 class ColoredCircle extends StatefulWidget{
 
-  ColoredCircle({Key? key, this.color = Colors.grey}) : super(key: key);
+  const ColoredCircle({Key? key, this.color = Colors.grey}) : super(key: key);
 
-  Color color;
-
+  final Color color;
   @override
-  State<StatefulWidget> createState() => _ColoredCircleState();
-
+  State<ColoredCircle> createState() => _ColoredCircleState(color);
 }
 
 class _ColoredCircleState extends State<ColoredCircle>{
+  Color? color;
+  _ColoredCircleState(Color color);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -136,7 +142,7 @@ class _ColoredCircleState extends State<ColoredCircle>{
 
   changeColor(Color givenColor){
     setState(() {
-      widget.color = givenColor;
+      color = givenColor;
     });
   }
 

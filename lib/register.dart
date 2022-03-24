@@ -28,7 +28,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     authClient = Auth(NetworkClient());
   }
@@ -177,9 +176,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => const LoginPage()));
+                                              builder: (context) =>
+                                                  const LoginPage()));
                                     } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(content: Text(report)),
                                       );
                                     }
@@ -207,7 +208,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const LoginPage()));
+                                        builder: (context) =>
+                                            const LoginPage()));
                               },
                               child: const Text("Login"))
                         ],

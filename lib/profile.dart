@@ -9,39 +9,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var i = 0;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   i = 0;
-  // }
-
-  void _increment() {
-    setState(() {
-      i++;
-    });
-  }
 
   void _showMaterialDialog() {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Material Dialog'),
-            content: Text('Hey! Choose smth!'),
+            title: const Text('Material Dialog'),
+            content: const Text('Hey! Choose smth!'),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
                     _dismissDialog();
                   },
-                  child: Text('Close')),
+                  child: const Text('Close')),
               TextButton(
                 onPressed: () {
-                  print('HelloWorld!');
+                  //print('HelloWorld!');
                   _dismissDialog();
                 },
-                child: Text('HelloWorld!'),
+                child: const Text('HelloWorld!'),
               )
             ],
           );
@@ -176,23 +163,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 )),
               ),
             ),
-            Container(
-              child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AchievementsPage(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "See more",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal),
-                ),
+            OutlinedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AchievementsPage(),
+                  ),
+                );
+              },
+              child: const Text(
+                "See more",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal),
               ),
             ),
           ],

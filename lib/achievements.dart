@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AchievementsPage extends StatefulWidget {
@@ -38,7 +37,7 @@ class _AchievementsPageState extends State<AchievementsPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'selected category \"${entries[index]}\"',
+                        'selected category "${entries[index]}"',
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 16),
                       ),

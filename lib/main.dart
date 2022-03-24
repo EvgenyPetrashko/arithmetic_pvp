@@ -1,8 +1,8 @@
 import 'package:arithmetic_pvp/home.dart';
+import 'package:arithmetic_pvp/logic/storage.dart';
 import 'package:arithmetic_pvp/login.dart';
 import 'package:arithmetic_pvp/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() {
@@ -34,12 +34,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
-  late SharedPreferences prefs;
+  final Storage _storage = Storage();
 
   late AnimationController controller;
 
   @override
   void initState() {
+    _storage.init();
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
@@ -57,14 +58,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void redirecting() async {
-    prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey("isFirstTime")){
-      prefs.setBool("isFirstTime", false);
+    if (!_storage.containKey("isFirstTime")){
+      await _storage.setBool("isFirstTime", false);
       // Redirecting to the welcome page
       WidgetsBinding.instance
           ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
     }else{
-      if (prefs.containsKey("access")){
+      if (_storage.containKey("access")){
         // if we have access token in our sp:
         // for now: Redirecting to the home page
         WidgetsBinding.instance
