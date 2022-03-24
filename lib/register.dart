@@ -1,6 +1,5 @@
 import 'package:arithmetic_pvp/logic/network_client.dart';
 import 'package:arithmetic_pvp/login.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,163 +46,174 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   @override
-Widget build(BuildContext context) {
-  // TODO: implement build
-  return Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          "assets/dark_logo.svg",
-          height: 128,
-          width: 128,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          "Arithmetic PvP",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        const Text(
-          "Register",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        SizedBox(
-          child: Form(
-            key: _registerFormKey,
-            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Username/Nickname
-                TextFormField(
-                  controller: _usernameController,
-                  validator: (value) {
-                    // some  nickname validation
-                    if (value == null || value.isEmpty) {
-                      return "Enter your username";
-                    } else if (value.length < 6) {
-                      return "Your username must contain at least 6 characters";
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                      labelText: "Username",
-                      border: OutlineInputBorder(),
-                      hintText: "Nagibator228",
-                      fillColor: Color(0xFFE2E1E1),
-                      filled: true),
+                SvgPicture.asset(
+                  "assets/dark_logo.svg",
+                  height: 128,
+                  width: 128,
                 ),
-                // Mail
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                TextFormField(
-                  controller: _emailController,
-                  validator: (value) {
-                    // some email validation
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    } else if (!_isEmailValid(value)) {
-                      return 'Wrong email';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                      labelText: "E-Mail",
-                      border: OutlineInputBorder(),
-                      hintText: "nagibator228@gmail.com",
-                      fillColor: Color(0xFFE2E1E1),
-                      filled: true),
+                const Text(
+                  "Arithmetic PvP",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                const Text(
+                  "Register",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: _passwordObscure,
-                  decoration: InputDecoration(
-                      labelText: "Password",
-                      border: const OutlineInputBorder(),
-                      fillColor: Color(0xFFE2E1E1),
-                      filled: true,
-                      suffixIcon: IconButton(
-                        icon: Icon(_passwordObscure
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          setState(() {
-                            _passwordObscure = !_passwordObscure;
-                          });
-                        },
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Enter your password";
-                    } else if (!_isPasswordValid(value)) {
-                      return "Password must contain at least\n1 lower case char, 1 upper case char,\n1 number and be at least 8 char long";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                    onPressed: () async {
-                      _submitBtnDisabled = true;
-                      if (_registerFormKey.currentState!.validate()) {
-                        var responseMap = await auth_client.register(
-                            _usernameController.text,
-                            _emailController.text,
-                            _passwordController.text);
-                        var report = responseMap.keys.first;
-                        var status = responseMap[report] ?? false;
-                        if (status) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(report)),
-                          );
-                        }
-                      }
-                      _submitBtnDisabled = false;
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 35, vertical: 15),
+                SizedBox(
+                  child: Form(
+                    key: _registerFormKey,
+                    child: Column(
+                      children: [
+                        // Username/Nickname
+                        TextFormField(
+                          controller: _usernameController,
+                          validator: (value) {
+                            // some  nickname validation
+                            if (value == null || value.isEmpty) {
+                              return "Enter your username";
+                            } else if (value.length < 6) {
+                              return "Your username must contain at least 6 characters";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                              labelText: "Username",
+                              border: OutlineInputBorder(),
+                              hintText: "Nagibator228",
+                              fillColor: Color(0xFFE2E1E1),
+                              filled: true),
+                        ),
+                        // Mail
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: _emailController,
+                          validator: (value) {
+                            // some email validation
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            } else if (!_isEmailValid(value)) {
+                              return 'Wrong email';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                              labelText: "E-Mail",
+                              border: OutlineInputBorder(),
+                              hintText: "nagibator228@gmail.com",
+                              fillColor: Color(0xFFE2E1E1),
+                              filled: true),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: _passwordObscure,
+                          decoration: InputDecoration(
+                              labelText: "Password",
+                              border: const OutlineInputBorder(),
+                              fillColor: Color(0xFFE2E1E1),
+                              filled: true,
+                              suffixIcon: IconButton(
+                                icon: Icon(_passwordObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordObscure = !_passwordObscure;
+                                  });
+                                },
+                              )),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Enter your password";
+                            } else if (!_isPasswordValid(value)) {
+                              return "Password must contain at least\n1 lower case char, 1 upper case char,\n1 number and be at least 8 char long";
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                            onPressed: () async {
+                              if (_registerFormKey.currentState!.validate()) {
+                                if (!_submitBtnDisabled) {
+                                  _submitBtnDisabled = true;
+                                  var responseMap = await auth_client.register(
+                                      _usernameController.text,
+                                      _emailController.text,
+                                      _passwordController.text);
+                                  var report = responseMap.keys.first;
+                                  var status = responseMap[report] ?? false;
+                                  if (status) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => LoginPage()));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(report)),
+                                    );
+                                  }
+                                  _submitBtnDisabled = false;
+                                }
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 35, vertical: 15),
+                            ),
+                            child: const Text(
+                              "Register",
+                              style: TextStyle(fontSize: 18),
+                            )),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text("Do you already have an account?"),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
+                            },
+                            child: const Text("Login"))
+                      ],
                     ),
-                    child: const Text(
-                      "Register",
-                      style: TextStyle(fontSize: 18),
-                    )),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Text("Do you already have an account?"),
-                TextButton(onPressed: () {}, child: const Text("Login"))
+                  ),
+                  width: 300,
+                )
               ],
             ),
           ),
-          width: 300,
-        )
-      ],
-    ),
-  ))));
-}
+        ),
+      ),
+    );
+  }
 }

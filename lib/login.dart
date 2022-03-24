@@ -1,8 +1,10 @@
 import 'package:arithmetic_pvp/logic/network_client.dart';
 import 'package:arithmetic_pvp/main.dart';
+import 'package:arithmetic_pvp/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'logic/auth.dart';
 
@@ -22,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   late Auth auth_client;
+  late SharedPreferences prefs;
 
   @override
   void initState() {
@@ -29,14 +32,13 @@ class _LoginPageState extends State<LoginPage> {
     auth_client = Auth(NetworkClient());
   }
 
-
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
@@ -120,26 +122,36 @@ Widget build(BuildContext context) {
                         ),
                         ElevatedButton(
                             onPressed: () async {
-                              _submitBtnDisabled = true;
                               if (_registerFormKey.currentState!.validate()) {
-                                var responseMap = await auth_client.login(
-                                    _usernameController.text,
-                                    _passwordController.text);
-                                var report = responseMap.keys.first;
-                                var status = responseMap[report] ?? false;
-                                // if (status) {
-                                if (true) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MyHomePage()));
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(report)),
-                                  );
+                                if (!_submitBtnDisabled) {
+                                  _submitBtnDisabled = true;
+                                  var responseMap = await auth_client.login(
+                                      _usernameController.text,
+                                      _passwordController.text);
+                                  var reportMap = responseMap.keys.first;
+                                  var status = responseMap[reportMap] ?? false;
+                                  if (status) {
+                                    prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.setString(
+                                        'refresh', reportMap["refresh"] ?? "");
+                                    await prefs.setString(
+                                        "access", reportMap["access"] ?? "");
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyHomePage()));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              reportMap["error"] ?? "Error")),
+                                    );
+                                  }
+                                  _submitBtnDisabled = false;
                                 }
                               }
-                              _submitBtnDisabled = false;
                             },
                             style: ElevatedButton.styleFrom(
                               primary: Colors.black,
@@ -150,13 +162,28 @@ Widget build(BuildContext context) {
                               "Login",
                               style: TextStyle(fontSize: 18),
                             )),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text("Still don't have an account?"),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterPage()));
+                            },
+                            child: const Text("Register")),
                       ],
                     ),
                   ),
                   width: 300,
-                )
+                ),
               ],
             ),
-            ))));
-}
+          ),
+        ),
+      ),
+    );
+  }
 }

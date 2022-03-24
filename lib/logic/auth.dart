@@ -28,21 +28,26 @@ class Auth{
         var m = Map<String, dynamic>.from(e.response?.data);
         return {m.values.first[0] as String: false};
       }else if (strStatusCode.startsWith("5")){
-        return {"Server is currently unnavalible": false};
+        return {"Server is currently unavailable": false};
       }
       return {"Failure": false};
     }
     return {"Success": true};
   }
 
-  Future<Map<String, String>> login(String username, String password) async {
+  Future<Map<Map<String, String>, bool>> login(String username, String password) async {
     try {
       var response = await client.getApi().post("api/v1/jwt/create/",
           data: jsonEncode({"username": username, "password": _encodePassword(password)}));
-      return {"refresh": response.data["refresh"], "access": response.data["access"]};
-    } catch (e) {
-      print(e);
-      return {};
+      return {{"refresh": response.data["refresh"], "access": response.data["access"]}: true};
+    } on DioError catch (e) {
+      var strStatusCode = e.response?.statusCode.toString() ?? "0";
+      if (strStatusCode == "401"){
+        return {{"error": "No users found"}: false};
+      }else if (strStatusCode.startsWith("5")){
+        return {{"error": "Server is unavailable"}: false};
+      }
+      return {{"error": "Failure"}: false};
     }
   }
 

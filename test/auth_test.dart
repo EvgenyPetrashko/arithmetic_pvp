@@ -19,7 +19,7 @@ void main(){
   });
 
   test("Login testing", () async {
-    var tokens = await authApi.login("Evgeny123", "kfdskfdfslk");
+    var tokens = await authApi.login("Qwerty1234", "Qwerty1234");
     print(tokens);
   });
 
