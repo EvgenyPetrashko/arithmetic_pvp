@@ -58,13 +58,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void redirecting() async {
-    if (!_storage.containKey("isFirstTime")){
+    if (!await _storage.containKey("isFirstTime")){
       await _storage.setBool("isFirstTime", false);
       // Redirecting to the welcome page
       WidgetsBinding.instance
           ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
     }else{
-      if (_storage.containKey("access")){
+      if (await _storage.containKey("access")){
         // if we have access token in our sp:
         // for now: Redirecting to the home page
         WidgetsBinding.instance

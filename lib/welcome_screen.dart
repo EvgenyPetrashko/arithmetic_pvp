@@ -18,8 +18,6 @@ class _WelcomePageState extends State<WelcomePage>{
   @override
   void initState() {
     super.initState();
-    //Navigator.removeRouteBelow(context, Navigator.);
-    //Navigator.popUntil(context, (route) => route.);
     // change circles color on page swap
     _welcomePageController.addListener(() {
       var pageValue = _welcomePageController.page ?? 0;

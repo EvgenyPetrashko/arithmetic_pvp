@@ -3,25 +3,28 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage{
-  late SharedPreferences _pref;
+  late Future<SharedPreferences> _futurePref;
 
-  init() async {
-    _pref = await SharedPreferences.getInstance();
+  Storage(){
+    _futurePref = init();
   }
 
-  getValue(key, defaultValue) async{
-    return _pref.get(key) ?? defaultValue;
+  Future<SharedPreferences> init() async {
+    return await SharedPreferences.getInstance();
   }
 
   setBool(key, value) async{
+    var _pref = await _futurePref;
     _pref.setBool(key, value);
   }
 
   setString(key, value) async{
+    var _pref = await _futurePref;
     _pref.setString(key, value);
   }
 
-  bool containKey(key){
+  Future<bool> containKey(key) async{
+    var _pref = await _futurePref;
     return _pref.containsKey(key);
   }
 }
