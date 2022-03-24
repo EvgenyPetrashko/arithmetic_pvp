@@ -9,14 +9,81 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   void _showMaterialDialog() {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Material Dialog'),
-            content: const Text('Hey! Choose smth!'),
+            title: const Text('Settings'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 1'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 2'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 3'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 4'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
@@ -28,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   //print('HelloWorld!');
                   _dismissDialog();
                 },
-                child: const Text('HelloWorld!'),
+                child: const Text('Apply'),
               )
             ],
           );
@@ -134,38 +201,39 @@ class _ProfilePageState extends State<ProfilePage> {
                   constraints:
                       const BoxConstraints(minHeight: 80, minWidth: 50),
                   child: Card(
-                      child: Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Wrap(
-                      children: const [
-                        Icon(
-                          Icons.favorite,
-                          size: 40,
-                          color: Colors.red,
-                        ),
-                        Icon(
-                          Icons.audiotrack,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                        Icon(
-                          Icons.beach_access,
-                          size: 40,
-                          color: Colors.pink,
-                        ),
-                        Icon(
-                          Icons.savings,
-                          size: 40,
-                          color: Colors.amberAccent,
-                        ),
-                        Icon(
-                          Icons.explore,
-                          size: 40,
-                          color: Colors.green,
-                        ),
-                      ],
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Wrap(
+                        children: const [
+                          Icon(
+                            Icons.favorite,
+                            size: 40,
+                            color: Colors.red,
+                          ),
+                          Icon(
+                            Icons.audiotrack,
+                            size: 40,
+                            color: Colors.blue,
+                          ),
+                          Icon(
+                            Icons.beach_access,
+                            size: 40,
+                            color: Colors.pink,
+                          ),
+                          Icon(
+                            Icons.savings,
+                            size: 40,
+                            color: Colors.amberAccent,
+                          ),
+                          Icon(
+                            Icons.explore,
+                            size: 40,
+                            color: Colors.green,
+                          ),
+                        ],
+                      ),
                     ),
-                  )),
+                  ),
                 ),
               ),
               OutlinedButton(
