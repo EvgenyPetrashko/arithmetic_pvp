@@ -1,7 +1,9 @@
+import 'package:arithmetic_pvp/home.dart';
 import 'package:arithmetic_pvp/login.dart';
 import 'package:arithmetic_pvp/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -33,15 +35,28 @@ class MyHomePage extends StatefulWidget {
 
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   late SharedPreferences prefs;
 
+  late AnimationController controller;
+
   @override
   void initState() {
-    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    controller.repeat();
     redirecting();
+    super.initState();
 
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   void redirecting() async {
@@ -52,8 +67,18 @@ class _MyHomePageState extends State<MyHomePage> {
       WidgetsBinding.instance
           ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
     }else{
-      WidgetsBinding.instance
-          ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())));
+      if (prefs.containsKey("access")){
+        // if we have access token in our sp:
+        // for now: Redirecting to the home page
+        WidgetsBinding.instance
+            ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage())));
+        // TODO : check if token is still valid (api call, for example: request profile info)
+
+      }else{
+        // Redirecting to the login page
+        WidgetsBinding.instance
+            ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())));
+      }
     }
   }
   
@@ -61,13 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-          ],
+        child: CircularProgressIndicator(
+          value: controller.value,
+          semanticsLabel: 'Linear progress indicator',
         ),
-      ),
+      )
     );
   }
 }
