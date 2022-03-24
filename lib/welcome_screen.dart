@@ -115,16 +115,18 @@ class ColoredCircle extends StatefulWidget{
 
   final Color color;
   @override
-  State<ColoredCircle> createState() => _ColoredCircleState(color);
+  State<ColoredCircle> createState() => _ColoredCircleState();
+
 }
 
 class _ColoredCircleState extends State<ColoredCircle>{
-  Color? color;
-  _ColoredCircleState(Color color);
+
+  late Color _color;
 
   @override
   void initState() {
     super.initState();
+    _color = widget.color;
   }
 
   @override
@@ -133,7 +135,7 @@ class _ColoredCircleState extends State<ColoredCircle>{
       width: 10,
       height: 10,
       decoration: BoxDecoration(
-        color: widget.color,
+        color: _color,
         shape: BoxShape.circle,
       ),
     );
@@ -142,7 +144,7 @@ class _ColoredCircleState extends State<ColoredCircle>{
 
   changeColor(Color givenColor){
     setState(() {
-      color = givenColor;
+      _color = givenColor;
     });
   }
 
