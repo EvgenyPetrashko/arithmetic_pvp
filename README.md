@@ -67,7 +67,7 @@ Play our game if you want to:
 
 ## Screenshots
 
-![Screenshots](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/sreenshots/screens.png)
+![Screenshots](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/screenshots/screens.png)
 
 
 ## Contacts
