@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'home.dart';
 import 'logic/auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                                     _passwordObscure = !_passwordObscure;
                                   });
                                 },
-                              )),
+                              ),),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Enter your password";
