@@ -49,6 +49,10 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LoadingOverlay(
+        color: Colors.grey,
+        progressIndicator: const CircularProgressIndicator(
+          color: Colors.black,
+        ),
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(

@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: const Text(
-                "TroHaN XoXJloPe3",
+                "Brawler",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
