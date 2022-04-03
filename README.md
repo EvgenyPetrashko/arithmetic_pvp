@@ -45,7 +45,7 @@ Play our game if you want to:
     ```
   with one of these parameters: apk, appbundle, ios
 
-### Get already built APK [here](https://github.com/kamilain1/chucknorris/blob/master/app-release.apk)
+### Get already built APK [here](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/app-release.apk)
 
 ## Features
 
