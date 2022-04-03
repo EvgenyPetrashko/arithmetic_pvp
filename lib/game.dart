@@ -39,7 +39,7 @@ class _GamePageState extends State<GamePage> {
         break;
 
         default: {
-          ans = ans + 'command';
+          ans = ans + command;
         }
         break;
       }
@@ -74,22 +74,6 @@ class _GamePageState extends State<GamePage> {
                   style: const TextStyle(
                       fontSize: 52, fontWeight: FontWeight.bold),
                 ),
-                // SizedBox(
-                //   width: 100,
-                //   // padding: const EdgeInsets.only(left: 10),
-                //   child: (TextField(
-                //     decoration: const InputDecoration(
-                //       hintText: '123',
-                //       border: InputBorder.none,
-                //     ),
-                //     inputFormatters: [
-                //       LengthLimitingTextInputFormatter(3),
-                //     ],
-                //     style: const TextStyle(
-                //         fontSize: 52, fontWeight: FontWeight.bold),
-                //     // textAlign: TextAlign.left,
-                //   )),
-                // ),
               ],
             ),
           ),

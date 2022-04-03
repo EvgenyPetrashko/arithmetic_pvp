@@ -63,7 +63,7 @@ class _KeyboardButtonState extends State<KeyboardButton> {
             textStyle: const TextStyle(fontSize: 20),
           ),
           onPressed: () {
-            // widget.onTap(widget.val);
+            widget.onTap(widget.val);
           },
           child: Text(
             widget.val,
