@@ -10,37 +10,46 @@ class Keyboard extends StatefulWidget {
 }
 
 class _KeyboardState extends State<Keyboard> {
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Row(children: const [
-        KeyboardButton(val: '7'),
-        KeyboardButton(val: '8'),
-        KeyboardButton(val: '9'),
+      Row(children: [
+        KeyboardButton(val: '7', onTap: widget.onTap),
+        KeyboardButton(val: '8', onTap: widget.onTap),
+        KeyboardButton(val: '9', onTap: widget.onTap),
       ]),
-      Row(children: const [
-        KeyboardButton(val: '4'),
-        KeyboardButton(val: '5'),
-        KeyboardButton(val: '6'),
+      Row(children: [
+        KeyboardButton(val: '4', onTap: widget.onTap),
+        KeyboardButton(val: '5', onTap: widget.onTap),
+        KeyboardButton(val: '6', onTap: widget.onTap),
       ]),
-      Row(children: const [
-        KeyboardButton(val: '1'),
-        KeyboardButton(val: '2'),
-        KeyboardButton(val: '3'),
+      Row(children: [
+        KeyboardButton(val: '1', onTap: widget.onTap),
+        KeyboardButton(val: '2', onTap: widget.onTap),
+        KeyboardButton(val: '3', onTap: widget.onTap),
       ]),
-      Row(children: const [
-        KeyboardButton(val: '-'),
-        KeyboardButton(val: '0'),
-        KeyboardButton(val: 'DEL'),
+      Row(children: [
+        KeyboardButton(val: '-', onTap: widget.onTap),
+        KeyboardButton(val: '0', onTap: widget.onTap),
+        KeyboardButton(val: 'DEL', onTap: widget.onTap),
       ]),
     ]);
   }
 }
 
-class KeyboardButton extends StatelessWidget {
-  final String val;
 
-  const KeyboardButton({Key? key, required this.val}) : super(key: key);
+class KeyboardButton extends StatefulWidget {
+  final String val;
+  final void Function(String) onTap;
+
+  const KeyboardButton({Key? key, required this.val, required this.onTap}) : super(key: key);
+
+  @override
+  _KeyboardButtonState createState() => _KeyboardButtonState();
+}
+
+class _KeyboardButtonState extends State<KeyboardButton> {
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +63,10 @@ class KeyboardButton extends StatelessWidget {
             textStyle: const TextStyle(fontSize: 20),
           ),
           onPressed: () {
-
+            // widget.onTap(widget.val);
           },
           child: Text(
-            val,
+            widget.val,
             textAlign: TextAlign.center,
           ),
         ),
