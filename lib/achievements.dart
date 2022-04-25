@@ -21,149 +21,148 @@ class _AchievementsPageState extends State<AchievementsPage> {
         backgroundColor: Colors.black54,
       ),
       body: SafeArea(
-        child: Expanded(
-          child: Scrollbar(
-            isAlwaysShown: true,
-            child: GridView.count(
-              physics: const BouncingScrollPhysics(),
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.blue[50],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+        child: Scrollbar(
+          isAlwaysShown: true,
+          child: GridView.count(
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            primary: true,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 2,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.blue[50],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.green[50],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[50],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.blue[100],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.blue[100],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.green[100],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[100],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.blue[200],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.blue[200],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.green[200],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[200],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.blue[300],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.blue[300],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.green[300],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[300],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.blue[400],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.blue[400],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.green[400],
-                    child: const Center(
-                      child: Text(
-                        'Heed not the rabble',
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[400],
+                  child: const Center(
+                    child: Text(
+                      'Heed not the rabble',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
