@@ -8,8 +8,8 @@ class Auth{
 
   Future<String?> socialLogin(String token) async{
     try{
-      client.getTestApi().options.headers["Authorization"] = "Bearer $token";
-      var response = await client.getTestApi().post("auth/google_login");
+      client.getApi().options.headers["Authorization"] = "Bearer $token";
+      var response = await client.getApi().post("auth/google_login");
       return response.headers["set-cookie"]?[0];
     }on DioError catch (e){
       var m = Map<String, dynamic>.from(e.response?.data);
@@ -20,7 +20,8 @@ class Auth{
   
   Future<Map<String, String>> getUserInfo() async{
     try{
-      var response = await client.getTestApi().post("auth/profile_info");
+      var response = await client.getApi().post("auth/profile_info");
+      print(response);
       return Map.from(response.data);
     } on DioError catch(e){
       return Map<String, String>.from(e.response?.data);
