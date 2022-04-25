@@ -1,6 +1,10 @@
 import 'package:arithmetic_pvp/achievements.dart';
 import 'package:flutter/material.dart';
 
+import 'logic/auth.dart';
+import 'logic/network_client.dart';
+import 'logic/storage.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -9,6 +13,39 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late Auth authClient;
+  final Storage _storage = Storage();
+  String username = "Loading...";
+  String email = "Loading...";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _storage.init();
+    //initClient();
+    getUserInfo();
+  }
+
+  void initClient() async{
+    // authClient = Auth(NetworkClient(await _storage.getString("cookie")));
+  }
+
+  void getUserInfo() async{
+    authClient = Auth(NetworkClient(await _storage.getString("cookie")));
+    var userInfo = await authClient.getUserInfo();
+    if (username.contains("error")){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Error during getting profile info'),
+      ));
+    }else{
+      setState(() {
+        username = userInfo["username"] ?? "";
+        email = userInfo["email"] ?? "";
+      });
+    }
+  }
+
   void _showMaterialDialog() {
     showDialog(
         context: context,
@@ -140,9 +177,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 20),
-                child: const Text(
-                  "Brawler",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                child: Text(
+                  username,
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               Container(
