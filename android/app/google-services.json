@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "325644095359",
+    "project_id": "arithmetic-pvp-cf666",
+    "storage_bucket": "arithmetic-pvp-cf666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325644095359:android:f116c88006086e52b4544a",
+        "android_client_info": {
+          "package_name": "com.example.arithmetic_pvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325644095359-kqcrje14duhnn1134kat809q4109l0r4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arithmetic_pvp",
+            "certificate_hash": "145d7d072d7fdbd1dee7606bce7cee0ec9b45857"
+          }
+        },
+        {
+          "client_id": "325644095359-gfbq8qhbpr1pdn1brdjp13h68un1kav9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChbRmckvNfvewVtXYl5KEI4INen5vJaZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325644095359-gfbq8qhbpr1pdn1brdjp13h68un1kav9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

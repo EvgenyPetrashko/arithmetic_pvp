@@ -1,6 +1,6 @@
+import 'package:arithmetic_pvp/authentication/login.dart';
 import 'package:arithmetic_pvp/home.dart';
 import 'package:arithmetic_pvp/logic/storage.dart';
-import 'package:arithmetic_pvp/login.dart';
 import 'package:arithmetic_pvp/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -62,19 +62,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       await _storage.setBool("isFirstTime", false);
       // Redirecting to the welcome page
       WidgetsBinding.instance
-          ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
+          .addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
     }else{
-      if (await _storage.containKey("access")){
+      if (await _storage.containKey("cookie")){
         // if we have access token in our sp:
         // for now: Redirecting to the home page
         WidgetsBinding.instance
-            ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage())));
+            .addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage())));
         // TODO : check if token is still valid (api call, for example: request profile info)
 
       }else{
         // Redirecting to the login page
         WidgetsBinding.instance
-            ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())));
+            .addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())));
       }
     }
   }

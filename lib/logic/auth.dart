@@ -1,53 +1,29 @@
 import 'package:arithmetic_pvp/logic/network_client.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 
 
 class Auth{
   NetworkClient client;
   Auth(this.client);
-  
-  String _encodePassword(String pw){
-    var key = utf8.encode('p@ssw0rd');
-    var bytes = utf8.encode(pw);
 
-    var hmacSha256 = Hmac(sha256, key);
-    var digest = hmacSha256.convert(bytes);
-    return digest.toString();
-  }
-
-  Future<Map<String, bool>> register(String username, String email, String password) async {
-    try {
-      await client.getApi().post("api/v1/users/",
-          data: jsonEncode({"username": username, "email": email, "password": _encodePassword(password)}));
-      //print(response);
-    } on DioError catch (e) {
-      var strStatusCode = e.response?.statusCode.toString() ?? "0";
-      if (strStatusCode == "400"){
-        var m = Map<String, dynamic>.from(e.response?.data);
-        return {m.values.first[0] as String: false};
-      }else if (strStatusCode.startsWith("5")){
-        return {"Server is currently unavailable": false};
-      }
-      return {"Failure": false};
+  Future<String?> socialLogin(String token) async{
+    try{
+      client.getTestApi().options.headers["Authorization"] = "Bearer $token";
+      var response = await client.getTestApi().post("auth/google_login");
+      return response.headers["set-cookie"]?[0];
+    }on DioError catch (e){
+      var m = Map<String, dynamic>.from(e.response?.data);
+      print(m);
+      return null;
     }
-    return {"Success": true};
   }
-
-  Future<Map<Map<String, String>, bool>> login(String username, String password) async {
-    try {
-      var response = await client.getApi().post("api/v1/jwt/create/",
-          data: jsonEncode({"username": username, "password": _encodePassword(password)}));
-      return {{"refresh": response.data["refresh"], "access": response.data["access"]}: true};
-    } on DioError catch (e) {
-      var strStatusCode = e.response?.statusCode.toString() ?? "0";
-      if (strStatusCode == "401"){
-        return {{"error": "No users found"}: false};
-      }else if (strStatusCode.startsWith("5")){
-        return {{"error": "Server is unavailable"}: false};
-      }
-      return {{"error": "Failure"}: false};
+  
+  Future<Map<String, String>> getUserInfo() async{
+    try{
+      var response = await client.getTestApi().post("auth/profile_info");
+      return Map.from(response.data);
+    } on DioError catch(e){
+      return Map<String, String>.from(e.response?.data);
     }
   }
 

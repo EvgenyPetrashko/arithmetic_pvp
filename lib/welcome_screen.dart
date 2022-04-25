@@ -1,4 +1,4 @@
-import 'package:arithmetic_pvp/register.dart';
+import 'package:arithmetic_pvp/authentication/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -49,7 +49,7 @@ class _WelcomePageState extends State<WelcomePage>{
                       WelcomeInfoPage(text: "Hello, my friend!\nThis is Arithmetic PvP - place of growing your verbal math abilities", assetPath: "assets/dark_logo.svg"),
                       WelcomeInfoPage(text: "Here you can compete with any player and check the power of your brain", assetPath: "assets/thinking.svg"),
                       WelcomeInfoPage(text: "Invite your friends.\nBuy epic skins.\nWin!", assetPath: "assets/celebration.svg"),
-                      RegisterPage()
+                      LoginPage()
                     ],
                   )
               ),

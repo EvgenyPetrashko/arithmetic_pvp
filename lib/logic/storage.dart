@@ -23,6 +23,11 @@ class Storage{
     _pref.setString(key, value);
   }
 
+  getString(key) async{
+    var _pref = await _futurePref;
+    return _pref.getString(key);
+  }
+
   Future<bool> containKey(key) async{
     var _pref = await _futurePref;
     return _pref.containsKey(key);
