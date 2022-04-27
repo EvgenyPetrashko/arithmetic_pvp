@@ -1,38 +1,11 @@
+import 'package:arithmetic_pvp/bloc/states/auth_states.dart';
 import 'package:arithmetic_pvp/data/models/auth_response.dart';
 import 'package:arithmetic_pvp/data/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../data/auth.dart';
-
-abstract class AuthState { }
-
-class AuthStateInitial extends AuthState { }
-
-class AuthStateLoading extends AuthState { }
-
-class AuthStateLoaded extends AuthState {
-  final String? cookie;
-
-  AuthStateLoaded(this.cookie);
-}
-
-class AuthStateError extends AuthState {
-  String error;
-  AuthStateError(this.error);
-}
-
-abstract class AuthUserEvent {}
-
-class AuthUserEventLoad extends AuthUserEvent {
-  final String token;
-
-  AuthUserEventLoad(this.token);
-}
-
-class AuthUserEventCancel extends AuthUserEvent {}
-
-class AuthUserEventStartLoading extends AuthUserEvent {}
+import 'events/auth_events.dart';
 
 class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
   AuthBloc() : super(AuthStateInitial()) {

@@ -10,12 +10,6 @@ class SomePage extends StatefulWidget {
 class _SomePageState extends State<SomePage> {
   var i = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   i = 0;
-  // }
-
   void _increment() {
     setState(() {
       i++;

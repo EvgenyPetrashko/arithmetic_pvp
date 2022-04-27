@@ -9,6 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:developer';
 
+import '../../bloc/events/auth_events.dart';
+import '../../bloc/states/auth_states.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
