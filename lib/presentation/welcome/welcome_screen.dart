@@ -22,6 +22,14 @@ class _WelcomePageState extends State<WelcomePage> {
     });
   }
 
+
+  @override
+  void deactivate() {
+    _welcomePageController.dispose();
+    _controller.dispose();
+    super.deactivate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
