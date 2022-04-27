@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'dart:developer';
-import '../data/auth_response.dart';
+import 'models/auth_response.dart';
 import '../data/network_client.dart';
+import 'models/user.dart';
 
 
 class Auth{
@@ -19,13 +20,13 @@ class Auth{
     }
   }
   
-  Future<Map<String, String>> getUserInfo() async{
+  Future<User?> getUserInfo() async{
     try{
-      var response = await client.api.post("auth/profile_info");
-      print(response);
-      return Map.from(response.data);
+      var response = await client.api.get("auth/profile_info");
+      return User.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch(e){
-      return Map<String, String>.from(e.response?.data);
+      log('data: ${e.response}');
+      return null;
     }
   }
 

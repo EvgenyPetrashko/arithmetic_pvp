@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:arithmetic_pvp/presentation/profile/achievements.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import '../../data/auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/profile_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -11,29 +13,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Auth authClient = GetIt.instance<Auth>();
   String username = "Loading...";
   String email = "Loading...";
+  final ProfileBloc _profileBloc = ProfileBloc();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserInfo();
+    _profileBloc.add(ProfileUserEventLoad());
   }
 
-
-  void getUserInfo() async{
-    var userInfo = await authClient.getUserInfo();
-    if (username.contains("error")){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Error during getting profile info'),
-      ));
-    }else{
+  void showUserInfo(BuildContext context, ProfileState state) {
+    if (state is ProfileStateLoaded){
+      log(state.user.toString());
       setState(() {
-        username = userInfo["username"] ?? "";
-        email = userInfo["email"] ?? "";
+        username = state.user?.username ?? "Loading...";
+        email = state.user?.email ?? "Loading...";
       });
+    }else if (state is ProfileStateError){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(state.error),
+      ));
     }
   }
 
@@ -166,11 +167,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Image.asset('assets/logo.png', width: 100),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  username,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              BlocProvider(
+                create: (BuildContext context) => _profileBloc,
+                child: BlocListener<ProfileBloc, ProfileState>(
+                  listener: (context, state) => showUserInfo(context, state),
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      username,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               ),
               Container(

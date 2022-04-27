@@ -1,4 +1,4 @@
-import 'package:arithmetic_pvp/data/auth_response.dart';
+import 'package:arithmetic_pvp/data/models/auth_response.dart';
 import 'package:arithmetic_pvp/data/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -60,7 +60,7 @@ class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
         storage.setString("cookie", authResponse.sessionToken);
         emit(AuthStateLoaded(authResponse.sessionToken));
       } else {
-        AuthStateError(null, "Error during login. Please Try again");
+        emit(AuthStateError(null, "Error during login. Please Try again"));
       }
     });
 
