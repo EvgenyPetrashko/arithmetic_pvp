@@ -30,4 +30,14 @@ class Auth{
     }
   }
 
+  Future<bool?> checkUsernameIsAvailable(String username) async{
+    try{
+      // check if username is available on server
+      return false;
+    } on DioError catch(e){
+      log('data ${e.response}');
+      return null;
+    }
+  }
+
 }
