@@ -1,12 +1,24 @@
-import 'package:arithmetic_pvp/authentication/login.dart';
-import 'package:arithmetic_pvp/home.dart';
-import 'package:arithmetic_pvp/logic/storage.dart';
-import 'package:arithmetic_pvp/welcome_screen.dart';
+import 'package:arithmetic_pvp/presentation/authentication/login.dart';
+import 'package:arithmetic_pvp/presentation/home.dart';
+import 'package:arithmetic_pvp/data/auth.dart';
+import 'package:arithmetic_pvp/data/network_client.dart';
+import 'package:arithmetic_pvp/data/storage.dart';
+import 'package:arithmetic_pvp/presentation/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 
 void main() {
+  setUp();
   runApp(const MyApp());
+}
+
+void setUp() {
+  final getIt = GetIt.instance;
+  getIt.registerSingleton(NetworkClient());
+  getIt.registerSingleton<Auth>(Auth(getIt.get<NetworkClient>()));
+  Storage storage = Storage();
+  getIt.registerSingletonAsync(() => storage.init());
 }
 
 class MyApp extends StatelessWidget {
@@ -36,35 +48,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   final Storage _storage = Storage();
 
-  late AnimationController controller;
 
   @override
   void initState() {
-    _storage.init();
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    controller.repeat();
-    redirecting();
     super.initState();
-
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+    redirecting();
   }
 
   void redirecting() async {
-    if (!await _storage.containKey("isFirstTime")){
-      await _storage.setBool("isFirstTime", false);
+    await GetIt.instance.allReady();
+    if (!_storage.containKey("isFirstTime")){
+      _storage.setBool("isFirstTime", false);
       // Redirecting to the welcome page
       WidgetsBinding.instance
           .addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
     }else{
-      if (await _storage.containKey("cookie")){
+      if (_storage.containKey("cookie")){
         // if we have access token in our sp:
         // for now: Redirecting to the home page
         WidgetsBinding.instance
@@ -81,12 +80,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(
-          value: controller.value,
-          semanticsLabel: 'Linear progress indicator',
-        ),
+        child: CircularProgressIndicator.adaptive(),
       )
     );
   }
