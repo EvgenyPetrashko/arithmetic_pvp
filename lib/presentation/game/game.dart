@@ -1,4 +1,4 @@
-import 'package:arithmetic_pvp/keyboard.dart';
+import 'package:arithmetic_pvp/presentation/game/keyboard.dart';
 import 'package:flutter/material.dart';
 
 

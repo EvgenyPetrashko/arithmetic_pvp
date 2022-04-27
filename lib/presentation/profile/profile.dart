@@ -1,9 +1,7 @@
-import 'package:arithmetic_pvp/achievements.dart';
+import 'package:arithmetic_pvp/presentation/profile/achievements.dart';
 import 'package:flutter/material.dart';
-
-import 'logic/auth.dart';
-import 'logic/network_client.dart';
-import 'logic/storage.dart';
+import 'package:get_it/get_it.dart';
+import '../../data/auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -13,8 +11,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late Auth authClient;
-  final Storage _storage = Storage();
+  Auth authClient = GetIt.instance<Auth>();
   String username = "Loading...";
   String email = "Loading...";
 
@@ -22,17 +19,11 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _storage.init();
-    //initClient();
     getUserInfo();
   }
 
-  void initClient() async{
-    // authClient = Auth(NetworkClient(await _storage.getString("cookie")));
-  }
 
   void getUserInfo() async{
-    authClient = Auth(NetworkClient(await _storage.getString("cookie")));
     var userInfo = await authClient.getUserInfo();
     if (username.contains("error")){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

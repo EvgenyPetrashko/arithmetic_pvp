@@ -1,7 +1,7 @@
-import 'package:arithmetic_pvp/profile.dart';
-import 'package:arithmetic_pvp/some.dart';
+import 'package:arithmetic_pvp/presentation/profile/profile.dart';
+import 'package:arithmetic_pvp/presentation/some/some.dart';
 import 'package:flutter/material.dart';
-import 'game.dart';
+import 'game/game.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
