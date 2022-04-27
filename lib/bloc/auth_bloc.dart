@@ -5,49 +5,37 @@ import 'package:get_it/get_it.dart';
 
 import '../data/auth.dart';
 
-abstract class AuthState {
-  final String? cookie;
+abstract class AuthState { }
 
-  AuthState(this.cookie);
-}
+class AuthStateInitial extends AuthState { }
 
-class AuthStateInitial extends AuthState {
-  AuthStateInitial(String? cookie) : super(cookie);
-}
-
-class AuthStateLoading extends AuthState {
-  AuthStateLoading(String? cookie) : super(cookie);
-}
+class AuthStateLoading extends AuthState { }
 
 class AuthStateLoaded extends AuthState {
-  AuthStateLoaded(String? cookie) : super(cookie);
+  final String? cookie;
+
+  AuthStateLoaded(this.cookie);
 }
 
 class AuthStateError extends AuthState {
-  AuthStateError(String? cookie, this.error) : super(cookie);
   String error;
+  AuthStateError(this.error);
 }
 
-abstract class AuthUserEvent {
-  final String token;
-
-  AuthUserEvent(this.token);
-}
+abstract class AuthUserEvent {}
 
 class AuthUserEventLoad extends AuthUserEvent {
-  AuthUserEventLoad(String token) : super(token);
+  final String token;
+
+  AuthUserEventLoad(this.token);
 }
 
-class AuthUserEventCancel extends AuthUserEvent {
-  AuthUserEventCancel(String token) : super(token);
-}
+class AuthUserEventCancel extends AuthUserEvent {}
 
-class AuthUserEventStartLoading extends AuthUserEvent{
-  AuthUserEventStartLoading(String token) : super(token);
-}
+class AuthUserEventStartLoading extends AuthUserEvent {}
 
 class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
-  AuthBloc() : super(AuthStateInitial("")) {
+  AuthBloc() : super(AuthStateInitial()) {
     final Auth _apiAuth = GetIt.instance<Auth>();
     final Storage storage = GetIt.instance<Storage>();
 
@@ -60,16 +48,16 @@ class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
         storage.setString("cookie", authResponse.sessionToken);
         emit(AuthStateLoaded(authResponse.sessionToken));
       } else {
-        emit(AuthStateError(null, "Error during login. Please Try again"));
+        emit(AuthStateError("Error during login. Please Try again"));
       }
     });
 
     on<AuthUserEventStartLoading>((event, emit) {
-      emit(AuthStateLoading(null));
+      emit(AuthStateLoading());
     });
 
     on<AuthUserEventCancel>((event, emit) {
-      emit(AuthStateInitial(""));
+      emit(AuthStateInitial());
     });
   }
 }

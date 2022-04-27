@@ -48,24 +48,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   final Storage _storage = Storage();
 
-  late AnimationController controller;
 
   @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    controller.repeat();
-    redirecting();
     super.initState();
-
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+    redirecting();
   }
 
   void redirecting() async {
@@ -93,12 +80,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(
-          value: controller.value,
-          semanticsLabel: 'Linear progress indicator',
-        ),
+        child: CircularProgressIndicator.adaptive(),
       )
     );
   }
