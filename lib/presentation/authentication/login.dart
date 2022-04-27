@@ -1,14 +1,13 @@
-import 'package:arithmetic_pvp/home.dart';
-import 'package:arithmetic_pvp/logic/network_client.dart';
-import 'package:arithmetic_pvp/logic/storage.dart';
+import 'package:arithmetic_pvp/bloc/auth_bloc.dart';
+import 'package:arithmetic_pvp/presentation/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-
-import '../logic/auth.dart';
+import 'dart:developer';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,8 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late Auth authClient;
-  final Storage _storage = Storage();
+  final AuthBloc _authBloc = AuthBloc();
 
   var _isLoading = false;
 
@@ -27,52 +25,66 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     initializeFirebase();
     super.initState();
-    authClient = Auth(NetworkClient());
-    _storage.init();
   }
 
-  Future<UserCredential> googleSignIn() async {
+  googleSignIn() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
-    final credentials = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    if (googleUser != null) {
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser.authentication;
 
-    return await FirebaseAuth.instance.signInWithCredential(credentials);
+      final credentials = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credentials);
+    } else {
+      _authBloc.add(AuthUserEventCancel(""));
+    }
   }
 
   void initializeFirebase() async {
     await Firebase.initializeApp();
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-        print('User is signed in!');
+      if (user != null) {
+        log("User is signed in!");
         var token = await user.getIdToken();
-        var cookie = await authClient.socialLogin(token);
-        print("Cookie: $cookie");
-        if (cookie != null) {
-          _storage.setString("cookie", cookie);
-          // Navigator.of(context).popUntil((route) => false);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ),
-          );
-        }else{
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Authentication error'),
-          ));
-        }
-        setState(() {
-          _isLoading = false;
-        });
+        log("token $token");
+        _authBloc.add(AuthUserEventLoad(token));
+      } else {
+        _authBloc.add(AuthUserEventCancel(""));
       }
     });
+  }
+
+  void _handleServerResponse(BuildContext context, AuthState state) {
+    bool loadingState = false;
+    if (state is AuthStateLoaded) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+          (Route<dynamic> route) => false);
+      loadingState = false;
+    } else if (state is AuthStateError) {
+      log("Error ${state.error}");
+      loadingState = false;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(state.error),
+      ));
+    } else if (state is AuthStateLoading) {
+      loadingState = true;
+    } else if (state is AuthStateInitial) {
+      loadingState = false;
+    }
+    log(state.toString());
+    if (loadingState != _isLoading) {
+      setState(() {
+        _isLoading = loadingState;
+      });
+    }
   }
 
   @override
@@ -104,21 +116,20 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  /*const Text(
-                    "Sign In",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),*/
                   const SizedBox(
                     height: 20,
                   ),
+                  BlocProvider(
+                    create: (BuildContext context) => _authBloc,
+                    child: BlocListener<AuthBloc, AuthState>(
+                      listener: (context, state) =>
+                          _handleServerResponse(context, state),
+                      child: Container(),
+                    ),
+                  ),
                   OutlinedButton(
                     onPressed: () async {
-                      setState(() {
-                        _isLoading = true;
-                      });
+                      _authBloc.add(AuthUserEventStartLoading(""));
                       await googleSignIn();
                     },
                     style: ButtonStyle(
