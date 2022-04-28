@@ -22,7 +22,7 @@ class _AchievementsPageState extends State<AchievementsPage> {
       ),
       body: SafeArea(
         child: Scrollbar(
-          isAlwaysShown: true,
+          thumbVisibility: true,
           child: GridView.count(
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
