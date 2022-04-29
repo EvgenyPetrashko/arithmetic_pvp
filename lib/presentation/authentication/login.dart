@@ -6,11 +6,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:developer';
 
 import '../../bloc/events/auth_events.dart';
 import '../../bloc/states/auth_states.dart';
+import '../utils/loading_text.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -23,6 +23,30 @@ class _LoginPageState extends State<LoginPage> {
   final AuthBloc _authBloc = AuthBloc();
 
   var _isLoading = false;
+
+  _showLoading() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            content: Column(mainAxisSize: MainAxisSize.min, children: const [
+              CircularProgressIndicator.adaptive(),
+              SizedBox(
+                height: 10,
+              ),
+              LoadingText(inputText: "Loading"),
+            ]),
+          );
+        });
+  }
+
+  _closeLoading() {
+    log("Closing the dialog");
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
+  }
 
   @override
   void initState() {
@@ -47,26 +71,29 @@ class _LoginPageState extends State<LoginPage> {
   void _handleServerResponse(BuildContext context, AuthState state) {
     bool loadingState = false;
     if (state is AuthStateLoaded) {
+      log("Start session");
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => const HomePage(),
           ),
           (Route<dynamic> route) => false);
-      loadingState = false;
     } else if (state is AuthStateError) {
       log("Error ${state.error}");
-      loadingState = false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(state.error),
       ));
     } else if (state is AuthStateLoading) {
       loadingState = true;
-    } else if (state is AuthStateInitial) {
-      loadingState = false;
     }
+
     log(state.toString());
     if (loadingState != _isLoading) {
       setState(() {
+        if (loadingState == true) {
+          _showLoading();
+        } else {
+          _closeLoading();
+        }
         _isLoading = loadingState;
       });
     }
@@ -75,44 +102,39 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoadingOverlay(
-        color: Colors.grey,
-        progressIndicator: const CircularProgressIndicator.adaptive(),
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/dark_logo.svg",
-                    height: 128,
-                    width: 128,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  "assets/dark_logo.svg",
+                  height: 128,
+                  width: 128,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Arithmetic PvP",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                BlocProvider(
+                  create: (BuildContext context) => _authBloc,
+                  child: BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) =>
+                        _handleServerResponse(context, state),
+                    child: const GoogleButton(),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Arithmetic PvP",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  BlocProvider(
-                    create: (BuildContext context) => _authBloc,
-                    child: BlocListener<AuthBloc, AuthState>(
-                      listener: (context, state) =>
-                          _handleServerResponse(context, state),
-                      child: const GoogleButton(),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-        isLoading: _isLoading,
       ),
     );
   }
