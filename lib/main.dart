@@ -67,11 +67,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void redirecting(BuildContext context, MainState state) {
     if (state is MainStateLoaded) {
       late Widget _redirectedWidget;
-      if (state.cookie != null) {
-        // TODO : check if token is still valid (api call, for example: request profile info)
+      if (state.isLoginnedIn) {
         _redirectedWidget = const HomePage();
       } else {
-        _redirectedWidget = const LoginPage();
+        // Only for testing / bypass login
+        // _redirectedWidget = const LoginPage();
+        _redirectedWidget = const HomePage();
       }
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

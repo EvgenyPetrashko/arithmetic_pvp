@@ -26,9 +26,10 @@ class MainBloc extends Bloc<MainUserEvent, MainState> {
       await GetIt.instance.allReady();
 
       if (storageCookie != "") {
-        emit(MainStateLoaded(storageCookie));
+        // TODO : check if token is still valid (api call, for example: request profile info)
+        emit(MainStateLoaded(true));
       } else {
-        emit(MainStateLoaded(null));
+        emit(MainStateLoaded(false));
       }
     });
   }
