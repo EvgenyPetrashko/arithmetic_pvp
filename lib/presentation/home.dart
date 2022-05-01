@@ -1,7 +1,7 @@
 import 'package:arithmetic_pvp/presentation/profile/profile.dart';
-import 'package:arithmetic_pvp/presentation/some/some.dart';
+import 'package:arithmetic_pvp/presentation/shop/shop.dart';
 import 'package:flutter/material.dart';
-import 'game/game.dart';
+import 'game/utils/game.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final List _children = [
     const GamePage(),
-    const SomePage(),
+    const ShopPage(),
     const ProfilePage()
   ];
 

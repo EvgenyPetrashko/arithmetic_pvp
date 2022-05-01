@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SomePage extends StatefulWidget {
-  const SomePage({Key? key}) : super(key: key);
+class ShopPage extends StatefulWidget {
+  const ShopPage({Key? key}) : super(key: key);
 
   @override
-  State<SomePage> createState() => _SomePageState();
+  State<ShopPage> createState() => _ShopPageState();
 }
 
-class _SomePageState extends State<SomePage> {
+class _ShopPageState extends State<ShopPage> {
   var i = 0;
 
   void _increment() {
