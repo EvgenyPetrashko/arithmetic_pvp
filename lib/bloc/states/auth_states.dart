@@ -4,11 +4,7 @@ class AuthStateInitial extends AuthState { }
 
 class AuthStateLoading extends AuthState { }
 
-class AuthStateLoaded extends AuthState {
-  final String? cookie;
-
-  AuthStateLoaded(this.cookie);
-}
+class AuthStateLoaded extends AuthState { }
 
 class AuthStateError extends AuthState {
   String error;

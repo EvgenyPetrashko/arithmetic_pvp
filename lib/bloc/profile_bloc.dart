@@ -11,17 +11,16 @@ import 'events/profile_events.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileStateInitial()) {
     final Auth _apiAuth = GetIt.instance<Auth>();
-    final Storage storage = GetIt.instance<Storage>();
+    final Storage _storage = GetIt.instance<Storage>();
 
     on<ProfileEventUserLoad>((event, emit) async {
       emit(ProfileStateLoading());
-      User? storedUser = storage.getUser("user");
+      User? storedUser = _storage.getUser("user");
       if (storedUser == null){
-        _apiAuth.client.api.options.headers["cookie"] = storage.getString("cookie", "");
         User? user = await _apiAuth.getUserInfo();
         log(user.toString());
         if (user != null){
-          storage.setUser("user", user);
+          _storage.setUser("user", user);
           emit(ProfileStateLoaded(user));
         }else{
           emit(ProfileStateError("Please try again later"));
@@ -33,7 +32,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     on<ProfileEventCheckUsername>((event, emit) async {
       emit(ProfileStateUsernameCheckLoading());
-      _apiAuth.client.api.options.headers["cookie"] = storage.getString("cookie", "");
       bool? isAvailable = await _apiAuth.checkUsernameIsAvailable(event.newUsername);
       log("${event.newUsername} $isAvailable");
       if (isAvailable != null){

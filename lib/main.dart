@@ -1,24 +1,15 @@
+import 'package:arithmetic_pvp/bloc/events/main_events.dart';
+import 'package:arithmetic_pvp/bloc/states/main_states.dart';
 import 'package:arithmetic_pvp/presentation/authentication/login.dart';
 import 'package:arithmetic_pvp/presentation/home.dart';
-import 'package:arithmetic_pvp/data/auth.dart';
-import 'package:arithmetic_pvp/data/network_client.dart';
-import 'package:arithmetic_pvp/data/storage.dart';
-import 'package:arithmetic_pvp/presentation/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
+import 'bloc/bloc_main.dart';
 
 void main() {
-  setUp();
   runApp(const MyApp());
-}
-
-void setUp() {
-  final getIt = GetIt.instance;
-  getIt.registerSingleton(NetworkClient());
-  getIt.registerSingleton<Auth>(Auth(getIt.get<NetworkClient>()));
-  Storage storage = Storage();
-  getIt.registerSingletonAsync(() => storage.init());
 }
 
 class MyApp extends StatelessWidget {
@@ -45,45 +36,82 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-
-  final Storage _storage = Storage();
-
+  final _mainBloc = MainBloc();
+  static const _animationTimeSeconds = 2;
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: _animationTimeSeconds),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.fastOutSlowIn,
+  );
 
   @override
   void initState() {
     super.initState();
-    redirecting();
+    WidgetsBinding.instance?.addPostFrameCallback((_) async => {
+          // wait for animation to complete
+          await Future.delayed(
+              const Duration(seconds: _animationTimeSeconds * 3), () {}),
+          _mainBloc.add(MainUserEventStartLoading())
+        });
   }
 
-  void redirecting() async {
-    await GetIt.instance.allReady();
-    if (!_storage.containKey("isFirstTime")){
-      _storage.setBool("isFirstTime", false);
-      // Redirecting to the welcome page
-      WidgetsBinding.instance
-          ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const WelcomePage())));
-    }else{
-      if (_storage.containKey("cookie")){
-        // if we have access token in our sp:
-        // for now: Redirecting to the home page
-        WidgetsBinding.instance
-            ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage())));
-        // TODO : check if token is still valid (api call, for example: request profile info)
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-      }else{
-        // Redirecting to the login page
-        WidgetsBinding.instance
-            ?.addPostFrameCallback((_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage())));
+  void redirecting(BuildContext context, MainState state) {
+    if (state is MainStateLoaded) {
+      late Widget _redirectedWidget;
+      if (state.cookie != null) {
+        // TODO : check if token is still valid (api call, for example: request profile info)
+        _redirectedWidget = const HomePage();
+      } else {
+        _redirectedWidget = const LoginPage();
       }
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => _redirectedWidget,
+          ),
+          (Route<dynamic> route) => false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator.adaptive(),
-      )
+    return Scaffold(
+      body: BlocProvider(
+        create: (BuildContext context) => _mainBloc,
+        child: BlocListener<MainBloc, MainState>(
+          listener: (context, state) => redirecting(context, state),
+          child: Center(
+            child: ScaleTransition(
+              scale: _animation,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/dark_logo.svg",
+                      height: 128,
+                      width: 128,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Arithmetic PvP",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    )
+                  ]),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

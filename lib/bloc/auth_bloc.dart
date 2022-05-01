@@ -10,16 +10,16 @@ import 'events/auth_events.dart';
 class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
   AuthBloc() : super(AuthStateInitial()) {
     final Auth _apiAuth = GetIt.instance<Auth>();
-    final Storage storage = GetIt.instance<Storage>();
+    final Storage _storage = GetIt.instance<Storage>();
 
     on<AuthUserEventLoad>((event, emit) async {
       AuthResponse authResponse = await _apiAuth.socialLogin(event.token);
-      if (!authResponse.error || authResponse.sessionToken == null) {
+      if (!authResponse.error && authResponse.sessionToken != null) {
         _apiAuth.client.api.options.headers["cookie"] =
             authResponse.sessionToken;
-        _apiAuth.client.api.options.headers["cookie"] = "";
-        storage.setString("cookie", authResponse.sessionToken);
-        emit(AuthStateLoaded(authResponse.sessionToken));
+        _apiAuth.client.api.options.headers.remove("Authorization");
+        _storage.setString("cookie", authResponse.sessionToken);
+        emit(AuthStateLoaded());
       } else {
         emit(AuthStateError("Error during login. Please Try again"));
       }
