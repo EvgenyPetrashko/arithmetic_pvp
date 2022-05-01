@@ -78,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
           (Route<dynamic> route) => false);
     } else if (state is AuthStateError) {
-      log("Error ${state.error}");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(state.error),
       ));
