@@ -3,7 +3,7 @@ import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
 import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
-import 'package:arithmetic_pvp/presentation/shop/shop_card.dart';
+import 'package:arithmetic_pvp/presentation/skins/skin_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
