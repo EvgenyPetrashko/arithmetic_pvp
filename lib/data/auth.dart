@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'dart:developer';
 import 'models/auth_response.dart';
 import '../data/network_client.dart';
-import 'models/user.dart';
 
 
 class Auth{
@@ -17,16 +16,6 @@ class Auth{
     }on DioError catch (e){
       log('data: ${e.response}');
       return AuthResponse(null, true);
-    }
-  }
-  
-  Future<User?> getUserInfo() async{
-    try{
-      var response = await client.api.get("auth/profile_info");
-      return User.fromJson(Map<String, dynamic>.from(response.data));
-    } on DioError catch(e){
-      log('data: ${e.response}');
-      return null;
     }
   }
 
