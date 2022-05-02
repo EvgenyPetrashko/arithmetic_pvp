@@ -2,33 +2,45 @@ import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
 import 'package:arithmetic_pvp/data/api.dart';
 import 'package:arithmetic_pvp/data/models/buy_response.dart';
+import 'package:arithmetic_pvp/data/models/select_response.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../data/models/skin.dart';
 
 class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
-  ShopBloc() : super(ShopStateSkinsLoading()) {
+  ShopBloc() : super(ShopSkinsStateLoading()) {
     final Api _api = GetIt.instance<Api>();
 
-    on<ShopUserEventLoading>((event, emit) async {
+    on<ShopUserEventSkinsLoading>((event, emit) async {
       final List<Skin> skins = await _api.getSkins();
       if (skins.isEmpty) {
-        emit(ShopStateSkinsError("No skins to display"));
+        emit(ShopSkinsStateError("No skins to display"));
       } else {
         skins.sort((a, b) => (a.cost > b.cost) ? 1 : -1);
-        emit(ShopStateSkinsLoaded(
+        emit(ShopSkinsStateLoaded(
             skins));
       }
     });
 
-    on<ShopUserEventBuy>((event, emit) async {
+    on<ShopUserEventBuySkin>((event, emit) async {
+      emit(ShopBuyStateLoading());
       final BuyResponse buyResponse = await _api.buySkin(event.skin.id);
-      final String? displayedError = buyResponse.error;
-      if (displayedError != null) {
-        emit(ShopStateBuyError(displayedError));
+      if (!buyResponse.isSuccess) {
+        emit(ShopBuyStateError(buyResponse.report));
       } else {
-        emit(ShopStateBuyLoaded(buyResponse.isSuccess));
+        emit(ShopBuyStateLoaded(event.skin));
+      }
+    });
+
+    on<ShopUserEventSelectSkin>((event, emit) async {
+      emit(ShopSelectSkinLoading());
+      final SelectResponse selectResponse = await _api.selectSkin(event.skin.id);
+      final isError = selectResponse.error;
+      if (isError == null){
+        emit(ShopSelectSkinLoaded(event.skin, selectResponse.isSuccess));
+      }else{
+        emit(ShopSelectSkinError(isError));
       }
     });
   }
