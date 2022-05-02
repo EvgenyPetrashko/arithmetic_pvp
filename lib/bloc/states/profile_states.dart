@@ -7,9 +7,9 @@ class ProfileStateInitial extends ProfileState { }
 class ProfileStateLoading extends ProfileState { }
 
 class ProfileStateLoaded extends ProfileState {
-  final User? user;
+  final Profile? profile;
 
-  ProfileStateLoaded(this.user);
+  ProfileStateLoaded(this.profile);
 }
 
 class ProfileStateUsernameCheckLoading extends ProfileState{}

@@ -5,6 +5,7 @@ import 'package:arithmetic_pvp/data/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../data/api.dart';
 import '../data/auth.dart';
 import 'events/profile_events.dart';
 
@@ -12,21 +13,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileStateInitial()) {
     final Auth _apiAuth = GetIt.instance<Auth>();
     final Storage _storage = GetIt.instance<Storage>();
+    final Api _api = GetIt.instance<Api>();
 
     on<ProfileEventUserLoad>((event, emit) async {
       emit(ProfileStateLoading());
-      User? storedUser = _storage.getUser("user");
-      if (storedUser == null){
-        User? user = await _apiAuth.getUserInfo();
-        log(user.toString());
-        if (user != null){
-          _storage.setUser("user", user);
-          emit(ProfileStateLoaded(user));
+      Profile? storedProfile = _storage.getProfile("user");
+      if (storedProfile == null){
+        Profile? profile = await _api.getProfileInfo();
+        log(profile.toString());
+        if (profile != null){
+          _storage.setProfile("user", profile);
+          emit(ProfileStateLoaded(profile));
         }else{
           emit(ProfileStateError("Please try again later"));
         }
       }else{
-        emit(ProfileStateLoaded(storedUser));
+        emit(ProfileStateLoaded(storedProfile));
       }
     });
 
