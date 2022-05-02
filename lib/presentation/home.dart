@@ -35,17 +35,13 @@ class _HomePageState extends State<HomePage> {
             label: 'Game',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_emotions),
-            label: 'Something',
+            icon: Icon(Icons.shopping_cart),
+            label: 'Shop',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search),
-          //   label: 'Categories',
-          // ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
