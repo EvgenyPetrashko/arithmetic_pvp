@@ -2,30 +2,50 @@ import 'package:arithmetic_pvp/data/models/skin.dart';
 
 abstract class ShopState {}
 
-class ShopStateSkinsLoading extends ShopState {}
+abstract class ShopSkinsState extends ShopState {}
 
-class ShopStateSkinsLoaded extends ShopState {
+class ShopSkinsStateLoading extends ShopSkinsState {}
+
+class ShopSkinsStateLoaded extends ShopSkinsState {
   List<Skin> skins;
 
-  ShopStateSkinsLoaded(this.skins);
+  ShopSkinsStateLoaded(this.skins);
 }
 
-class ShopStateSkinsError extends ShopState {
+class ShopSkinsStateError extends ShopSkinsState {
   String error;
 
-  ShopStateSkinsError(this.error);
+  ShopSkinsStateError(this.error);
 }
 
-class ShopStateBuyLoading extends ShopState {}
+abstract class ShopBuySkinState extends ShopState {}
 
-class ShopStateBuyLoaded extends ShopState {
-  bool isSuccess;
+class ShopBuyStateLoading extends ShopBuySkinState {}
 
-  ShopStateBuyLoaded(this.isSuccess);
+class ShopBuyStateLoaded extends ShopBuySkinState {
+  final Skin skin;
+
+  ShopBuyStateLoaded(this.skin);
 }
 
-class ShopStateBuyError extends ShopState {
+class ShopBuyStateError extends ShopBuySkinState {
   String error;
 
-  ShopStateBuyError(this.error);
+  ShopBuyStateError(this.error);
+}
+
+abstract class ShopSelectSkinState extends ShopState {}
+
+class ShopSelectSkinLoading extends ShopSelectSkinState {}
+
+class ShopSelectSkinLoaded extends ShopSelectSkinState {
+  final Skin skin;
+  final bool isSuccess;
+  ShopSelectSkinLoaded(this.skin, this.isSuccess);
+}
+
+class ShopSelectSkinError extends ShopSelectSkinState {
+  String error;
+
+  ShopSelectSkinError(this.error);
 }

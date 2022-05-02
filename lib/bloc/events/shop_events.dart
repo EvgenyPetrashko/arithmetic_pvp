@@ -2,9 +2,14 @@ import 'package:arithmetic_pvp/data/models/skin.dart';
 
 abstract class ShopUserEvent {}
 
-class ShopUserEventLoading extends ShopUserEvent {}
+class ShopUserEventSkinsLoading extends ShopUserEvent {}
 
-class ShopUserEventBuy extends ShopUserEvent{
+class ShopUserEventBuySkin extends ShopUserEvent{
   final Skin skin;
-  ShopUserEventBuy(this.skin);
+  ShopUserEventBuySkin(this.skin);
+}
+
+class ShopUserEventSelectSkin extends ShopUserEvent{
+  final Skin skin;
+  ShopUserEventSelectSkin(this.skin);
 }
