@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     WidgetsBinding.instance?.addPostFrameCallback((_) async => {
           // wait for animation to complete
           await Future.delayed(
-              const Duration(seconds: _animationTimeSeconds * 3), () {}),
+              const Duration(seconds: _animationTimeSeconds * 1), () {}),
           _mainBloc.add(MainUserEventStartLoading())
         });
   }
