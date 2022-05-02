@@ -1,17 +1,12 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'skin.g.dart';
-
-@JsonSerializable()
 class Skin {
   int id;
   String name;
   String description;
   int cost;
-  @JsonKey(name: "asset_url")
   String assetUrl;
-  @JsonKey(name: "is_owner")
   bool isOwner;
+  bool isSelected;
+
 
   Skin(
       {required this.id,
@@ -19,9 +14,16 @@ class Skin {
       required this.description,
       required this.cost,
       required this.assetUrl,
-      required this.isOwner});
+      required this.isOwner,
+      required this.isSelected});
 
-  factory Skin.fromJson(Map<String, dynamic> json) => _$SkinFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SkinToJson(this);
+  factory Skin.fromJson(Map<String, dynamic> json) => Skin(
+    id: json['id'] as int,
+    name: json['name'] as String,
+    description: json['description'] as String,
+    cost: json['cost'] as int,
+    assetUrl: json['asset_url'] as String,
+    isOwner: json['is_owner'] as bool,
+    isSelected: json['is_selected'] as bool,
+  );
 }
