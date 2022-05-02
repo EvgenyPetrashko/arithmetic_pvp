@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:arithmetic_pvp/data/models/buy_response.dart';
+import 'package:arithmetic_pvp/data/models/select_response.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
 import 'package:arithmetic_pvp/data/network_client.dart';
 import 'package:dio/dio.dart';
@@ -25,13 +25,25 @@ class Api {
 
   Future<BuyResponse> buySkin(int skinId) async {
     try {
-      var response = await client.api
-          .post("api/buy_skin", data: jsonEncode({"skin_id": skinId}));
-      return BuyResponse(jsonDecode(response.data)["status"], null);
+      final response = await client.api
+          .put("api/buy_skin/$skinId");
+      return BuyResponse.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data: ${e.response}');
-      return BuyResponse(
-          false, "Something went wrong, Please try again later.");
+      return BuyResponse(isSuccess: false,
+          report: "Something went wrong, Please try again later.");
+    }
+  }
+
+  Future<SelectResponse> selectSkin(int skinId) async {
+    try {
+      final response = await client.api
+          .put("api/select_skin/$skinId");
+      return SelectResponse.fromJson(Map<String, dynamic>.from(response.data));
+    } on DioError catch (e) {
+      log('data: ${e.response}');
+      return SelectResponse(
+          "Something went wrong, Please try again later.", isSuccess: false);
     }
   }
 }
