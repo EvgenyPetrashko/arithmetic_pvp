@@ -16,16 +16,16 @@ class Storage{
     _futurePref?.setBool(key, value);
   }
 
-  setUser(key, User value){
+  setProfile(key, Profile value){
     _futurePref?.setString(key, jsonEncode(value.toJson()));
   }
 
-  User? getUser(key){
+  Profile? getProfile(key){
     String? value = _futurePref?.getString(key);
     if (value == null){
       return null;
     }else{
-      return User.fromJson(jsonDecode(value));
+      return Profile.fromJson(jsonDecode(value));
     }
   }
 
