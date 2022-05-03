@@ -36,43 +36,35 @@ class GeneralProfileInfo extends StatelessWidget {
           bloc: _profileBloc,
           listener: (context, state) => showUserInfo(context, state),
           builder: (context, state) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: Text(
-                (state is ProfileStateLoaded)
-                    ? state.profile?.user.username ?? ""
-                    : "Loading...",
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+            return Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    (state is ProfileStateLoaded)
+                        ? state.profile?.user.username ?? ""
+                        : "Loading...",
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.monetization_on, color: Colors.amber),
+                      Text(
+                        (state is ProfileStateLoaded) ? state.profile?.gold.toString() ?? "0" : "0",
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
             );
           },
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.monetization_on, color: Colors.amber),
-              Text(
-                "2281337",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.stars, color: Colors.blue),
-              Text(
-                "9999999",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
         ),
         const ProfileEdit(),
         const ProfileSettings(),
