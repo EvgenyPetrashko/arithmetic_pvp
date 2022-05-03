@@ -83,9 +83,11 @@ class _ShopPageState extends State<ShopPage> {
       } else {
         _loading = true;
       }
-      setState(() {
-        loading = _loading;
-      });
+      setState(
+        () {
+          loading = _loading;
+        },
+      );
     }
   }
 

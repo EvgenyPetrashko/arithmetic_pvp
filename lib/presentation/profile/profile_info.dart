@@ -1,3 +1,5 @@
+import 'package:arithmetic_pvp/presentation/profile/profile_edit.dart';
+import 'package:arithmetic_pvp/presentation/profile/profile_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,138 +23,6 @@ class GeneralProfileInfo extends StatelessWidget {
       }
     }
 
-    _dismissEditDialog() {
-      Navigator.pop(context);
-    }
-
-    _showEditDialog() {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Change username'),
-              content: Row(
-                children: [
-                  const Expanded(
-                    child: TextField(
-                      maxLength: 30,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Type desired username',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  OutlinedButton(onPressed: () {}, child: const Text("Check"))
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: _dismissEditDialog,
-                  child: const Text('Cancel'),
-                ),
-                const TextButton(
-                  onPressed: null,
-                  child: Text('Apply'),
-                )
-              ],
-            );
-          });
-    }
-
-    _dismissDialog() {
-      Navigator.pop(context);
-    }
-
-    _showMaterialDialog() {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Settings'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 1'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 2'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 3'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 4'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(onPressed: _dismissDialog, child: const Text('Close')),
-              TextButton(
-                onPressed: _dismissDialog,
-                child: const Text('Apply'),
-              )
-            ],
-          );
-        },
-      );
-    }
-
     return Column(
       children: [
         Container(
@@ -170,7 +40,7 @@ class GeneralProfileInfo extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 20),
               child: Text(
                 (state is ProfileStateLoaded)
-                    ? state.user?.username ?? ""
+                    ? state.profile?.user.username ?? ""
                     : "Loading...",
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -204,26 +74,8 @@ class GeneralProfileInfo extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 5),
-          child: OutlinedButton(
-            onPressed: _showEditDialog,
-            child: const Text(
-              "Edit profile",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          child: OutlinedButton(
-            onPressed: _showMaterialDialog,
-            child: const Text(
-              "Settings",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            ),
-          ),
-        ),
+        const ProfileEdit(),
+        const ProfileSettings(),
       ],
     );
   }

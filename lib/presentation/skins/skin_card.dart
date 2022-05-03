@@ -82,7 +82,6 @@ class ShopCard extends StatelessWidget {
         child: SafeArea(
           child: Container(
             height: 100,
-            color: Colors.white,
             child: Row(
               children: [
                 Center(
