@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
 import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
@@ -8,21 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-class ShopPage extends StatefulWidget {
-  const ShopPage({Key? key}) : super(key: key);
+class SkinsPage extends StatefulWidget {
+  const SkinsPage({Key? key}) : super(key: key);
 
   @override
-  State<ShopPage> createState() => _ShopPageState();
+  State<SkinsPage> createState() => _SkinsPageState();
 }
 
-class _ShopPageState extends State<ShopPage> {
-  final _shopBloc = ShopBloc();
+class _SkinsPageState extends State<SkinsPage> {
+  late ShopBloc _shopBloc;
   List<Skin> skins = [];
   bool loading = false;
 
   @override
   void initState() {
     super.initState();
+    _shopBloc = ShopBloc(BlocProvider.of<BalanceBloc>(context));
     _shopBloc.add(ShopUserEventSkinsLoading());
   }
 
@@ -140,6 +142,7 @@ class _ShopPageState extends State<ShopPage> {
         listener: (context, ShopState state) => _handleState(context, state),
         child: LoadingOverlay(
           isLoading: loading,
+          color: Colors.black45,
           child: (skins.isNotEmpty)
               ? ListView.builder(
                   itemCount: skins.length,

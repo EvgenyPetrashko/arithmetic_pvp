@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:arithmetic_pvp/data/models/balance_response.dart';
 import 'package:arithmetic_pvp/data/models/buy_response.dart';
 import 'package:arithmetic_pvp/data/models/select_response.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
@@ -52,6 +53,16 @@ class Api {
     try{
       var response = await client.api.get("api/profile_info");
       return Profile.fromJson(Map<String, dynamic>.from(response.data));
+    } on DioError catch(e){
+      log('data: ${e.response}');
+      return null;
+    }
+  }
+  
+  Future<Balance?> getBalances() async{
+    try{
+      var response = await client.api.get("api/get_balances");
+      return Balance.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch(e){
       log('data: ${e.response}');
       return null;
