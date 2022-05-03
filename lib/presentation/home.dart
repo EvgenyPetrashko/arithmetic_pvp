@@ -1,7 +1,10 @@
+import 'package:arithmetic_pvp/presentation/multiplayer_mode/game_appbar.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile.dart';
-import 'package:arithmetic_pvp/presentation/shop/shop.dart';
+import 'package:arithmetic_pvp/presentation/profile/profile_appbar.dart';
+import 'package:arithmetic_pvp/presentation/skins/skins.dart';
 import 'package:flutter/material.dart';
 import 'game/utils/game.dart';
+import 'multiplayer_mode/multiplayer_game_start.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,9 +16,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final List _children = [
-    const GamePage(),
+    const MultiplayerGameStartPage(),
     const ShopPage(),
     const ProfilePage()
+  ];
+
+  final List _appBars = [
+    const GameAppBar(),
+    const ProfileAppBar(),
+    const ProfileAppBar()
   ];
 
   void _onItemTapped(int index) {
@@ -27,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _appBars[_selectedIndex],
       body: _children[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -35,17 +45,13 @@ class _HomePageState extends State<HomePage> {
             label: 'Game',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_emotions),
-            label: 'Something',
+            icon: Icon(Icons.shopping_cart),
+            label: 'Shop',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search),
-          //   label: 'Categories',
-          // ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,

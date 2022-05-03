@@ -1,5 +1,6 @@
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
+import 'package:arithmetic_pvp/data/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -22,6 +23,7 @@ class MainBloc extends Bloc<MainUserEvent, MainState> {
 
       _getIt.registerSingleton(_client);
       _getIt.registerSingleton<Auth>(Auth(_client));
+      _getIt.registerSingleton<Api>(Api(_client));
       _getIt.registerSingleton(_storage);
       await GetIt.instance.allReady();
 
