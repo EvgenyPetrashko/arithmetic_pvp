@@ -1,5 +1,6 @@
 import 'package:arithmetic_pvp/presentation/profile/profile_edit.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_settings.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,19 +26,30 @@ class GeneralProfileInfo extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100.0),
-            child: Image.asset('assets/logo.png', width: 100),
-          ),
-        ),
         BlocConsumer<ProfileBloc, ProfileState>(
           bloc: _profileBloc,
           listener: (context, state) => showUserInfo(context, state),
           builder: (context, state) {
             return Column(
               children: [
+                Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: (state is ProfileStateLoaded)
+                        ? CachedNetworkImage(
+                            height: 100,
+                            width: 100,
+                            imageUrl: state.profile?.assetUrl ?? "",
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator.adaptive(),
+                            errorWidget: (context, url, error) =>
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  child: Image.asset('assets/logo.png', width: 100),
+                                ))
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: Image.asset('assets/logo.png', width: 100),
+                          )),
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: Text(
@@ -55,13 +67,15 @@ class GeneralProfileInfo extends StatelessWidget {
                     children: [
                       const Icon(Icons.monetization_on, color: Colors.amber),
                       Text(
-                        (state is ProfileStateLoaded) ? state.profile?.gold.toString() ?? "0" : "0",
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        (state is ProfileStateLoaded)
+                            ? state.profile?.gold.toString() ?? "0"
+                            : "0",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-
               ],
             );
           },
