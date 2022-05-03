@@ -1,6 +1,7 @@
 import 'package:arithmetic_pvp/data/models/skin.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class ShopCard extends StatelessWidget {
   final Skin skin;
@@ -80,9 +81,8 @@ class ShopCard extends StatelessWidget {
       onTap: () => onTapFunction(skin),
       child: Card(
         child: SafeArea(
-          child: Container(
+          child: SizedBox(
             height: 100,
-            color: Colors.white,
             child: Row(
               children: [
                 Center(
@@ -92,8 +92,9 @@ class ShopCard extends StatelessWidget {
                         height: 64,
                         width: 64,
                         imageUrl: skin.assetUrl,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator.adaptive(),
+                        placeholder: (context, url) => Center(
+                            child: JumpingText('···',
+                                style: const TextStyle(fontSize: 40))),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error)),
                   ),

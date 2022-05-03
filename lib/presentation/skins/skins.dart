@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
 import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:arithmetic_pvp/presentation/skins/skin_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class SkinsPage extends StatefulWidget {
   const SkinsPage({Key? key}) : super(key: key);
@@ -85,9 +87,11 @@ class _SkinsPageState extends State<SkinsPage> {
       } else {
         _loading = true;
       }
-      setState(() {
-        loading = _loading;
-      });
+      setState(
+        () {
+          loading = _loading;
+        },
+      );
     }
   }
 
@@ -143,6 +147,8 @@ class _SkinsPageState extends State<SkinsPage> {
         child: LoadingOverlay(
           isLoading: loading,
           color: Colors.black45,
+          progressIndicator: JumpingText('···',
+              style: const TextStyle(fontSize: 60)),
           child: (skins.isNotEmpty)
               ? ListView.builder(
                   itemCount: skins.length,
@@ -152,8 +158,9 @@ class _SkinsPageState extends State<SkinsPage> {
                     onSelectFunction: _selectSkin,
                   ),
                 )
-              : const Center(
-                  child: CircularProgressIndicator.adaptive(),
+              : Center(
+                  child:
+                      JumpingText('···', style: const TextStyle(fontSize: 60)),
                 ),
         ),
       ),

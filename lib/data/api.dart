@@ -27,43 +27,42 @@ class Api {
 
   Future<BuyResponse> buySkin(int skinId) async {
     try {
-      final response = await client.api
-          .put("api/buy_skin/$skinId");
+      final response = await client.api.put("api/buy_skin/$skinId");
       return BuyResponse.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data: ${e.response}');
-      return BuyResponse(isSuccess: false,
+      return BuyResponse(
+          isSuccess: false,
           report: "Something went wrong, Please try again later.");
     }
   }
 
   Future<SelectResponse> selectSkin(int skinId) async {
     try {
-      final response = await client.api
-          .put("api/select_skin/$skinId");
+      final response = await client.api.put("api/select_skin/$skinId");
       return SelectResponse.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data: ${e.response}');
-      return SelectResponse(
-          "Something went wrong, Please try again later.", isSuccess: false);
+      return SelectResponse("Something went wrong, Please try again later.",
+          isSuccess: false);
     }
   }
 
-  Future<Profile?> getProfileInfo() async{
-    try{
+  Future<Profile?> getProfileInfo() async {
+    try {
       var response = await client.api.get("api/profile_info");
       return Profile.fromJson(Map<String, dynamic>.from(response.data));
-    } on DioError catch(e){
+    } on DioError catch (e) {
       log('data: ${e.response}');
       return null;
     }
   }
-  
-  Future<Balance?> getBalances() async{
-    try{
+
+  Future<Balance?> getBalances() async {
+    try {
       var response = await client.api.get("api/get_balances");
       return Balance.fromJson(Map<String, dynamic>.from(response.data));
-    } on DioError catch(e){
+    } on DioError catch (e) {
       log('data: ${e.response}');
       return null;
     }

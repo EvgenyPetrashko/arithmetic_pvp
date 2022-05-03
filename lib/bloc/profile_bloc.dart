@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:arithmetic_pvp/data/models/user.dart';
 import 'package:arithmetic_pvp/data/storage.dart';
@@ -18,28 +19,29 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileEventUserLoad>((event, emit) async {
       emit(ProfileStateLoading());
       Profile? storedProfile = _storage.getProfile("user");
-      if (storedProfile == null){
+      if (storedProfile == null) {
         Profile? profile = await _api.getProfileInfo();
         log(profile.toString());
-        if (profile != null){
+        if (profile != null) {
           _storage.setProfile("user", profile);
           emit(ProfileStateLoaded(profile));
-        }else{
+        } else {
           emit(ProfileStateError("Please try again later"));
         }
-      }else{
+      } else {
         emit(ProfileStateLoaded(storedProfile));
       }
     });
 
     on<ProfileEventCheckUsername>((event, emit) async {
       emit(ProfileStateUsernameCheckLoading());
-      bool? isAvailable = await _apiAuth.checkUsernameIsAvailable(event.newUsername);
+      bool? isAvailable =
+          await _apiAuth.checkUsernameIsAvailable(event.newUsername);
       log("${event.newUsername} $isAvailable");
-      if (isAvailable != null){
+      if (isAvailable != null) {
         emit(ProfileStateUsernameCheckLoaded(isAvailable));
-      }else{
-       emit(ProfileStateUsernameCheckError("Please try again later"));
+      } else {
+        emit(ProfileStateUsernameCheckError("Please try again later"));
       }
     });
   }

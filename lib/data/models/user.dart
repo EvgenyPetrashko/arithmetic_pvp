@@ -19,18 +19,21 @@ class Profile {
   int id;
   User user;
   int gold;
+  String? assetUrl;
 
-  Profile({required this.id, required this.user, required this.gold});
+  Profile({required this.id, required this.user, required this.gold, required this.assetUrl});
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         id: json['id'] as int,
         user: User.fromJson(json['user'] as Map<String, dynamic>),
         gold: json['gold'] as int,
+        assetUrl: json['asset_url'] as String?,
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'user': user.toJson(),
         'gold': gold,
+        'asset_url': assetUrl,
       };
 }

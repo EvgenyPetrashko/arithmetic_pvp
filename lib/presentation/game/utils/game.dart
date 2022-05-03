@@ -1,7 +1,6 @@
 import 'package:arithmetic_pvp/presentation/game/utils/keyboard.dart';
 import 'package:flutter/material.dart';
 
-
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
 
@@ -15,35 +14,35 @@ class _GamePageState extends State<GamePage> {
 
   void updateAns(String command) {
     setState(() {
-      switch(command) {
-        case 'DEL': {
-          if (ans.isNotEmpty) {
-            ans = ans.substring(0, ans.length - 1);
-          }
-        }
-        break;
-
-        case '-': {
-          if (ans.isEmpty){
-            ans = '-';
-          }
-          else{
-            if (ans[0] == '-'){
-              ans = ans.substring(1);
-            }
-            else{
-              ans = '-' + ans;
+      switch (command) {
+        case 'DEL':
+          {
+            if (ans.isNotEmpty) {
+              ans = ans.substring(0, ans.length - 1);
             }
           }
-        }
-        break;
+          break;
 
-        default: {
-          ans = ans + command;
-        }
-        break;
+        case '-':
+          {
+            if (ans.isEmpty) {
+              ans = '-';
+            } else {
+              if (ans[0] == '-') {
+                ans = ans.substring(1);
+              } else {
+                ans = '-' + ans;
+              }
+            }
+          }
+          break;
+
+        default:
+          {
+            ans = ans + command;
+          }
+          break;
       }
-
     });
   }
 
