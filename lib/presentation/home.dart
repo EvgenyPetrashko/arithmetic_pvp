@@ -1,8 +1,11 @@
+import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/presentation/game/game_appbar.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_appbar.dart';
 import 'package:arithmetic_pvp/presentation/skins/skins.dart';
+import 'package:arithmetic_pvp/presentation/skins/skins_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'game/utils/game.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,15 +17,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  int balance = 0;
   final List _children = [
     const GamePage(),
-    const ShopPage(),
+    const SkinsPage(),
     const ProfilePage()
   ];
 
   final List _appBars = [
     const GameAppBar(),
-    const ProfileAppBar(),
+    const SkinsAppBar(),
     const ProfileAppBar()
   ];
 
@@ -33,28 +37,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 2;
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBars[_selectedIndex],
-      body: _children[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad),
-            label: 'Game',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Shop',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
+    final _balanceBloc = BalanceBloc();
+    return BlocProvider(
+      create: (context) => _balanceBloc,
+      child: Scaffold(
+        appBar: _appBars[_selectedIndex],
+        body: _children[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.gamepad),
+              label: 'Game',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Shop',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blue,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
