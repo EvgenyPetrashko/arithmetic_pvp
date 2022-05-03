@@ -41,6 +41,7 @@ class ShopSelectSkinLoading extends ShopSelectSkinState {}
 class ShopSelectSkinLoaded extends ShopSelectSkinState {
   final Skin skin;
   final bool isSuccess;
+
   ShopSelectSkinLoaded(this.skin, this.isSuccess);
 }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 class LoadingText extends StatefulWidget {
@@ -20,9 +21,9 @@ class _LoadingTextState extends State<LoadingText> {
     timer = Timer.periodic(Duration(milliseconds: widget.milliseconds), (Timer t) => updateAmountOfDots());
   }
 
-  updateAmountOfDots(){
+  updateAmountOfDots() {
     int newDotsAmount = 0;
-    if (dotsAmount != 3){
+    if (dotsAmount != 3) {
       newDotsAmount = dotsAmount + 1;
     }
     setState(() {

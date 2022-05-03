@@ -1,4 +1,3 @@
-
 import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/game_appbar.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile.dart';
@@ -7,6 +6,7 @@ import 'package:arithmetic_pvp/presentation/skins/skins.dart';
 import 'package:arithmetic_pvp/presentation/skins/skins_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'multiplayer_mode/multiplayer_game_start.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _selectedIndex = 2;
   }
-
 
   @override
   Widget build(BuildContext context) {

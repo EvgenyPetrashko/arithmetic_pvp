@@ -10,7 +10,6 @@ class Keyboard extends StatefulWidget {
 }
 
 class _KeyboardState extends State<Keyboard> {
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -38,19 +37,18 @@ class _KeyboardState extends State<Keyboard> {
   }
 }
 
-
 class KeyboardButton extends StatefulWidget {
   final String val;
   final void Function(String) onTap;
 
-  const KeyboardButton({Key? key, required this.val, required this.onTap}) : super(key: key);
+  const KeyboardButton({Key? key, required this.val, required this.onTap})
+      : super(key: key);
 
   @override
   _KeyboardButtonState createState() => _KeyboardButtonState();
 }
 
 class _KeyboardButtonState extends State<KeyboardButton> {
-
   @override
   Widget build(BuildContext context) {
     return Expanded(

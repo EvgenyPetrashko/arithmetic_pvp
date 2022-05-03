@@ -2,6 +2,7 @@ import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/balance_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SkinsAppBar({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
     final BalanceBloc _balanceBloc = BlocProvider.of<BalanceBloc>(context);
     return AppBar(
       title: const Text('Skins'),
-      backgroundColor: Colors.black45,
       actions: [
         Center(
           child: Container(
@@ -44,7 +44,12 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
                     } else if (state is BalanceErrorState) {
                       return const Text("Error Loading Balance");
                     } else {
-                      return const CircularProgressIndicator.adaptive();
+                      return JumpingText(
+                        '···',
+                        style: const TextStyle(
+                          fontSize: 40,
+                        ),
+                      );
                     }
                   },
                   listener: (context, state) => {},
