@@ -17,31 +17,49 @@ class ShopCard extends StatelessWidget {
   Widget pricePlaceHolder(Skin skin) {
     if (skin.isOwner) {
       if (skin.isSelected) {
-        return const Text(
-          "IN USE",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-        );
+        return Container(
+            alignment: Alignment.bottomLeft,
+            padding: const EdgeInsets.only(bottom: 10, right: 10),
+            child: const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 28,
+            ));
       } else {
-        return const Text(
-          "SELECT",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+        return Container(
+          alignment: Alignment.bottomLeft,
+          padding: const EdgeInsets.only(bottom: 10, right: 10),
+          child: const Icon(
+            Icons.check_circle,
+            color: Colors.grey,
+            size: 28,
+          ),
         );
       }
     } else {
-      return Wrap(
-        children: [
-          Row(mainAxisSize: MainAxisSize.min, children: [
-            Text(skin.cost.toString()),
-            const SizedBox(
-              width: 3,
-            ),
-            const Icon(
-              Icons.monetization_on,
-              color: Colors.amber,
-              size: 16,
-            ),
-          ]),
-        ],
+      return Container(
+        alignment: Alignment.topRight,
+        padding: const EdgeInsets.only(top: 8, right: 8),
+        child: Wrap(
+          children: [
+            Row(mainAxisSize: MainAxisSize.min, children: [
+              Text(
+                skin.cost.toString(),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(
+                width: 3,
+              ),
+              const Icon(
+                Icons.monetization_on,
+                color: Colors.amber,
+                size: 20,
+              ),
+            ]),
+          ],
+        ),
       );
     }
   }
@@ -91,11 +109,7 @@ class ShopCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topRight,
-                  padding: const EdgeInsets.only(top: 4, right: 4),
-                  child: pricePlaceHolder(skin),
-                ),
+                pricePlaceHolder(skin),
               ],
             ),
           ),
