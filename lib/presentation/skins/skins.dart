@@ -147,6 +147,8 @@ class _SkinsPageState extends State<SkinsPage> {
         child: LoadingOverlay(
           isLoading: loading,
           color: Colors.black45,
+          progressIndicator: JumpingText('···',
+              style: const TextStyle(fontSize: 60)),
           child: (skins.isNotEmpty)
               ? ListView.builder(
                   itemCount: skins.length,
@@ -158,7 +160,7 @@ class _SkinsPageState extends State<SkinsPage> {
                 )
               : Center(
                   child:
-                      JumpingText('···', style: const TextStyle(fontSize: 50)),
+                      JumpingText('···', style: const TextStyle(fontSize: 60)),
                 ),
         ),
       ),

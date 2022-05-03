@@ -34,23 +34,26 @@ class GeneralProfileInfo extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: (state is ProfileStateLoaded)
-                        ? CachedNetworkImage(
-                            height: 100,
-                            width: 100,
-                            imageUrl: state.profile?.assetUrl ?? "",
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator.adaptive(),
-                            errorWidget: (context, url, error) =>
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  child: Image.asset('assets/logo.png', width: 100),
-                                ))
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(100.0),
-                            child: Image.asset('assets/logo.png', width: 100),
-                          )),
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: (state is ProfileStateLoaded)
+                      ? CachedNetworkImage(
+                          height: 100,
+                          width: 100,
+                          imageUrl: state.profile?.assetUrl ?? "",
+                          placeholder: (context, url) => Center(
+                                child: JumpingText('···',
+                                    style: const TextStyle(fontSize: 40)),
+                              ),
+                          errorWidget: (context, url, error) => ClipRRect(
+                                borderRadius: BorderRadius.circular(100.0),
+                                child:
+                                    Image.asset('assets/logo.png', width: 100),
+                              ))
+                      : Center(
+                          child: JumpingText('···',
+                              style: const TextStyle(fontSize: 40)),
+                        ),
+                ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: (state is ProfileStateLoaded)
