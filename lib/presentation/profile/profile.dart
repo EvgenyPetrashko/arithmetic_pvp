@@ -21,98 +21,6 @@ class _ProfilePageState extends State<ProfilePage> {
     _profileBloc.add(ProfileEventUserLoad());
   }
 
-  _showMaterialDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Settings'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 1'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 2'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 3'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 4'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: _dismissDialog,
-                  child: const Text('Close')),
-              TextButton(
-                onPressed: _dismissDialog,
-                child: const Text('Apply'),
-              )
-            ],
-          );
-        });
-  }
-
-  _dismissDialog() {
-    Navigator.pop(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -123,15 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             children: <Widget>[
               Container(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: const Icon(Icons.settings),
-                  onPressed: _showMaterialDialog,
-                ),
-              ),
-              Container(
                 alignment: Alignment.topLeft,
-                margin: const EdgeInsets.only(left: 10, bottom: 20),
+                margin: const EdgeInsets.only(left: 10, top: 20, bottom: 20),
                 child: const Text(
                   "My Profile",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
