@@ -5,7 +5,6 @@ class ProfileSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     _dismissDialog() {
       Navigator.pop(context);
     }

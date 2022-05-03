@@ -69,9 +69,7 @@ class ProfileAchievements extends StatelessWidget {
           },
           child: const Text(
             "See more",
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
           ),
         ),
       ],
