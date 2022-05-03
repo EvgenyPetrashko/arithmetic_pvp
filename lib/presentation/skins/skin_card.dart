@@ -77,9 +77,9 @@ class ShopCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTapFunction(skin),
-      child: Card(
+    return Card(
+      child: InkWell(
+        onTap: () => onTapFunction(skin),
         child: SafeArea(
           child: SizedBox(
             height: 100,
@@ -115,9 +115,9 @@ class ShopCard extends StatelessWidget {
             ),
           ),
         ),
-        elevation: 8,
-        margin: const EdgeInsets.all(10),
       ),
+      elevation: 3,
+      margin: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
     );
   }
 }
