@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       create: (context) => _balanceBloc,
       child: Scaffold(
         appBar: _appBars[_selectedIndex],
-        body: _children[_selectedIndex],
+        body: SafeArea(child: _children[_selectedIndex],),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -59,8 +59,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Game',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Shop',
+              icon: Icon(Icons.sentiment_very_satisfied),
+              label: 'Skins',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
