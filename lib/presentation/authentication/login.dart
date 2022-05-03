@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 10,
               ),
-              LoadingText(inputText: "Loading"),
+              LoadingText(inputText: "Loading", milliseconds: 1000),
             ]),
           );
         });
