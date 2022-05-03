@@ -85,9 +85,11 @@ class _SkinsPageState extends State<SkinsPage> {
       } else {
         _loading = true;
       }
-      setState(() {
-        loading = _loading;
-      });
+      setState(
+        () {
+          loading = _loading;
+        },
+      );
     }
   }
 

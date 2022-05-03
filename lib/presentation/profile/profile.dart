@@ -30,15 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Container(
-                alignment: Alignment.topLeft,
-                margin: const EdgeInsets.only(left: 10, top: 20, bottom: 20),
-                child: const Text(
-                  "My Profile",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
-                ),
-              ),
               BlocProvider(
                 create: (BuildContext context) => _profileBloc,
                 child: const GeneralProfileInfo(),
