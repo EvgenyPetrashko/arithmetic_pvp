@@ -1,3 +1,5 @@
+import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
+import 'package:arithmetic_pvp/bloc/events/balance_events.dart';
 import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
 import 'package:arithmetic_pvp/data/api.dart';
@@ -9,10 +11,12 @@ import 'package:get_it/get_it.dart';
 import '../data/models/skin.dart';
 
 class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
-  ShopBloc() : super(ShopSkinsStateLoading()) {
+  final BalanceBloc _balanceBloc;
+  ShopBloc(this._balanceBloc) : super(ShopSkinsStateLoading()) {
     final Api _api = GetIt.instance<Api>();
 
     on<ShopUserEventSkinsLoading>((event, emit) async {
+      _balanceBloc.add(BalanceUserEventUpdate());
       final List<Skin> skins = await _api.getSkins();
       if (skins.isEmpty) {
         emit(ShopSkinsStateError("No skins to display"));
@@ -31,6 +35,7 @@ class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
       } else {
         emit(ShopBuyStateLoaded(event.skin));
       }
+      _balanceBloc.add(BalanceUserEventUpdate());
     });
 
     on<ShopUserEventSelectSkin>((event, emit) async {
