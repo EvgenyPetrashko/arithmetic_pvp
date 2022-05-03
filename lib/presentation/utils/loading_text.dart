@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 class LoadingText extends StatefulWidget {
   final String inputText;
+
   const LoadingText({Key? key, required this.inputText}) : super(key: key);
 
   @override
@@ -16,12 +18,13 @@ class _LoadingTextState extends State<LoadingText> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => updateAmountOfDots());
+    timer = Timer.periodic(
+        const Duration(seconds: 1), (Timer t) => updateAmountOfDots());
   }
 
-  updateAmountOfDots(){
+  updateAmountOfDots() {
     int newDotsAmount = 0;
-    if (dotsAmount != 3){
+    if (dotsAmount != 3) {
       newDotsAmount = dotsAmount + 1;
     }
     setState(() {

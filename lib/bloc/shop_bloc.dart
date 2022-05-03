@@ -12,6 +12,7 @@ import '../data/models/skin.dart';
 
 class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
   final BalanceBloc _balanceBloc;
+
   ShopBloc(this._balanceBloc) : super(ShopSkinsStateLoading()) {
     final Api _api = GetIt.instance<Api>();
 
@@ -22,8 +23,7 @@ class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
         emit(ShopSkinsStateError("No skins to display"));
       } else {
         skins.sort((a, b) => (a.cost > b.cost) ? 1 : -1);
-        emit(ShopSkinsStateLoaded(
-            skins));
+        emit(ShopSkinsStateLoaded(skins));
       }
     });
 
@@ -40,11 +40,12 @@ class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
 
     on<ShopUserEventSelectSkin>((event, emit) async {
       emit(ShopSelectSkinLoading());
-      final SelectResponse selectResponse = await _api.selectSkin(event.skin.id);
+      final SelectResponse selectResponse =
+          await _api.selectSkin(event.skin.id);
       final isError = selectResponse.error;
-      if (isError == null){
+      if (isError == null) {
         emit(ShopSelectSkinLoaded(event.skin, selectResponse.isSuccess));
-      }else{
+      } else {
         emit(ShopSelectSkinError(isError));
       }
     });

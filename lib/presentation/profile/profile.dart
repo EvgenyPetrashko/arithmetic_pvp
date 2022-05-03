@@ -2,6 +2,7 @@ import 'package:arithmetic_pvp/presentation/profile/profile_achievements_short.d
 import 'package:arithmetic_pvp/presentation/profile/profile_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../bloc/events/profile_events.dart';
 import '../../bloc/profile_bloc.dart';
 
@@ -30,6 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
+              const SizedBox(
+                height: 20,
+              ),
               BlocProvider(
                 create: (BuildContext context) => _profileBloc,
                 child: const GeneralProfileInfo(),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/auth_bloc.dart';
 import 'package:arithmetic_pvp/presentation/authentication/google_button.dart';
 import 'package:arithmetic_pvp/presentation/home.dart';
@@ -6,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:developer';
 
 import '../../bloc/events/auth_events.dart';
 import '../../bloc/states/auth_states.dart';

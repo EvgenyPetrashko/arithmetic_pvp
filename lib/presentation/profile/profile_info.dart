@@ -2,6 +2,7 @@ import 'package:arithmetic_pvp/presentation/profile/profile_edit.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../bloc/profile_bloc.dart';
 import '../../bloc/states/profile_states.dart';
@@ -40,13 +41,11 @@ class GeneralProfileInfo extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    (state is ProfileStateLoaded)
-                        ? state.profile?.user.username ?? ""
-                        : "Loading...",
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+                  child: (state is ProfileStateLoaded)
+                      ? Text(state.profile?.user.username ?? "",
+                          style: const TextStyle(fontSize: 20))
+                      : JumpingText('···',
+                          style: const TextStyle(fontSize: 20)),
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
@@ -55,13 +54,15 @@ class GeneralProfileInfo extends StatelessWidget {
                     children: [
                       const Icon(Icons.monetization_on, color: Colors.amber),
                       Text(
-                        (state is ProfileStateLoaded) ? state.profile?.gold.toString() ?? "0" : "0",
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        (state is ProfileStateLoaded)
+                            ? state.profile?.gold.toString() ?? "0"
+                            : "0",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-
               ],
             );
           },
