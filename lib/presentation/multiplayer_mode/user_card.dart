@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../data/models/user.dart';
 
-class UserCard extends StatefulWidget {
-  // final User user;
+class UserCard extends StatelessWidget {
+  final User user;
 
-  const UserCard({Key? key}) : super(key: key);
+  const UserCard({Key? key, required this.user}) : super(key: key);
 
-  @override
-  State<UserCard> createState() => _UserCardState();
-}
-
-class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     return Container();
