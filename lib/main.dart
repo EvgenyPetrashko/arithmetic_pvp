@@ -1,6 +1,5 @@
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
-import 'package:arithmetic_pvp/presentation/authentication/login.dart';
 import 'package:arithmetic_pvp/presentation/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +19,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(),
+      darkTheme: ThemeData.dark(), // standard dark theme
+      themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
   }

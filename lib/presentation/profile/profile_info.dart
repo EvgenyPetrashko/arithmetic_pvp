@@ -13,9 +13,11 @@ class GeneralProfileInfo extends StatelessWidget {
 
     void showUserInfo(BuildContext context, ProfileState state) {
       if (state is ProfileStateError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
       }
     }
 
@@ -60,6 +62,97 @@ class GeneralProfileInfo extends StatelessWidget {
           });
     }
 
+    _dismissDialog() {
+      Navigator.pop(context);
+    }
+
+    _showMaterialDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Settings'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 1'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 2'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 3'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Setting 4'),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Set",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(onPressed: _dismissDialog, child: const Text('Close')),
+              TextButton(
+                onPressed: _dismissDialog,
+                child: const Text('Apply'),
+              )
+            ],
+          );
+        },
+      );
+    }
+
     return Column(
       children: [
         Container(
@@ -73,46 +166,61 @@ class GeneralProfileInfo extends StatelessWidget {
           bloc: _profileBloc,
           listener: (context, state) => showUserInfo(context, state),
           builder: (context, state) {
-            return Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    (state is ProfileStateLoaded)
-                        ? state.profile?.user.username ?? ""
-                        : "Loading...",
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.monetization_on, color: Colors.amber),
-                      Text(
-                        (state is ProfileStateLoaded) ? state.profile?.gold.toString() ?? "0" : "0",
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-
-              ],
+            return Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: Text(
+                (state is ProfileStateLoaded)
+                    ? state.user?.username ?? ""
+                    : "Loading...",
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             );
           },
         ),
         Container(
-          margin: const EdgeInsets.only(bottom: 40),
+          margin: const EdgeInsets.only(bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.monetization_on, color: Colors.amber),
+              Text(
+                "2281337",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.stars, color: Colors.blue),
+              Text(
+                "9999999",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 5),
           child: OutlinedButton(
             onPressed: _showEditDialog,
             child: const Text(
               "Edit profile",
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 20),
+          child: OutlinedButton(
+            onPressed: _showMaterialDialog,
+            child: const Text(
+              "Settings",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
             ),
           ),
         ),
