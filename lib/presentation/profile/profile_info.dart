@@ -28,6 +28,9 @@ class ProfileInfo extends StatelessWidget {
         BlocConsumer<ProfileBloc, ProfileState>(
           bloc: _profileBloc,
           listener: (context, state) => showUserInfo(context, state),
+          buildWhen: (previousState, newState) {
+            return newState is ProfilePageState;
+          },
           builder: (context, state) {
             return Column(
               children: [

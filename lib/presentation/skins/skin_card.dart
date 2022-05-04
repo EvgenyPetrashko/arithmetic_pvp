@@ -19,13 +19,14 @@ class ShopCard extends StatelessWidget {
     if (skin.isOwner) {
       if (skin.isSelected) {
         return Container(
-            alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: const Icon(
-              Icons.check_circle,
-              color: Colors.green,
-              size: 28,
-            ));
+          alignment: Alignment.bottomLeft,
+          padding: const EdgeInsets.only(bottom: 10, right: 10),
+          child: const Icon(
+            Icons.check_circle,
+            color: Colors.green,
+            size: 28,
+          ),
+        );
       } else {
         return Container(
           alignment: Alignment.bottomLeft,
@@ -89,14 +90,18 @@ class ShopCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: CachedNetworkImage(
-                        height: 64,
-                        width: 64,
-                        imageUrl: skin.assetUrl,
-                        placeholder: (context, url) => Center(
-                            child: JumpingText('···',
-                                style: const TextStyle(fontSize: 40))),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error)),
+                      height: 64,
+                      width: 64,
+                      imageUrl: skin.assetUrl,
+                      placeholder: (context, url) => Center(
+                        child: JumpingText(
+                          '···',
+                          style: const TextStyle(fontSize: 40),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
                   ),
                 ),
                 Expanded(

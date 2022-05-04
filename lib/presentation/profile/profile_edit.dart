@@ -1,52 +1,107 @@
+import 'dart:developer';
+import 'package:arithmetic_pvp/bloc/events/profile_events.dart';
+import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileEdit extends StatelessWidget {
+import '../../bloc/profile_bloc.dart';
+
+class ProfileEdit extends StatefulWidget {
   const ProfileEdit({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    _dismissEditDialog() {
-      Navigator.pop(context);
-    }
+  State<StatefulWidget> createState() => _ProfileEditState();
+}
 
-    _showEditDialog() {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Change username'),
-            content: Row(
-              children: [
-                const Expanded(
-                  child: TextField(
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Type desired username',
+class _ProfileEditState extends State<ProfileEdit> {
+  final _userNameController = TextEditingController();
+  late ProfileBloc _profileBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _profileBloc = BlocProvider.of<ProfileBloc>(context);
+  }
+
+  _dismissEditDialog() {
+    Navigator.pop(context);
+  }
+
+  submitUserName() {
+    _profileBloc.add(ProfileEventChangeUsername(_userNameController.text));
+  }
+
+  _handleState(context, state) {
+    log(state.toString());
+    if (state is ProfileChangeUsernameStateLoaded) {
+      if (state.changeNameResponse.status) {
+        _dismissEditDialog();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Success"),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.changeNameResponse.error ??
+                "Error! Please try again later"),
+          ),
+        );
+      }
+    }
+  }
+
+  _showEditDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return BlocConsumer(
+          bloc: _profileBloc,
+          listener: (context, state) => _handleState(context, state),
+          builder: (context, state) {
+            return StatefulBuilder(builder: (context, setState) {
+              return AlertDialog(
+                title: const Text('Change username'),
+                content: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _userNameController,
+                        maxLength: 30,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Type desired username',
+                        ),
+                      ),
                     ),
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: (state is ProfileChangeUsernameStateLoading)
+                        ? null
+                        : _dismissEditDialog,
+                    child: const Text('Cancel'),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                OutlinedButton(onPressed: () {}, child: const Text("Check"))
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: _dismissEditDialog,
-                child: const Text('Cancel'),
-              ),
-              const TextButton(
-                onPressed: null,
-                child: Text('Apply'),
-              )
-            ],
-          );
-        },
-      );
-    }
+                  TextButton(
+                    onPressed: (state is ProfileChangeUsernameStateLoading)
+                        ? null
+                        : submitUserName,
+                    child: const Text('Apply'),
+                  )
+                ],
+              );
+            });
+          },
+        );
+      },
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
       child: ElevatedButton(

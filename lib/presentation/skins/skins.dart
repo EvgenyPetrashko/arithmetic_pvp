@@ -1,11 +1,11 @@
 import 'dart:developer';
-
-import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
+import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
 import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
 import 'package:arithmetic_pvp/presentation/skins/skin_card.dart';
+import 'package:arithmetic_pvp/presentation/skins/skin_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -20,122 +20,124 @@ class SkinsPage extends StatefulWidget {
 
 class _SkinsPageState extends State<SkinsPage> {
   late ShopBloc _shopBloc;
-  List<Skin> skins = [];
-  bool loading = false;
+  List<Skin> _skins = [];
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
-    _shopBloc = ShopBloc(BlocProvider.of<BalanceBloc>(context));
-    _shopBloc.add(ShopUserEventSkinsLoading());
+    _shopBloc = ShopBloc(BlocProvider.of<ProfileBloc>(context));
+    _shopBloc.add(SkinsEventLoading());
   }
 
   _handleState(BuildContext context, ShopState state) {
     log(state.toString());
     if (state is ShopSkinsState) {
       if (state is ShopSkinsStateLoaded) {
-        setState(() {
-          skins = state.skins;
-        });
+        setState(
+          () {
+            _skins = state.skins;
+          },
+        );
       } else if (state is ShopSkinsStateError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
       }
     } else if (state is ShopBuySkinState) {
-      bool _loading = false;
+      bool _setLoading = false;
       if (state is ShopBuyStateLoaded) {
-        setState(() {
-          for (var skin in skins) {
-            if (skin.id == state.skin.id) {
-              skin.isOwner = true;
-              break;
-            }
-          }
-        });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Success"),
-        ));
-      } else if (state is ShopBuyStateError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
-      } else {
-        _loading = true;
-      }
-      if (!_loading) {
-        _dismissDialog();
-      }
-    } else if (state is ShopSelectSkinState) {
-      bool _loading = false;
-      if (state is ShopSelectSkinLoaded) {
-        setState(() {
-          if (state.isSuccess) {
-            for (var skin in skins) {
+        setState(
+          () {
+            for (var skin in _skins) {
               if (skin.id == state.skin.id) {
-                skin.isSelected = true;
-              } else {
-                skin.isSelected = false;
+                skin.isOwner = true;
+                break;
               }
             }
-          }
-        });
-      } else if (state is ShopSelectSkinError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
+          },
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Success"),
+          ),
+        );
+      } else if (state is ShopBuyStateError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
       } else {
-        _loading = true;
+        _setLoading = true;
+      }
+      if (!_setLoading) {
+        // dismiss dialog
+        Navigator.pop(context);
       }
       setState(
         () {
-          loading = _loading;
+          _loading = _setLoading;
+        },
+      );
+    } else if (state is ShopSelectSkinState) {
+      bool _setLoading = false;
+      if (state is ShopSelectSkinLoaded) {
+        setState(
+          () {
+            if (state.isSuccess) {
+              for (var skin in _skins) {
+                if (skin.id == state.skin.id) {
+                  skin.isSelected = true;
+                } else {
+                  skin.isSelected = false;
+                }
+              }
+            }
+          },
+        );
+      } else if (state is ShopSelectSkinError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
+      } else {
+        _setLoading = true;
+      }
+      setState(
+        () {
+          _loading = _setLoading;
         },
       );
     }
   }
 
+  _buyButtonFunction(Skin skin) {
+    if (!_loading) {
+      setState(() {
+        _loading = true;
+      });
+      _shopBloc.add(SkinsEventBuySkin(skin));
+    }
+  }
+
   _showBuyDialog(Skin skin) {
-    showDialog(
+    return showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (context) {
-        bool loading = false;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: const Text('Skin purchase'),
-              content: Text(
-                  "Do you want to buy this skin? It will cost ${skin.cost}"),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: (!loading) ? _dismissDialog : null,
-                    child: const Text('Close')),
-                TextButton(
-                  onPressed: (!loading)
-                      ? () {
-                          setState(() {
-                            loading = true;
-                          });
-                          _shopBloc.add(ShopUserEventBuySkin(skin));
-                        }
-                      : null,
-                  child: const Text('Ok'),
-                )
-              ],
-            );
-          },
-        );
+        return SkinDialog(
+            skin: skin, buyButtonFunction: _buyButtonFunction);
       },
     );
   }
 
-  _dismissDialog() {
-    Navigator.pop(context);
-  }
-
   _selectSkin(Skin skin) {
-    _shopBloc.add(ShopUserEventSelectSkin(skin));
+    _shopBloc.add(
+      SkinsEventSelectSkin(skin),
+    );
   }
 
   @override
@@ -145,22 +147,26 @@ class _SkinsPageState extends State<SkinsPage> {
         bloc: _shopBloc,
         listener: (context, ShopState state) => _handleState(context, state),
         child: LoadingOverlay(
-          isLoading: loading,
+          isLoading: _loading,
           color: Colors.black45,
-          progressIndicator: JumpingText('···',
-              style: const TextStyle(fontSize: 60)),
-          child: (skins.isNotEmpty)
+          progressIndicator: JumpingText(
+            '···',
+            style: const TextStyle(fontSize: 60),
+          ),
+          child: (_skins.isNotEmpty)
               ? ListView.builder(
-                  itemCount: skins.length,
+                  itemCount: _skins.length,
                   itemBuilder: (context, index) => ShopCard(
-                    skin: skins[index],
+                    skin: _skins[index],
                     onBuyFunction: _showBuyDialog,
                     onSelectFunction: _selectSkin,
                   ),
                 )
               : Center(
-                  child:
-                      JumpingText('···', style: const TextStyle(fontSize: 60)),
+                  child: JumpingText(
+                    '···',
+                    style: const TextStyle(fontSize: 60),
+                  ),
                 ),
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
+import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/game_appbar.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_appbar.dart';
@@ -17,8 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  int balance = 0;
+  int _selectedIndex = 2;
+  final _profileBloc = ProfileBloc();
+
   final List _children = [
     const MultiplayerGameStartPage(),
     const SkinsPage(),
@@ -38,19 +39,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _selectedIndex = 2;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final _balanceBloc = BalanceBloc();
     return BlocProvider(
-      create: (context) => _balanceBloc,
+      create: (context) => _profileBloc,
       child: Scaffold(
         appBar: _appBars[_selectedIndex],
-        body: _children[_selectedIndex],
+        body: SafeArea(child: _children[_selectedIndex],),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -58,8 +52,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Game',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Shop',
+              icon: Icon(Icons.sentiment_very_satisfied),
+              label: 'Skins',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),

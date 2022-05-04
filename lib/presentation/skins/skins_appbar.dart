@@ -1,5 +1,5 @@
-import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
-import 'package:arithmetic_pvp/bloc/states/balance_states.dart';
+import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
+import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_indicators/progress_indicators.dart';
@@ -12,7 +12,6 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BalanceBloc _balanceBloc = BlocProvider.of<BalanceBloc>(context);
     return AppBar(
       title: const Text('Skins'),
       actions: [
@@ -21,10 +20,13 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(right: 16.0),
             child: Wrap(
               children: [
-                BlocConsumer<BalanceBloc, BalanceState>(
-                  bloc: _balanceBloc,
+                BlocConsumer(
+                  bloc: BlocProvider.of<ProfileBloc>(context),
+                  buildWhen: (prevState, state){
+                    return state is ProfileBalanceState;
+                  },
                   builder: (context, state) {
-                    if (state is BalanceLoadedState) {
+                    if (state is ProfileBalanceStateLoaded) {
                       return Row(mainAxisSize: MainAxisSize.min, children: [
                         Text(
                           state.balance.gold.toString(),
@@ -41,7 +43,7 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
                           size: 20,
                         ),
                       ]);
-                    } else if (state is BalanceErrorState) {
+                    } else if (state is ProfileBalanceStateError) {
                       return const Text("Error Loading Balance");
                     } else {
                       return JumpingText(

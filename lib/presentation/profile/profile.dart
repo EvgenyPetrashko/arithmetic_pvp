@@ -14,13 +14,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final ProfileBloc _profileBloc = ProfileBloc();
-
   @override
   void initState() {
     super.initState();
+    final ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
     _profileBloc.add(ProfileEventUserLoad());
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 40,
               ),
-              BlocProvider(
-                create: (BuildContext context) => _profileBloc,
-                child: const ProfileInfo(),
-              ),
+              const ProfileInfo(),
               const SizedBox(
                 height: 40,
               ),
