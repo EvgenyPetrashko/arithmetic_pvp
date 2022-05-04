@@ -85,7 +85,7 @@ class GeneralProfileInfo extends StatelessWidget {
             );
           },
         ),
-        ProfileEdit(),
+        const ProfileEdit(),
         const ProfileSettings(),
         const RedirectToStats(),
       ],

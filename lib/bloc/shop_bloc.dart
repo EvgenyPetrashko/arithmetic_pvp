@@ -12,14 +12,14 @@ import 'package:get_it/get_it.dart';
 import '../data/models/skin.dart';
 import '../data/models/user.dart';
 
-class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
+class ShopBloc extends Bloc<SkinsEvent, ShopState> {
   final ProfileBloc _profileBloc;
 
   ShopBloc(this._profileBloc) : super(ShopSkinsStateLoading()) {
     final Api _api = GetIt.instance<Api>();
     final Storage _storage = GetIt.instance<Storage>();
 
-    on<ShopUserEventSkinsLoading>((event, emit) async {
+    on<SkinsEventLoading>((event, emit) async {
       _profileBloc.add(ProfileEventBalanceUpdate());
       final List<Skin> skins = await _api.getSkins();
       if (skins.isEmpty) {
@@ -30,7 +30,7 @@ class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
       }
     });
 
-    on<ShopUserEventBuySkin>((event, emit) async {
+    on<SkinsEventBuySkin>((event, emit) async {
       emit(ShopBuyStateLoading());
       final BuyResponse buyResponse = await _api.buySkin(event.skin.id);
       if (!buyResponse.isSuccess) {
@@ -42,7 +42,7 @@ class ShopBloc extends Bloc<ShopUserEvent, ShopState> {
       _profileBloc.add(ProfileEventBalanceUpdate());
     });
 
-    on<ShopUserEventSelectSkin>((event, emit) async {
+    on<SkinsEventSelectSkin>((event, emit) async {
       emit(ShopSelectSkinLoading());
       final SelectResponse selectResponse =
           await _api.selectSkin(event.skin.id);

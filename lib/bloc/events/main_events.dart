@@ -1,3 +1,3 @@
-abstract class MainUserEvent {}
+abstract class SplashScreenEvent {}
 
-class MainUserEventStartLoading extends MainUserEvent {}
+class SplashScreenEventStartLoading extends SplashScreenEvent {}
