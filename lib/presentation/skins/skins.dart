@@ -1,7 +1,6 @@
 import 'dart:developer';
-
-import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
 import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
+import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
 import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
@@ -27,12 +26,8 @@ class _SkinsPageState extends State<SkinsPage> {
   @override
   void initState() {
     super.initState();
-    _shopBloc = ShopBloc(
-      BlocProvider.of<BalanceBloc>(context),
-    );
-    _shopBloc.add(
-      ShopUserEventSkinsLoading(),
-    );
+    _shopBloc = ShopBloc(BlocProvider.of<ProfileBloc>(context));
+    _shopBloc.add(ShopUserEventSkinsLoading());
   }
 
   _handleState(BuildContext context, ShopState state) {
@@ -132,7 +127,7 @@ class _SkinsPageState extends State<SkinsPage> {
     return showDialog(
       context: context,
       builder: (context) {
-        bool loading = false;
+        // bool loading = false;
         return StatefulBuilder(
           builder: (context, setState) {
             return SkinDialog(

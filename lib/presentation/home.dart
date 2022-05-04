@@ -1,4 +1,4 @@
-import 'package:arithmetic_pvp/bloc/balance_bloc.dart';
+import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/game_appbar.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_appbar.dart';
@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _balanceBloc = BalanceBloc();
+    final _profileBloc = ProfileBloc();
     return BlocProvider(
-      create: (context) => _balanceBloc,
+      create: (context) => _profileBloc,
       child: Scaffold(
         appBar: _appBars[_selectedIndex],
         body: SafeArea(child: _children[_selectedIndex],),

@@ -1,29 +1,20 @@
+import 'package:arithmetic_pvp/data/models/change_name_response.dart';
+
 import '../../data/models/user.dart';
+import '../../data/models/balance_response.dart';
 
 abstract class ProfileState {}
 
-class ProfileStateInitial extends ProfileState {}
+abstract class ProfilePageState extends ProfileState {}
 
-class ProfileStateLoading extends ProfileState {}
+class ProfileStateInitial extends ProfilePageState {}
 
-class ProfileStateLoaded extends ProfileState {
+class ProfileStateLoading extends ProfilePageState {}
+
+class ProfileStateLoaded extends ProfilePageState {
   final Profile? profile;
 
   ProfileStateLoaded(this.profile);
-}
-
-class ProfileStateUsernameCheckLoading extends ProfileState {}
-
-class ProfileStateUsernameCheckLoaded extends ProfileState {
-  final bool? checkReport;
-
-  ProfileStateUsernameCheckLoaded(this.checkReport);
-}
-
-class ProfileStateUsernameCheckError extends ProfileState {
-  final String error;
-
-  ProfileStateUsernameCheckError(this.error);
 }
 
 class ProfileStateError extends ProfileState {
@@ -31,3 +22,27 @@ class ProfileStateError extends ProfileState {
 
   ProfileStateError(this.error);
 }
+
+abstract class ProfileChangeUsernameState extends ProfileState {}
+
+class ProfileChangeUsernameStateInitial extends ProfileChangeUsernameState {}
+
+class ProfileChangeUsernameStateLoading extends ProfileChangeUsernameState {}
+
+class ProfileChangeUsernameStateLoaded extends ProfileChangeUsernameState {
+  final ChangeNameResponse changeNameResponse;
+
+  ProfileChangeUsernameStateLoaded(this.changeNameResponse);
+}
+
+abstract class ProfileBalanceState extends ProfileState {}
+
+class ProfileBalanceStateLoading extends ProfileBalanceState {}
+
+class ProfileBalanceStateLoaded extends ProfileBalanceState {
+  final Balance balance;
+
+  ProfileBalanceStateLoaded(this.balance);
+}
+
+class ProfileBalanceStateError extends ProfileBalanceState {}

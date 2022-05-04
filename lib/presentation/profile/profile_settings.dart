@@ -89,7 +89,7 @@ class ProfileSettings extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 5),
       child: OutlinedButton(
         onPressed: _showMaterialDialog,
         child: const Text(
