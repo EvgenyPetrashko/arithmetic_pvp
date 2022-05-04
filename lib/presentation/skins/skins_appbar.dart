@@ -12,7 +12,6 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
     return AppBar(
       title: const Text('Skins'),
       actions: [
@@ -22,7 +21,10 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Wrap(
               children: [
                 BlocConsumer(
-                  bloc: _profileBloc,
+                  bloc: BlocProvider.of<ProfileBloc>(context),
+                  buildWhen: (prevState, state){
+                    return state is ProfileBalanceState;
+                  },
                   builder: (context, state) {
                     if (state is ProfileBalanceStateLoaded) {
                       return Row(mainAxisSize: MainAxisSize.min, children: [

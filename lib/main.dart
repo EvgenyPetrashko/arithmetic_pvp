@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
 import 'package:arithmetic_pvp/presentation/authentication/login.dart';
@@ -18,7 +20,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
@@ -41,24 +42,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final _mainBloc = MainBloc();
-  static const _animationTimeSeconds = 2;
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: _animationTimeSeconds),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.fastOutSlowIn,
-  );
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
+
+    const _animationTimeSeconds = 2;
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: _animationTimeSeconds),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.fastOutSlowIn,
+    );
+
     WidgetsBinding.instance?.addPostFrameCallback((_) async => {
           // wait for animation to complete
           await Future.delayed(
               const Duration(seconds: _animationTimeSeconds * 1), () {}),
-          _mainBloc.add(MainUserEventStartLoading())
+          _mainBloc.add(SplashScreenEventStartLoading())
         });
   }
 
@@ -69,14 +76,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void redirecting(BuildContext context, MainState state) {
+    log(state.toString());
     if (state is MainStateLoaded) {
       late Widget _redirectedWidget;
       if (state.isLoginnedIn) {
         _redirectedWidget = const HomePage();
       } else {
-        // Only for testing / bypass login
         _redirectedWidget = const LoginPage();
-        // _redirectedWidget = const HomePage();
       }
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -89,30 +95,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (BuildContext context) => _mainBloc,
-        child: BlocListener<MainBloc, MainState>(
-          listener: (context, state) => redirecting(context, state),
-          child: Center(
-            child: ScaleTransition(
-              scale: _animation,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/dark_logo.svg",
-                      height: 128,
-                      width: 128,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Arithmetic PvP",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    )
-                  ]),
+      body: BlocListener<MainBloc, MainState>(
+        bloc: _mainBloc,
+        listener: (context, state) => redirecting(context, state),
+        child: Center(
+          child: ScaleTransition(
+            scale: _animation,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/dark_logo.svg",
+                    height: 128,
+                    width: 128,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Arithmetic PvP",
+                    style:
+                    TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ]
             ),
           ),
         ),

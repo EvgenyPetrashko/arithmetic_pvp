@@ -8,9 +8,9 @@ import '../data/auth.dart';
 import '../data/network_client.dart';
 import '../data/storage.dart';
 
-class MainBloc extends Bloc<MainUserEvent, MainState> {
+class MainBloc extends Bloc<SplashScreenEvent, MainState> {
   MainBloc() : super(MainStateLoading()) {
-    on<MainUserEventStartLoading>((event, emit) async {
+    on<SplashScreenEventStartLoading>((event, emit) async {
       final _getIt = GetIt.instance;
 
       Storage _storage = await Storage().init();

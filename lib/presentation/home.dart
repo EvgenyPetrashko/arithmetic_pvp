@@ -17,8 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  int balance = 0;
+  int _selectedIndex = 2;
+  final _profileBloc = ProfileBloc();
+
   final List _children = [
     const MultiplayerGameStartPage(),
     const SkinsPage(),
@@ -38,14 +39,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _selectedIndex = 2;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final _profileBloc = ProfileBloc();
     return BlocProvider(
       create: (context) => _profileBloc,
       child: Scaffold(
