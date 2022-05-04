@@ -62,10 +62,10 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
                 margin: const EdgeInsets.all(5),
                 child: Column(
                   children: [
-                    UserProgress(username: 'DIMbI4', value: 1),
-                    UserProgress(username: 'TroHaN', value: 0.5),
-                    UserProgress(username: 'KamilAin', value: 0.8),
-                    UserProgress(username: 'gfx', value: 0.3),
+                    UserProgress(username: 'Aidar Khuzin', value: 1),
+                    UserProgress(username: 'Evgeny Petrashko', value: 0.5),
+                    UserProgress(username: 'Kamil Agliullin', value: 0.8),
+                    UserProgress(username: 'Dmitrii Shabalin', value: 0.3),
                   ],
                 ),
               ),

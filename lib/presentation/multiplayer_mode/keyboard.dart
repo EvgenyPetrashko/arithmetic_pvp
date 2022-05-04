@@ -63,9 +63,9 @@ class _KeyboardButtonState extends State<KeyboardButton> {
       child: Container(
         margin: const EdgeInsets.all(2),
         child: ElevatedButton(
-          style: TextButton.styleFrom(
+          style: ElevatedButton.styleFrom(
             // padding: const EdgeInsets.all(16.0),
-            // primary: Colors.white,
+            primary: const Color(0xff676767),
             textStyle: const TextStyle(fontSize: 24),
           ),
           onPressed: () {

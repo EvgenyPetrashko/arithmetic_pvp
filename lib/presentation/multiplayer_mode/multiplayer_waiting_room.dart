@@ -1,6 +1,8 @@
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/user_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import '../../data/models/user.dart';
+import '../../data/storage.dart';
 import 'multiplayer_game.dart';
 
 class MultiplayerWaitingRoomPage extends StatefulWidget {
@@ -13,7 +15,15 @@ class MultiplayerWaitingRoomPage extends StatefulWidget {
 
 class _MultiplayerWaitingRoomPageState
     extends State<MultiplayerWaitingRoomPage> {
-  List<User> users = [];
+  List<Profile> profiles = [];
+  final Storage _storage = GetIt.instance<Storage>();
+
+  @override
+  void initState() {
+    super.initState();
+    profiles.add(_storage.getProfile('user')!);
+    profiles.add(_storage.getProfile('user')!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +36,9 @@ class _MultiplayerWaitingRoomPageState
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MultiplayerGamePage()),
+                MaterialPageRoute(
+                  builder: (context) => const MultiplayerGamePage(),
+                ),
               );
             },
           ),
@@ -34,8 +46,10 @@ class _MultiplayerWaitingRoomPageState
       ),
       body: SafeArea(
         child: ListView.builder(
-            itemCount: users.length,
-            itemBuilder: (BuildContext context, int index) => UserCard(user: users[index])),
+          itemCount: profiles.length,
+          itemBuilder: (BuildContext context, int index) =>
+              UserCard(profile: profiles[index]),
+        ),
       ),
     );
   }
