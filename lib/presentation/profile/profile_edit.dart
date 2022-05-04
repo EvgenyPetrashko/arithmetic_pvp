@@ -49,7 +49,7 @@ class ProfileEdit extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
-      child: OutlinedButton(
+      child: ElevatedButton(
         onPressed: _showEditDialog,
         child: const Text(
           "Edit profile",

@@ -1,5 +1,5 @@
-import 'package:arithmetic_pvp/presentation/profile/profile_achievements_short.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_info.dart';
+import 'package:arithmetic_pvp/presentation/profile/profile_stats_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,21 +24,24 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: SafeArea(
+    return SafeArea(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Container(
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
               const SizedBox(
-                height: 20,
+                height: 40,
               ),
               BlocProvider(
                 create: (BuildContext context) => _profileBloc,
-                child: const GeneralProfileInfo(),
+                child: const ProfileInfo(),
               ),
-              const ProfileAchievements(),
+              const SizedBox(
+                height: 40,
+              ),
+              const ProfileStatsPreview(),
             ],
           ),
         ),

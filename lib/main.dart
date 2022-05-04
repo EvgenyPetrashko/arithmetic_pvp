@@ -21,11 +21,28 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.deepPurpleAccent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blueGrey,
+            textStyle: const TextStyle(color: Colors.black),
+          ),
+        ),
         appBarTheme: const AppBarTheme(
-          color: Color(0xff525252),
+            // color: Color(0xff525252),
+            color: Colors.blueGrey),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.amber,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xff424242),
+            textStyle: const TextStyle(color: Colors.white),
+          ),
         ),
       ),
-      darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
