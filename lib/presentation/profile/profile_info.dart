@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_indicators/progress_indicators.dart';
-
 import '../../bloc/profile_bloc.dart';
 import '../../bloc/states/profile_states.dart';
 
@@ -30,6 +29,9 @@ class GeneralProfileInfo extends StatelessWidget {
         BlocConsumer<ProfileBloc, ProfileState>(
           bloc: _profileBloc,
           listener: (context, state) => showUserInfo(context, state),
+          buildWhen: (previousState, newState) {
+            return newState is ProfilePageState;
+          },
           builder: (context, state) {
             return Column(
               children: [
@@ -82,7 +84,7 @@ class GeneralProfileInfo extends StatelessWidget {
             );
           },
         ),
-        const ProfileEdit(),
+        ProfileEdit(),
         const ProfileSettings(),
       ],
     );
