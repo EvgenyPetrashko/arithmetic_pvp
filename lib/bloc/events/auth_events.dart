@@ -1,11 +1,13 @@
 abstract class AuthUserEvent {}
 
-class AuthUserEventLoad extends AuthUserEvent {
+class AuthEventInitial extends AuthUserEvent {}
+
+class AuthEventLoad extends AuthUserEvent {
   final String token;
 
-  AuthUserEventLoad(this.token);
+  AuthEventLoad(this.token);
 }
 
-class AuthUserEventCancel extends AuthUserEvent {}
+class AuthEventCancel extends AuthUserEvent {}
 
-class AuthUserEventStartLoading extends AuthUserEvent {}
+class AuthEventStartLoading extends AuthUserEvent {}
