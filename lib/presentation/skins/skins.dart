@@ -5,6 +5,7 @@ import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
 import 'package:arithmetic_pvp/presentation/skins/skin_card.dart';
+import 'package:arithmetic_pvp/presentation/skins/skin_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -33,56 +34,75 @@ class _SkinsPageState extends State<SkinsPage> {
     log(state.toString());
     if (state is ShopSkinsState) {
       if (state is ShopSkinsStateLoaded) {
-        setState(() {
-          skins = state.skins;
-        });
+        setState(
+          () {
+            skins = state.skins;
+          },
+        );
       } else if (state is ShopSkinsStateError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
       }
     } else if (state is ShopBuySkinState) {
       bool _loading = false;
       if (state is ShopBuyStateLoaded) {
-        setState(() {
-          for (var skin in skins) {
-            if (skin.id == state.skin.id) {
-              skin.isOwner = true;
-              break;
+        setState(
+          () {
+            for (var skin in skins) {
+              if (skin.id == state.skin.id) {
+                skin.isOwner = true;
+                break;
+              }
             }
-          }
-        });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Success"),
-        ));
+          },
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Success"),
+          ),
+        );
       } else if (state is ShopBuyStateError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
       } else {
         _loading = true;
       }
       if (!_loading) {
         _dismissDialog();
       }
+      setState(
+        () {
+          loading = _loading;
+        },
+      );
     } else if (state is ShopSelectSkinState) {
       bool _loading = false;
       if (state is ShopSelectSkinLoaded) {
-        setState(() {
-          if (state.isSuccess) {
-            for (var skin in skins) {
-              if (skin.id == state.skin.id) {
-                skin.isSelected = true;
-              } else {
-                skin.isSelected = false;
+        setState(
+          () {
+            if (state.isSuccess) {
+              for (var skin in skins) {
+                if (skin.id == state.skin.id) {
+                  skin.isSelected = true;
+                } else {
+                  skin.isSelected = false;
+                }
               }
             }
-          }
-        });
+          },
+        );
       } else if (state is ShopSelectSkinError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(state.error),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.error),
+          ),
+        );
       } else {
         _loading = true;
       }
@@ -94,35 +114,24 @@ class _SkinsPageState extends State<SkinsPage> {
     }
   }
 
+  _buyButtonFunction(Skin skin) {
+    if (!loading) {
+      setState(() {
+        loading = true;
+      });
+      _shopBloc.add(ShopUserEventBuySkin(skin));
+    }
+  }
+
   _showBuyDialog(Skin skin) {
-    showDialog(
+    return showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (context) {
         // bool loading = false;
         return StatefulBuilder(
           builder: (context, setState) {
-            return AlertDialog(
-              title: const Text('Skin purchase'),
-              content: Text(
-                  "Do you want to buy this skin? It will cost ${skin.cost}"),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: (!loading) ? _dismissDialog : null,
-                    child: const Text('Close')),
-                TextButton(
-                  onPressed: (!loading)
-                      ? () {
-                          setState(() {
-                            loading = true;
-                          });
-                          _shopBloc.add(ShopUserEventBuySkin(skin));
-                        }
-                      : null,
-                  child: const Text('Ok'),
-                )
-              ],
-            );
+            return SkinDialog(
+                skin: skin, buyButtonFunction: _buyButtonFunction);
           },
         );
       },
@@ -134,7 +143,9 @@ class _SkinsPageState extends State<SkinsPage> {
   }
 
   _selectSkin(Skin skin) {
-    _shopBloc.add(ShopUserEventSelectSkin(skin));
+    _shopBloc.add(
+      ShopUserEventSelectSkin(skin),
+    );
   }
 
   @override
@@ -146,8 +157,10 @@ class _SkinsPageState extends State<SkinsPage> {
         child: LoadingOverlay(
           isLoading: loading,
           color: Colors.black45,
-          progressIndicator: JumpingText('···',
-              style: const TextStyle(fontSize: 60)),
+          progressIndicator: JumpingText(
+            '···',
+            style: const TextStyle(fontSize: 60),
+          ),
           child: (skins.isNotEmpty)
               ? ListView.builder(
                   itemCount: skins.length,
@@ -158,8 +171,10 @@ class _SkinsPageState extends State<SkinsPage> {
                   ),
                 )
               : Center(
-                  child:
-                      JumpingText('···', style: const TextStyle(fontSize: 60)),
+                  child: JumpingText(
+                    '···',
+                    style: const TextStyle(fontSize: 60),
+                  ),
                 ),
         ),
       ),
