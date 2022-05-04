@@ -88,15 +88,9 @@ class ProfileSettings extends StatelessWidget {
       );
     }
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      child: OutlinedButton(
-        onPressed: _showMaterialDialog,
-        child: const Text(
-          "Settings",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-        ),
-      ),
+    return IconButton(
+      onPressed: _showMaterialDialog,
+      icon: const Icon(Icons.settings),
     );
   }
 }

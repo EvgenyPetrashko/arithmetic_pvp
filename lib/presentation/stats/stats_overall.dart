@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:animated_background/animated_background.dart';
-import 'package:arithmetic_pvp/presentation/stats/rain_particles.dart';
+import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,31 +19,26 @@ class _OverallStatsPageState extends State<OverallStatsPage>
     with SingleTickerProviderStateMixin {
   late Future futureAlbum;
 
-  ParticleOptions particles = const ParticleOptions(
-    // image: Image.asset('assets/spark2.png'),
-    baseColor: Colors.amberAccent,
-    spawnOpacity: 0.0,
-    opacityChangeRate: 0.25,
-    minOpacity: 0.1,
-    maxOpacity: 1,
-    particleCount: 70,
-    spawnMaxRadius: 3.0,
-    spawnMinRadius: 1.0,
-    spawnMaxSpeed: 100.0,
-    spawnMinSpeed: 30,
-  );
-
-  // var particlePaint = Paint()
-  //   ..style = PaintingStyle.stroke
-  //   ..strokeWidth = 1.0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const StatsAppBar(),
       body: SafeArea(
         child: AnimatedBackground(
-          behaviour: RainParticleBehaviour(options: particles),
+          behaviour: RainParticleBehaviour(
+            options: ParticleOptions(
+              baseColor: Theme.of(context).primaryColor,
+              spawnOpacity: 0.0,
+              opacityChangeRate: 0.25,
+              minOpacity: 0.1,
+              maxOpacity: 1,
+              particleCount: 70,
+              spawnMaxRadius: 3.0,
+              spawnMinRadius: 1.0,
+              spawnMaxSpeed: 100.0,
+              spawnMinSpeed: 30,
+            ),
+          ),
           vsync: this,
           // child: BackdropFilter(
           //   filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
