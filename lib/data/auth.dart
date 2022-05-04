@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:arithmetic_pvp/data/models/change_name_response.dart';
 import 'package:dio/dio.dart';
 
 import '../data/network_client.dart';
@@ -21,13 +22,13 @@ class Auth {
     }
   }
 
-  Future<bool?> checkUsernameIsAvailable(String username) async {
+  Future<ChangeNameResponse> changeUsername(String username) async {
     try {
-      // check if username is available on server
-      return false;
+      var response = await client.api.put("auth/set_new_username/$username");
+      return ChangeNameResponse.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data ${e.response}');
-      return null;
+      return ChangeNameResponse(status: false, error: "Please try again later");
     }
   }
 }
