@@ -1,5 +1,6 @@
 import 'package:arithmetic_pvp/presentation/profile/profile_edit.dart';
 import 'package:arithmetic_pvp/presentation/profile/profile_settings.dart';
+import 'package:arithmetic_pvp/presentation/profile/stats_redirect.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,6 +85,7 @@ class GeneralProfileInfo extends StatelessWidget {
         ),
         const ProfileEdit(),
         const ProfileSettings(),
+        const RedirectToStats(),
       ],
     );
   }
