@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:arithmetic_pvp/data/models/cookie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/user.dart';
@@ -26,6 +27,19 @@ class Storage {
       return null;
     } else {
       return Profile.fromJson(jsonDecode(value));
+    }
+  }
+
+  setCookie(key, Cookie value) {
+    _futurePref?.setString(key, jsonEncode(value.toJson()));
+  }
+
+  Cookie? getCookie(key) {
+    String? value = _futurePref?.getString(key);
+    if (value == null) {
+      return null;
+    } else {
+      return Cookie.fromJson(jsonDecode(value));
     }
   }
 
