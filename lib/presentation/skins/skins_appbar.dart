@@ -2,6 +2,7 @@ import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -22,27 +23,26 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 BlocConsumer(
                   bloc: BlocProvider.of<ProfileBloc>(context),
-                  buildWhen: (prevState, state){
+                  buildWhen: (prevState, state) {
                     return state is ProfileBalanceState;
                   },
                   builder: (context, state) {
                     if (state is ProfileBalanceStateLoaded) {
-                      return Row(mainAxisSize: MainAxisSize.min, children: [
-                        Text(
-                          state.balance.gold.toString(),
-                          style: const TextStyle(
-                            fontSize: 16,
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            state.balance.gold.toString(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        const Icon(
-                          Icons.monetization_on,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                      ]);
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          SvgPicture.asset('assets/currency.svg', width: 20),
+                        ],
+                      );
                     } else if (state is ProfileBalanceStateError) {
                       return const Text("Error Loading Balance");
                     } else {
