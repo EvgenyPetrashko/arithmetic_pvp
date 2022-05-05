@@ -13,7 +13,7 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
       }
     });
 
-    on<WaitingRoomEventUsersLoading>((event, emit) {
+    on<WaitingRoomEventPlayerJoined>((event, emit) {
 
     });
 
