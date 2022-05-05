@@ -1,6 +1,5 @@
 // time spent | solved problems | rating(elo) | matches played | average time
 import 'dart:async';
-
 import 'package:animated_background/animated_background.dart';
 import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StatsAppBar(),
+      appBar: const StatsAppBarOverall(),
       body: SafeArea(
         child: AnimatedBackground(
           behaviour: RainParticleBehaviour(

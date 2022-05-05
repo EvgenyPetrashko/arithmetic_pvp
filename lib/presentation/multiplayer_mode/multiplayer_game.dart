@@ -2,6 +2,8 @@ import 'package:arithmetic_pvp/presentation/multiplayer_mode/keyboard.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/progress_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../stats/stats_postgame.dart';
+
 class MultiplayerGamePage extends StatefulWidget {
   const MultiplayerGamePage({Key? key}) : super(key: key);
 
@@ -52,6 +54,19 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rating Game'),
+        actions: [
+          TextButton(
+            child: const Text('Finish', style: TextStyle(fontSize: 16),),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PostgameStatsPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(
@@ -61,7 +76,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
               child: Container(
                 margin: const EdgeInsets.all(5),
                 child: Column(
-                  children: [
+                  children: const [
                     UserProgress(username: 'Aidar Khuzin', value: 1),
                     UserProgress(username: 'Evgeny Petrashko', value: 0.5),
                     UserProgress(username: 'Kamil Agliullin', value: 0.8),

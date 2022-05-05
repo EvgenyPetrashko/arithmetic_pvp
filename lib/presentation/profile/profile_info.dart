@@ -2,6 +2,7 @@ import 'package:arithmetic_pvp/presentation/profile/profile_edit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import '../../bloc/profile_bloc.dart';
 import '../../bloc/states/profile_states.dart';
@@ -68,7 +69,10 @@ class ProfileInfo extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.monetization_on, color: Colors.amber),
+                      Container(
+                        child: SvgPicture.asset('assets/currency.svg', width: 32),
+                        margin: const EdgeInsets.only(right: 5),
+                      ),
                       Text(
                         (state is ProfileStateLoaded)
                             ? state.profile?.gold.toString() ?? "0"
