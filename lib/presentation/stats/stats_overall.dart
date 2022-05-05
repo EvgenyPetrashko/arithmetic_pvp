@@ -5,7 +5,6 @@ import 'package:animated_background/animated_background.dart';
 import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'stats_appbar_overall.dart';
 
 class OverallStatsPage extends StatefulWidget {
@@ -40,20 +39,18 @@ class _OverallStatsPageState extends State<OverallStatsPage>
             ),
           ),
           vsync: this,
-          // child: BackdropFilter(
-          //   filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/matches_played.svg',
-                            width: 60, color: Colors.redAccent),
+                            width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -77,7 +74,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/solved_problems.svg',
-                            width: 60, color: Colors.greenAccent),
+                            width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -97,9 +94,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 60,
               ),
               Center(
                 child: Container(
@@ -131,9 +125,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 60,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -141,8 +132,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        SvgPicture.asset('assets/overall_time.svg',
-                            width: 60, color: Colors.blueAccent),
+                        SvgPicture.asset('assets/overall_time.svg', width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -165,8 +155,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        SvgPicture.asset('assets/avg_time.svg',
-                            width: 60, color: Colors.purpleAccent),
+                        SvgPicture.asset('assets/avg_time.svg', width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -191,7 +180,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
           ),
         ),
       ),
-      // ),
     );
   }
 }

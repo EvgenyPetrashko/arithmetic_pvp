@@ -30,15 +30,15 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
           padding: const EdgeInsets.all(10),
           child: Column(
-            children: <Widget>[
-              const SizedBox(
+            children: const <Widget>[
+              SizedBox(
                 height: 40,
               ),
-              const ProfileInfo(),
-              const SizedBox(
+              ProfileInfo(),
+              SizedBox(
                 height: 40,
               ),
-              const ProfileStatsPreview(),
+              ProfileStatsPreview(),
             ],
           ),
         ),
