@@ -20,14 +20,14 @@ class SkinsPage extends StatefulWidget {
 
 class _SkinsPageState extends State<SkinsPage> {
   late ShopBloc _shopBloc;
-  List<Skin> skins = [];
-  bool loading = false;
+  List<Skin> _skins = [];
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
     _shopBloc = ShopBloc(BlocProvider.of<ProfileBloc>(context));
-    _shopBloc.add(ShopUserEventSkinsLoading());
+    _shopBloc.add(SkinsEventLoading());
   }
 
   _handleState(BuildContext context, ShopState state) {
@@ -36,7 +36,7 @@ class _SkinsPageState extends State<SkinsPage> {
       if (state is ShopSkinsStateLoaded) {
         setState(
           () {
-            skins = state.skins;
+            _skins = state.skins;
           },
         );
       } else if (state is ShopSkinsStateError) {
@@ -47,11 +47,11 @@ class _SkinsPageState extends State<SkinsPage> {
         );
       }
     } else if (state is ShopBuySkinState) {
-      bool _loading = false;
+      bool _setLoading = false;
       if (state is ShopBuyStateLoaded) {
         setState(
           () {
-            for (var skin in skins) {
+            for (var skin in _skins) {
               if (skin.id == state.skin.id) {
                 skin.isOwner = true;
                 break;
@@ -71,23 +71,24 @@ class _SkinsPageState extends State<SkinsPage> {
           ),
         );
       } else {
-        _loading = true;
+        _setLoading = true;
       }
-      if (!_loading) {
-        _dismissDialog();
+      if (!_setLoading) {
+        // dismiss dialog
+        Navigator.pop(context);
       }
       setState(
         () {
-          loading = _loading;
+          _loading = _setLoading;
         },
       );
     } else if (state is ShopSelectSkinState) {
-      bool _loading = false;
+      bool _setLoading = false;
       if (state is ShopSelectSkinLoaded) {
         setState(
           () {
             if (state.isSuccess) {
-              for (var skin in skins) {
+              for (var skin in _skins) {
                 if (skin.id == state.skin.id) {
                   skin.isSelected = true;
                 } else {
@@ -104,22 +105,22 @@ class _SkinsPageState extends State<SkinsPage> {
           ),
         );
       } else {
-        _loading = true;
+        _setLoading = true;
       }
       setState(
         () {
-          loading = _loading;
+          _loading = _setLoading;
         },
       );
     }
   }
 
   _buyButtonFunction(Skin skin) {
-    if (!loading) {
+    if (!_loading) {
       setState(() {
-        loading = true;
+        _loading = true;
       });
-      _shopBloc.add(ShopUserEventBuySkin(skin));
+      _shopBloc.add(SkinsEventBuySkin(skin));
     }
   }
 
@@ -127,24 +128,15 @@ class _SkinsPageState extends State<SkinsPage> {
     return showDialog(
       context: context,
       builder: (context) {
-        // bool loading = false;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return SkinDialog(
-                skin: skin, buyButtonFunction: _buyButtonFunction);
-          },
-        );
+        return SkinDialog(
+            skin: skin, buyButtonFunction: _buyButtonFunction);
       },
     );
   }
 
-  _dismissDialog() {
-    Navigator.pop(context);
-  }
-
   _selectSkin(Skin skin) {
     _shopBloc.add(
-      ShopUserEventSelectSkin(skin),
+      SkinsEventSelectSkin(skin),
     );
   }
 
@@ -155,17 +147,17 @@ class _SkinsPageState extends State<SkinsPage> {
         bloc: _shopBloc,
         listener: (context, ShopState state) => _handleState(context, state),
         child: LoadingOverlay(
-          isLoading: loading,
+          isLoading: _loading,
           color: Colors.black45,
           progressIndicator: JumpingText(
             '···',
             style: const TextStyle(fontSize: 60),
           ),
-          child: (skins.isNotEmpty)
+          child: (_skins.isNotEmpty)
               ? ListView.builder(
-                  itemCount: skins.length,
+                  itemCount: _skins.length,
                   itemBuilder: (context, index) => ShopCard(
-                    skin: skins[index],
+                    skin: _skins[index],
                     onBuyFunction: _showBuyDialog,
                     onSelectFunction: _selectSkin,
                   ),

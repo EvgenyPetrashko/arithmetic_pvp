@@ -7,7 +7,7 @@ class RedirectToStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: OutlinedButton(
+      child: ElevatedButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -17,8 +17,7 @@ class RedirectToStats extends StatelessWidget {
           );
         },
         child: const Text(
-          "Game stats",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+          "See all",
         ),
       ),
       margin: const EdgeInsets.only(bottom: 20),

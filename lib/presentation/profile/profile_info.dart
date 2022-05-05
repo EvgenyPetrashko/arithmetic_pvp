@@ -1,6 +1,4 @@
 import 'package:arithmetic_pvp/presentation/profile/profile_edit.dart';
-import 'package:arithmetic_pvp/presentation/profile/profile_settings.dart';
-import 'package:arithmetic_pvp/presentation/profile/stats_redirect.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +6,8 @@ import 'package:progress_indicators/progress_indicators.dart';
 import '../../bloc/profile_bloc.dart';
 import '../../bloc/states/profile_states.dart';
 
-class GeneralProfileInfo extends StatelessWidget {
-  const GeneralProfileInfo({Key? key}) : super(key: key);
+class ProfileInfo extends StatelessWidget {
+  const ProfileInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +83,7 @@ class GeneralProfileInfo extends StatelessWidget {
             );
           },
         ),
-        ProfileEdit(),
-        const ProfileSettings(),
-        const RedirectToStats(),
+        const ProfileEdit(),
       ],
     );
   }

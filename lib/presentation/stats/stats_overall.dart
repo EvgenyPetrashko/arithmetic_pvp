@@ -2,10 +2,9 @@
 import 'dart:async';
 
 import 'package:animated_background/animated_background.dart';
-import 'package:arithmetic_pvp/presentation/stats/rain_particles.dart';
+import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'stats_appbar_overall.dart';
 
 class OverallStatsPage extends StatefulWidget {
@@ -19,46 +18,39 @@ class _OverallStatsPageState extends State<OverallStatsPage>
     with SingleTickerProviderStateMixin {
   late Future futureAlbum;
 
-  ParticleOptions particles = const ParticleOptions(
-    // image: Image.asset('assets/spark2.png'),
-    baseColor: Colors.amberAccent,
-    spawnOpacity: 0.0,
-    opacityChangeRate: 0.25,
-    minOpacity: 0.1,
-    maxOpacity: 1,
-    particleCount: 70,
-    spawnMaxRadius: 3.0,
-    spawnMinRadius: 1.0,
-    spawnMaxSpeed: 100.0,
-    spawnMinSpeed: 30,
-  );
-
-  // var particlePaint = Paint()
-  //   ..style = PaintingStyle.stroke
-  //   ..strokeWidth = 1.0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const StatsAppBar(),
       body: SafeArea(
         child: AnimatedBackground(
-          behaviour: RainParticleBehaviour(options: particles),
+          behaviour: RainParticleBehaviour(
+            options: ParticleOptions(
+              baseColor: Theme.of(context).primaryColor,
+              spawnOpacity: 0.0,
+              opacityChangeRate: 0.25,
+              minOpacity: 0.1,
+              maxOpacity: 1,
+              particleCount: 70,
+              spawnMaxRadius: 3.0,
+              spawnMinRadius: 1.0,
+              spawnMaxSpeed: 100.0,
+              spawnMinSpeed: 30,
+            ),
+          ),
           vsync: this,
-          // child: BackdropFilter(
-          //   filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/matches_played.svg',
-                            width: 60, color: Colors.redAccent),
+                            width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -82,7 +74,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/solved_problems.svg',
-                            width: 60, color: Colors.greenAccent),
+                            width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -102,9 +94,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 60,
               ),
               Center(
                 child: Container(
@@ -136,9 +125,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 60,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -146,8 +132,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        SvgPicture.asset('assets/overall_time.svg',
-                            width: 60, color: Colors.blueAccent),
+                        SvgPicture.asset('assets/overall_time.svg', width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -170,8 +155,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                     margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        SvgPicture.asset('assets/avg_time.svg',
-                            width: 60, color: Colors.purpleAccent),
+                        SvgPicture.asset('assets/avg_time.svg', width: 70),
                         const SizedBox(
                           height: 10,
                         ),
@@ -196,7 +180,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
           ),
         ),
       ),
-      // ),
     );
   }
 }
