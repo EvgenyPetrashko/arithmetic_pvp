@@ -1,3 +1,4 @@
+import 'package:arithmetic_pvp/data/auth_interceptor.dart';
 import 'package:dio/dio.dart';
 
 class NetworkClient {
@@ -5,7 +6,10 @@ class NetworkClient {
   final _baseUrlTest = "http://192.168.31.116:8000/";
   late Dio api;
 
-  NetworkClient() {
+  NetworkClient(AuthInterceptor _authInterceptor) {
     api = Dio(BaseOptions(baseUrl: _baseUrl));
+    api.interceptors
+      ..clear()
+      ..add(_authInterceptor);
   }
 }

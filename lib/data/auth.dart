@@ -15,7 +15,8 @@ class Auth {
     try {
       client.api.options.headers["Authorization"] = "Bearer $token";
       var response = await client.api.post("auth/google_login");
-      return AuthResponse(response.headers["set-cookie"]?[0]);
+      final cookiesString = response.headers["set-cookie"]?[0].split(";")[0];
+      return AuthResponse(cookiesString);
     } on DioError catch (e) {
       log('data: ${e.response}');
       return AuthResponse(null, true);
