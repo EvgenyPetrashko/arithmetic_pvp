@@ -30,6 +30,16 @@ class MyApp extends StatelessWidget {
             textStyle: const TextStyle(color: Colors.black),
           ),
         ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              primary: Colors.black,
+            )
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.black,
+          )
+        ),
         appBarTheme: const AppBarTheme(
             // color: Color(0xff525252),
             color: Colors.blueGrey),
