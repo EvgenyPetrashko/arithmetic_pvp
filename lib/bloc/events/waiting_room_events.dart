@@ -1,3 +1,9 @@
-abstract class WaitingRoomEvent {}
+import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
 
-class EventUsersLoading extends WaitingRoomEvent {}
+abstract class WaitingRoomEvent extends WebSocketEvent {}
+
+class WaitingRoomEventUsersLoading extends WaitingRoomEvent {}
+
+class WaitingRoomEventStartGame extends WaitingRoomEvent {}
+
+class WaitingRoomEventReject extends WaitingRoomEvent {}

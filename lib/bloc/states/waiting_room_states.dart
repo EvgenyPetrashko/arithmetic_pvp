@@ -2,16 +2,26 @@ import '../../data/models/user.dart';
 
 abstract class WaitingRoomState {}
 
-class UsersStateLoading extends WaitingRoomState {}
+class WaitingRoomStateUsersLoading extends WaitingRoomState {}
 
-class UsersStateLoaded extends WaitingRoomState {
+class WaitingRoomStateUsersLoaded extends WaitingRoomState {
   List<Profile> users;
 
-  UsersStateLoaded(this.users);
+  WaitingRoomStateUsersLoaded(this.users);
 }
 
-class UsersStateError extends WaitingRoomState {
+class WaitingRoomStateError extends WaitingRoomState {
   String error;
 
-  UsersStateError(this.error);
+  WaitingRoomStateError(this.error);
+}
+
+class WaitingRoomStateStartGameLoading extends WaitingRoomState {}
+
+class WaitingRoomStateStartGameLoaded extends WaitingRoomState {}
+
+class WaitingRoomStateStartGameError extends WaitingRoomState {
+  String error;
+
+  WaitingRoomStateStartGameError(this.error);
 }
