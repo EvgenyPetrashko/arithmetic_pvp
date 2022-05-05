@@ -1,6 +1,8 @@
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
 import 'package:arithmetic_pvp/data/api.dart';
+import 'package:arithmetic_pvp/data/auth_interceptor.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -11,23 +13,27 @@ import '../data/storage.dart';
 class MainBloc extends Bloc<SplashScreenEvent, MainState> {
   MainBloc() : super(MainStateLoading()) {
     on<SplashScreenEventStartLoading>((event, emit) async {
+      await Firebase.initializeApp();
+
       final _getIt = GetIt.instance;
 
       Storage _storage = await Storage().init();
 
-      final _client = NetworkClient();
-      final storageCookie = _storage.getString("cookie", "");
-      if (storageCookie != "") {
-        _client.api.options.headers["cookie"] = storageCookie;
-      }
+      await GetIt.instance.allReady();
+
+      final _authInterceptor = AuthInterceptor(_storage);
+      final _client = NetworkClient(_authInterceptor);
+      final storageCookie = _storage.getCookie("cookie");
+      final sessionCookie = storageCookie?.sessionToken??"";
 
       _getIt.registerSingleton(_client);
       _getIt.registerSingleton<Auth>(Auth(_client));
       _getIt.registerSingleton<Api>(Api(_client));
       _getIt.registerSingleton(_storage);
+
       await GetIt.instance.allReady();
 
-      if (storageCookie != "") {
+      if (sessionCookie != "") {
         // TODO : check if token is still valid (api call, for example: request profile info)
         emit(MainStateLoaded(true));
       } else {

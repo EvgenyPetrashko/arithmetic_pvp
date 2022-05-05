@@ -36,6 +36,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         }
       } else {
         emit(ProfileStateLoaded(storedProfile));
+        Profile? profile = await _api.getProfileInfo();
+        if (profile != null && profile != storedProfile) {
+          _storage.setProfile("user", profile);
+          emit(ProfileStateLoaded(profile));
+        }
       }
     });
 
