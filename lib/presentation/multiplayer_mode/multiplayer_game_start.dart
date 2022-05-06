@@ -16,6 +16,7 @@ class MultiplayerGameStartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     MultiplayerGameStartBloc _multiplayerGameStartBloc =
         MultiplayerGameStartBloc();
+
     _handleState(context, state) {
       log(state.toString());
       if (state is MultiplayerGameStartStateError) {
@@ -42,8 +43,7 @@ class MultiplayerGameStartPage extends StatelessWidget {
             isLoading: (state is MultiplayerGameStartStateLoading),
             child: Center(
               child: OutlinedButton(
-                onPressed: (state is MultiplayerGameStartStateInitial ||
-                        state is MultiplayerGameStartStateError)
+                onPressed: (state is! MultiplayerGameStartStateLoading)
                     ? () {
                         _multiplayerGameStartBloc
                             .add(MultiplayerGameStartEvent());

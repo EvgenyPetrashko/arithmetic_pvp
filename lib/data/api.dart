@@ -81,7 +81,7 @@ class Api {
 
   Future<List<JoinGameResponse>?> getOpenGames() async {
     try{
-      var response = await client.api.post("api/get_rating_rooms");
+      var response = await client.api.get("api/get_rating_rooms");
       return (response.data as List<dynamic>).map((e) => JoinGameResponse.fromJson(Map<String, dynamic>.from(e))).toList();
     } on DioError catch (e) {
       log('data: ${e.response}');
