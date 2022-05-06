@@ -8,6 +8,8 @@ import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
 import 'package:web_socket_channel/io.dart';
 
+import 'models/task.dart';
+
 class WebSocketProvider {
   late final IOWebSocketChannel webSocketChannel;
 
@@ -19,13 +21,11 @@ class WebSocketProvider {
         IOWebSocketChannel.connect(Uri.parse(_testUrl), headers: headers);
   }
 
-  Stream<WebSocketEvent> get webSocketStream => webSocketChannel.stream.handleError((error) {
-    _closeSocket();
-    throw Exception();
-  }).map((response) => _processServerResponse(response));
-
-
-
+  Stream<WebSocketEvent> get webSocketStream =>
+      webSocketChannel.stream.handleError((error) {
+        _closeSocket();
+        throw Exception();
+      }).map((response) => _processServerResponse(response));
 
   _processServerResponse(response) {
     response = jsonDecode(response);
@@ -46,22 +46,35 @@ class WebSocketProvider {
           }
         case 'task_solved':
           {
-            return RatingRoomGameEventUpdateProgressbar();
+            final List<PlayerProgress> playerProgresses = response['progress']
+                .map(
+                    (playerProgress) => PlayerProgress.fromJson(playerProgress))
+                .toList()
+                .cast<PlayerProgress>();
+            return RatingRoomGameEventUpdateProgressbar(playerProgresses);
           }
       }
     }
     switch (response['reponse_to']) {
       case 'get_tasks':
         {
-          return RatingRoomGameEventTasksReceived();
+          final List<Task> tasks = response['tasks']
+              .map((task) => Task.fromJson(task))
+              .toList()
+              .cast<Task>();
+          return RatingRoomGameEventTasksReceived(tasks);
         }
       case 'submit':
         {
-          return RatingRoomGameEventTaskReport();
+          response.remove('response_to');
+          final taskReport = TaskReport.fromJson(response);
+          return RatingRoomGameEventTaskReport(taskReport);
         }
       case 'exit':
         {
-          return RatingRoomStatisticsEventReceived();
+          response.remove('response_to');
+          final stats = RatingRoomStats.fromJson(response);
+          return RatingRoomStatisticsEventReceived(stats);
         }
     }
   }
