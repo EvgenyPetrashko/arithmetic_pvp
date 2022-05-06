@@ -23,3 +23,8 @@ class WaitingRoomStateStartGameError extends WaitingRoomState {
 
   WaitingRoomStateStartGameError(this.error);
 }
+
+class WaitingRoomStateTimerUpdated extends WaitingRoomState {
+  final int timeLeft;
+  WaitingRoomStateTimerUpdated(this.timeLeft);
+}

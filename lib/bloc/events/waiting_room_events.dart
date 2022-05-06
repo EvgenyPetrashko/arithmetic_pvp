@@ -17,3 +17,8 @@ class WaitingRoomEventAllPlayersJoined extends WaitingRoomEvent {
 class WaitingRoomEventStartGame extends WaitingRoomEvent {}
 
 class WaitingRoomEventReject extends WaitingRoomEvent {}
+
+class WaitingRoomEventTimerUpdate extends WaitingRoomEvent {
+  final int timeLeft;
+  WaitingRoomEventTimerUpdate(this.timeLeft);
+}

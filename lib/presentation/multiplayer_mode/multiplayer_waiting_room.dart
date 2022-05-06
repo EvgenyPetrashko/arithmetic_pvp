@@ -12,8 +12,7 @@ import 'multiplayer_game.dart';
 class MultiplayerWaitingRoomPage extends StatefulWidget {
   final JoinGameResponse joinRoomResponse;
 
-  const MultiplayerWaitingRoomPage(
-      {Key? key, required this.joinRoomResponse})
+  const MultiplayerWaitingRoomPage({Key? key, required this.joinRoomResponse})
       : super(key: key);
 
   @override
@@ -25,6 +24,8 @@ class _MultiplayerWaitingRoomPageState
     extends State<MultiplayerWaitingRoomPage> {
   late WaitingRoomBloc _waitingRoomBloc;
   List<Player> players = [];
+  String secondsLeft = "59";
+  Color timerColor = Colors.green;
 
   @override
   void initState() {
@@ -39,17 +40,31 @@ class _MultiplayerWaitingRoomPageState
         setState(() {
           players = state.players;
         });
-      }
-      else if (state is WaitingRoomStateStartGame) {
+      } else if (state is WaitingRoomStateStartGame) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const MultiplayerGamePage(),
           ),
         );
-      }
-      else if (state is WaitingRoomStateError){
+      } else if (state is WaitingRoomStateError) {
         Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("You can't join this room"),
+          ),
+        );
+      } else if (state is WaitingRoomStateTimerUpdated) {
+        setState(() {
+          if (state.timeLeft < 10) {
+            secondsLeft = "0${state.timeLeft}";
+            if (timerColor == Colors.green) {
+              timerColor = Colors.red;
+            }
+          } else {
+            secondsLeft = state.timeLeft.toString();
+          }
+        });
       }
     }
   }
@@ -73,18 +88,39 @@ class _MultiplayerWaitingRoomPageState
           ),
         ],*/
       ),
-      body: SafeArea(
-        child: BlocConsumer(
-          bloc: _waitingRoomBloc,
-          listener: (context, state) => _handleState(context, state),
-          builder: (context, state) {
-            return ListView.builder(
-              itemCount: players.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  UserCard(player: players[index]),
-            );
-          },
-        ),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: BlocConsumer(
+              bloc: _waitingRoomBloc,
+              listener: (context, state) => _handleState(context, state),
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: players.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      UserCard(player: players[index]),
+                );
+              },
+            ),
+          ),
+          Positioned(
+            right: 10.0,
+            bottom: 10.0,
+            child: Card(
+              elevation: 3,
+              child: SizedBox(
+                width: 80.0,
+                height: 60.0,
+                child: Center(
+                  child: Text(
+                    '00:$secondsLeft',
+                    style: TextStyle(color: timerColor, fontSize: 18),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -12,11 +12,15 @@ import 'events/waiting_room_events.dart';
 class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
   final JoinGameResponse _joinRoomResponse;
 
-  WaitingRoomBloc(this._joinRoomResponse)
-      : super(WaitingRoomStateInitial()) {
+  WaitingRoomBloc(this._joinRoomResponse) : super(WaitingRoomStateInitial()) {
     final Storage _storage = GetIt.instance<Storage>();
+    int timeLeft =
+        ((DateTime.parse(_joinRoomResponse.startTime).millisecondsSinceEpoch /
+                    1000) -
+                (DateTime.now().millisecondsSinceEpoch / 1000))
+            .round();
 
-    if (GetIt.instance.isRegistered<WebSocketProvider>()){
+    if (GetIt.instance.isRegistered<WebSocketProvider>()) {
       GetIt.instance.unregister<WebSocketProvider>();
     }
     final _webSocketProvider = WebSocketProvider(_joinRoomResponse.id, {
@@ -24,13 +28,21 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
     });
     GetIt.instance.registerSingleton<WebSocketProvider>(_webSocketProvider);
 
-    _webSocketProvider.webSocketStream.listen((event) {
+    _webSocketProvider.webSocketStream.handleError((error) {
+      add(WaitingRoomEventReject());
+    }).listen((event) {
       if (event is WaitingRoomEvent) {
         add(event);
       }
     });
-    Timer timer = Timer(const Duration(seconds: 60), () {
-      add(WaitingRoomEventStartGame());
+
+    Timer timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      timeLeft--;
+      if (timeLeft == 0) {
+        timer.cancel();
+        add(WaitingRoomEventStartGame());
+      }
+      add(WaitingRoomEventTimerUpdate(timeLeft));
     });
 
     on<WaitingRoomEventPlayerJoined>((event, emit) {
@@ -40,8 +52,33 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
     on<WaitingRoomEventStartGame>((event, emit) {
       log("Timer canceled");
       timer.cancel();
+      emit(WaitingRoomStateStartGame());
     });
 
-    on<WaitingRoomEventReject>((event, emit) {});
+    on<WaitingRoomEventReject>((event, emit) {
+      timer.cancel();
+      emit(WaitingRoomStateError("Room is full"));
+    });
+
+    on<WaitingRoomEventTimerUpdate>((event, emit) {
+      emit(WaitingRoomStateTimerUpdated(event.timeLeft));
+    });
+
+    on<WaitingRoomEventAllPlayersJoined>((event, emit) {
+      log("Timer canceled");
+      timer.cancel();
+      timeLeft = ((DateTime.parse(event.room.startTime).millisecondsSinceEpoch /
+                  1000) -
+              (DateTime.now().millisecondsSinceEpoch / 1000))
+          .round();
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        timeLeft--;
+        if (timeLeft == 0) {
+          timer.cancel();
+          add(WaitingRoomEventStartGame());
+        }
+        add(WaitingRoomEventTimerUpdate(timeLeft));
+      });
+    });
   }
 }
