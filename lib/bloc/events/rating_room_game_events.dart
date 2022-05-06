@@ -20,3 +20,10 @@ class RatingRoomGameEventUpdateProgressbar extends RatingRoomGameEvent {
   final List<PlayerProgress> playerProgresses;
   RatingRoomGameEventUpdateProgressbar(this.playerProgresses);
 }
+
+class RatingRoomGameGetTasks extends RatingRoomGameEvent {}
+
+class RatingRoomGameEventSubmitAnswer extends RatingRoomGameEvent {
+  final String answer;
+  RatingRoomGameEventSubmitAnswer(this.answer);
+}

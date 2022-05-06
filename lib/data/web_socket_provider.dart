@@ -82,7 +82,7 @@ class WebSocketProvider {
     }
   }
 
-  _getTasks(){
+  getTasks(){
     webSocketChannel.sink.add(
       {
         'action': 'get_tasks'
@@ -90,7 +90,7 @@ class WebSocketProvider {
     );
   }
 
-  _submitAnswer(answer){
+  submitAnswer(answer){
     webSocketChannel.sink.add(
       {
         'action': 'submit',
@@ -99,7 +99,7 @@ class WebSocketProvider {
     );
   }
 
-  _getStats(){
+  getStats(){
     webSocketChannel.sink.add(
       {
         'action': 'get_stats'
@@ -107,7 +107,7 @@ class WebSocketProvider {
     );
   }
 
-  _closeSocket() {
+  closeSocket() {
     webSocketChannel.sink.close();
   }
 }
