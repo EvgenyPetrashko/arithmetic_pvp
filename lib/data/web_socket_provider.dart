@@ -107,7 +107,7 @@ class WebSocketProvider {
     );
   }
 
-  closeSocket() {
+  _closeSocket() {
     webSocketChannel.sink.close();
   }
 }
