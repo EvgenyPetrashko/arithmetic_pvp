@@ -4,6 +4,8 @@ import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 
 abstract class WaitingRoomEvent extends WebSocketEvent {}
 
+class WaitingRoomEventInit extends WaitingRoomEvent {}
+
 class WaitingRoomEventPlayerJoined extends WaitingRoomEvent {
   final List<Player> playersWaiting;
   WaitingRoomEventPlayerJoined(this.playersWaiting);

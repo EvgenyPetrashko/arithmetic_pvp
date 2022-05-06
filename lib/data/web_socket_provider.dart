@@ -82,29 +82,16 @@ class WebSocketProvider {
     }
   }
 
-  _getTasks(){
-    webSocketChannel.sink.add(
-      {
-        'action': 'get_tasks'
-      }
-    );
+  _getTasks() {
+    webSocketChannel.sink.add({'action': 'get_tasks'});
   }
 
-  _submitAnswer(answer){
-    webSocketChannel.sink.add(
-      {
-        'action': 'submit',
-        'answer': answer
-      }
-    );
+  _submitAnswer(answer) {
+    webSocketChannel.sink.add({'action': 'submit', 'answer': answer});
   }
 
-  _getStats(){
-    webSocketChannel.sink.add(
-      {
-        'action': 'get_stats'
-      }
-    );
+  _getStats() {
+    webSocketChannel.sink.add({'action': 'get_stats'});
   }
 
   _closeSocket() {
