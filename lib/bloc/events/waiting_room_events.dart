@@ -1,12 +1,17 @@
 import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
+import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 
 abstract class WaitingRoomEvent extends WebSocketEvent {}
 
-class WaitingRoomEventUsersLoading extends WaitingRoomEvent {
-  List<Player> players;
+class WaitingRoomEventPlayerJoined extends WaitingRoomEvent {
+  final List<Player> playersWaiting;
+  WaitingRoomEventPlayerJoined(this.playersWaiting);
+}
 
-  WaitingRoomEventUsersLoading(this.players);
+class WaitingRoomEventAllPlayersJoined extends WaitingRoomEvent {
+  final JoinGameResponse room;
+  WaitingRoomEventAllPlayersJoined(this.room);
 }
 
 class WaitingRoomEventStartGame extends WaitingRoomEvent {}
