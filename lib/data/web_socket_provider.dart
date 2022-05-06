@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:arithmetic_pvp/bloc/events/waiting_room_events.dart';
 import 'package:arithmetic_pvp/bloc/events/rating_room_game_events.dart';
-import 'package:arithmetic_pvp/bloc/events/rating_room_statistics_events.dart';
+import 'package:arithmetic_pvp/bloc/events/rating_room_statistic_events.dart';
 import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
 import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
