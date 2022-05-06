@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'package:arithmetic_pvp/bloc/events/waiting_room_events.dart';
 import 'package:arithmetic_pvp/bloc/events/rating_room_game_events.dart';
@@ -6,12 +5,13 @@ import 'package:arithmetic_pvp/bloc/events/rating_room_statistics_events.dart';
 import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
 import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
+import 'package:arithmetic_pvp/data/models/player_progress.dart';
+import 'package:arithmetic_pvp/data/models/rating_room_stats.dart';
+import 'package:arithmetic_pvp/data/models/task_report.dart';
+
 import 'package:web_socket_channel/io.dart';
 
-import 'models/player_progress.dart';
-import 'models/rating_room_stats.dart';
 import 'models/task.dart';
-import 'models/task_report.dart';
 
 class WebSocketProvider {
   late final IOWebSocketChannel webSocketChannel;
@@ -82,8 +82,29 @@ class WebSocketProvider {
     }
   }
 
-  _submitAnswer(answer) {
-    webSocketChannel.sink.add(answer);
+  _getTasks(){
+    webSocketChannel.sink.add(
+      {
+        'action': 'get_tasks'
+      }
+    );
+  }
+
+  _submitAnswer(answer){
+    webSocketChannel.sink.add(
+      {
+        'action': 'submit',
+        'answer': answer
+      }
+    );
+  }
+
+  _getStats(){
+    webSocketChannel.sink.add(
+      {
+        'action': 'get_stats'
+      }
+    );
   }
 
   _closeSocket() {
