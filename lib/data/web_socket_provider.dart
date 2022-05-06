@@ -8,7 +8,10 @@ import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
 import 'package:web_socket_channel/io.dart';
 
+import 'models/player_progress.dart';
+import 'models/rating_room_stats.dart';
 import 'models/task.dart';
+import 'models/task_report.dart';
 
 class WebSocketProvider {
   late final IOWebSocketChannel webSocketChannel;
