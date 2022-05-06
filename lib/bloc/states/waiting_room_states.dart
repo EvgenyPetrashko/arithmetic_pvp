@@ -1,13 +1,13 @@
-import '../../data/models/user.dart';
+import 'package:arithmetic_pvp/data/models/player.dart';
 
 abstract class WaitingRoomState {}
 
-class WaitingRoomStateUsersLoading extends WaitingRoomState {}
+class WaitingRoomStateInitial extends WaitingRoomState {}
 
-class WaitingRoomStateUsersLoaded extends WaitingRoomState {
-  List<Profile> users;
+class WaitingRoomStateUsersUpdate extends WaitingRoomState {
+  List<Player> players;
 
-  WaitingRoomStateUsersLoaded(this.users);
+  WaitingRoomStateUsersUpdate(this.players);
 }
 
 class WaitingRoomStateError extends WaitingRoomState {
@@ -16,9 +16,7 @@ class WaitingRoomStateError extends WaitingRoomState {
   WaitingRoomStateError(this.error);
 }
 
-class WaitingRoomStateStartGameLoading extends WaitingRoomState {}
-
-class WaitingRoomStateStartGameLoaded extends WaitingRoomState {}
+class WaitingRoomStateStartGame extends WaitingRoomState {}
 
 class WaitingRoomStateStartGameError extends WaitingRoomState {
   String error;
