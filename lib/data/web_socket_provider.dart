@@ -22,10 +22,12 @@ class WebSocketProvider {
 
   final _url = "";
 
-  WebSocketProvider(roomId) {
+  WebSocketProvider(roomId, headers){
     final String _testUrl = "ws://192.168.31.124:8000/ws/rating_room/$roomId/";
-    webSocketChannel = IOWebSocketChannel.connect(Uri.parse(_testUrl),
-        headers: {'Test-Name': 'user', 'Test-Email': 'user@gmail.com'});
+    webSocketChannel = IOWebSocketChannel.connect(
+        Uri.parse(_testUrl),
+        headers: headers
+    );
   }
 
   Stream<WebSocketEvent> get webSocketStream => webSocketChannel.stream
@@ -84,8 +86,29 @@ class WebSocketProvider {
     }
   }
 
+  _getTasks(){
+    webSocketChannel.sink.add(
+      {
+        'action': 'get_tasks'
+      }
+    );
+  }
+
   _submitAnswer(answer){
-    webSocketChannel.sink.add(answer);
+    webSocketChannel.sink.add(
+      {
+        'action': 'submit',
+        'answer': answer
+      }
+    );
+  }
+
+  _getStats(){
+    webSocketChannel.sink.add(
+      {
+        'action': 'get_stats'
+      }
+    );
   }
 
   _closeSocket() {
