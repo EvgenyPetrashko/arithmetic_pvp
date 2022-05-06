@@ -69,10 +69,20 @@ class Api {
     }
   }
   
-  Future<JoinGameResponse?> joinGame() async {
+  Future<JoinGameResponse?> createGame() async {
     try {
       var response = await client.api.post("api/create_rating_room");
       return JoinGameResponse.fromJson(Map<String, dynamic>.from(response.data));
+    } on DioError catch (e) {
+      log('data: ${e.response}');
+      return null;
+    }
+  }
+
+  Future<List<JoinGameResponse>?> getOpenGames() async {
+    try{
+      var response = await client.api.post("api/get_rating_rooms");
+      return (response.data as List<dynamic>).map((e) => JoinGameResponse.fromJson(Map<String, dynamic>.from(e))).toList();
     } on DioError catch (e) {
       log('data: ${e.response}');
       return null;

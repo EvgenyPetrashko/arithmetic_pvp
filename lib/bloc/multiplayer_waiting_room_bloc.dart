@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:arithmetic_pvp/bloc/states/waiting_room_states.dart';
 import 'package:arithmetic_pvp/data/web_socket_provider.dart';
@@ -28,15 +29,16 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
         add(event);
       }
     });
-    Timer timer = Timer(const Duration(seconds: 5), () {
+    Timer timer = Timer(const Duration(seconds: 60), () {
       add(WaitingRoomEventStartGame());
     });
 
-    on<WaitingRoomEventUsersLoading>((event, emit) {
-      emit(WaitingRoomStateUsersUpdate(event.players));
+    on<WaitingRoomEventPlayerJoined>((event, emit) {
+      emit(WaitingRoomStateUsersUpdate(event.playersWaiting));
     });
 
     on<WaitingRoomEventStartGame>((event, emit) {
+      log("Timer canceled");
       timer.cancel();
     });
 

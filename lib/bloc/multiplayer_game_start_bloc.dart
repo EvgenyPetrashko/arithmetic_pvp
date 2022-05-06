@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/events/multiplayer_game_start_events.dart';
 import 'package:arithmetic_pvp/bloc/states/multiplayer_game_start_states.dart';
 import 'package:arithmetic_pvp/data/api.dart';
@@ -12,10 +14,23 @@ class MultiplayerGameStartBloc extends Bloc<MultiplayerGameStartEvent, Multiplay
 
     on<MultiplayerGameStartEvent>((event, emit) async {
       emit(MultiplayerGameStartStateLoading());
-      JoinGameResponse? _joinGameResponse = await _api.joinGame();
-      if (_joinGameResponse != null){
-        emit(MultiplayerGameStartStateLoaded(_joinGameResponse));
-      }else{
+      List<JoinGameResponse>? openGames = await _api.getOpenGames();
+      if (openGames != null) {
+        if (openGames.isEmpty){
+          // create game
+          JoinGameResponse? _joinGameResponse = await _api.createGame();
+          if (_joinGameResponse != null){
+            log("Game created");
+            emit(MultiplayerGameStartStateLoaded(_joinGameResponse));
+          }else{
+            emit(MultiplayerGameStartStateError("Please try again later"));
+          }
+        } else {
+          // select first game
+          log("Join room");
+          emit(MultiplayerGameStartStateLoaded(openGames[0]));
+        }
+      } else {
         emit(MultiplayerGameStartStateError("Please try again later"));
       }
     });
