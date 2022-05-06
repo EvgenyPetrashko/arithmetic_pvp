@@ -23,18 +23,31 @@ class _UserProgressState extends State<UserProgress> {
               flex: 25,
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 2),
-                child: Text(widget.username, textAlign: TextAlign.center,),
+                child: Text(
+                  widget.username,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             Expanded(
-              flex: 75,
-              child: LinearProgressIndicator(
-                value: widget.value,
-                semanticsLabel: 'User progress',
-                color: Colors.black,
-                backgroundColor: Colors.black12,
-              ),
-            ),
+                flex: 75,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween<double>(begin: 0.0, end: widget.value),
+                  duration: const Duration(milliseconds: 500),
+                  builder: (context, value, _) => LinearProgressIndicator(
+                    value: value,
+                    semanticsLabel: 'User progress',
+                    color: Colors.black,
+                    backgroundColor: Colors.black12,
+                  ),
+                )
+                // child: LinearProgressIndicator(
+                //   value: widget.value,
+                //   semanticsLabel: 'User progress',
+                //   color: Colors.black,
+                //   backgroundColor: Colors.black12,
+                // ),
+                ),
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:animated_background/animated_background.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 

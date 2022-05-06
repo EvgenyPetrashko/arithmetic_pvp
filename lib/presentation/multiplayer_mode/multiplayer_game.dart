@@ -13,39 +13,55 @@ class MultiplayerGamePage extends StatefulWidget {
 
 class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
   final String expression = "2 + 2";
-  String ans = '_ _';
+  String ans = '';
 
   void updateAns(String command) {
-    setState(() {
-      switch (command) {
-        case 'DEL':
-          {
-            if (ans.isNotEmpty) {
-              ans = ans.substring(0, ans.length - 1);
-            }
-          }
-          break;
-
-        case '-':
-          {
-            if (ans.isEmpty) {
-              ans = '-';
-            } else {
-              if (ans[0] == '-') {
-                ans = ans.substring(1);
-              } else {
-                ans = '-' + ans;
+    setState(
+      () {
+        switch (command) {
+          case 'DEL':
+            {
+              if (ans.isNotEmpty) {
+                ans = ans.substring(0, ans.length - 1);
               }
             }
-          }
-          break;
+            break;
 
-        default:
-          {
-            ans = ans + command;
-          }
-          break;
-      }
+          case '-':
+            {
+              if (ans.isEmpty) {
+                ans = '-';
+              } else {
+                if (ans[0] == '-') {
+                  ans = ans.substring(1);
+                } else {
+                  ans = '-' + ans;
+                }
+              }
+            }
+            break;
+
+          default:
+            {
+              ans = ans + command;
+            }
+            break;
+        }
+      },
+    );
+  }
+
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
     });
   }
 
@@ -56,7 +72,10 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
         title: const Text('Rating Game'),
         actions: [
           TextButton(
-            child: const Text('Finish', style: TextStyle(fontSize: 16),),
+            child: const Text(
+              'Finish',
+              style: TextStyle(fontSize: 16),
+            ),
             onPressed: () {
               Navigator.push(
                 context,
@@ -76,13 +95,33 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
               child: Container(
                 margin: const EdgeInsets.all(5),
                 child: Column(
-                  children: const [
-                    UserProgress(username: 'Aidar Khuzin', value: 1),
-                    UserProgress(username: 'Evgeny Petrashko', value: 0.5),
-                    UserProgress(username: 'Kamil Agliullin', value: 0.8),
-                    UserProgress(username: 'Dmitrii Shabalin', value: 0.3),
+                  children: [
+                    const UserProgress(username: 'Aidar Khuzin', value: 1),
+                    UserProgress(
+                        username: 'Evgeny Petrashko',
+                        value: 0.3 + _counter / 10),
+                    UserProgress(
+                        username: 'Kamil Agliullin',
+                        value: 0.5 + _counter / 5),
+                    UserProgress(
+                        username: 'Dmitrii Shabalin',
+                        value: _counter / 100),
                   ],
                 ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: _incrementCounter,
+                child: Text('+0.1'),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: _decrementCounter,
+                child: Text('-0.1'),
               ),
             ),
             Expanded(
