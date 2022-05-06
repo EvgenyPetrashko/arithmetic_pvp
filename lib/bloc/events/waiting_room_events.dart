@@ -1,6 +1,6 @@
 import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
-import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
+import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 
 abstract class WaitingRoomEvent extends WebSocketEvent {}
 

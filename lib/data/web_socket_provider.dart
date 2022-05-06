@@ -84,7 +84,7 @@ class WebSocketProvider {
     }
   }
 
-  _submitAnswer(answer) {
+  _submitAnswer(answer){
     webSocketChannel.sink.add(answer);
   }
 
