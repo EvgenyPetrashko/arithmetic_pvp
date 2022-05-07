@@ -1,11 +1,13 @@
-import 'package:animated_background/animated_background.dart';
 import 'dart:developer';
+
+import 'package:animated_background/animated_background.dart';
 import 'package:arithmetic_pvp/bloc/multiplayer_game_start_bloc.dart';
 import 'package:arithmetic_pvp/bloc/states/multiplayer_game_start_states.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../bloc/events/multiplayer_game_start_events.dart';
 import '../utils/rain_particles.dart';
@@ -48,6 +50,11 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
         listener: (context, state) => _handleState(context, state),
         builder: (context, state) {
           return LoadingOverlay(
+            progressIndicator: JumpingText(
+              "...",
+              style: const TextStyle(fontSize: 60),
+            ),
+            color: Colors.grey,
             isLoading: (state is MultiplayerGameStartStateLoading),
             child: AnimatedBackground(
               behaviour: RainParticleBehaviour(
@@ -66,6 +73,7 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
               ),
               vsync: this,
               child: Container(
+                padding: const EdgeInsets.only(top: 30),
                 alignment: Alignment.center,
                 child: Ink.image(
                   image: const svg_provider.Svg('assets/start_game.svg'),

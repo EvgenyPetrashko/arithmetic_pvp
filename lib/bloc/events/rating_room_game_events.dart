@@ -24,7 +24,7 @@ class RatingRoomGameEventUpdateProgressbar extends RatingRoomGameEvent {
 class RatingRoomGameGetTasks extends RatingRoomGameEvent {}
 
 class RatingRoomGameEventSubmitAnswer extends RatingRoomGameEvent {
-  final String answer;
+  final int answer;
   RatingRoomGameEventSubmitAnswer(this.answer);
 }
 
