@@ -63,10 +63,10 @@ class _MultiplayerWaitingRoomPageState
         players = state.players;
       });
     } else if (state is WaitingRoomStateStartGame) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MultiplayerGamePage(),
+          builder: (context) => MultiplayerGamePage(players: players),
         ),
       );
     } else if (state is WaitingRoomStateError) {

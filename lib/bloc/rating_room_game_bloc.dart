@@ -36,8 +36,12 @@ class RatingRoomGameBloc extends Bloc<RatingRoomGameEvent,
       else {
         if (event.taskReport.isCorrect) {
           taskIndex += 1;
+          if (taskIndex == 10){
+            emit(RatingRoomGameStateShowStatistic());
+          }else{
+            emit(RatingRoomGameStateShowTask(tasks[taskIndex], taskIndex));
+          }
         }
-        emit(RatingRoomGameStateShowTask(tasks[taskIndex], taskIndex));
       }
     });
 
