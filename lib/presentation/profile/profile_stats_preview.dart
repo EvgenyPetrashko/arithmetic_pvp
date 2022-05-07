@@ -1,12 +1,17 @@
 import 'package:arithmetic_pvp/presentation/profile/stats_see_all_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../bloc/profile_bloc.dart';
+import '../../bloc/states/profile_states.dart';
 
 class ProfileStatsPreview extends StatelessWidget {
   const ProfileStatsPreview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -30,17 +35,25 @@ class ProfileStatsPreview extends StatelessWidget {
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'Your Rating:  ',
                 style: TextStyle(fontSize: 18),
               ),
-              Text(
-                "3829",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal),
+              BlocBuilder(
+                bloc: _profileBloc,
+                buildWhen: (previous, current) {
+                  return current is ProfileStateLoaded;
+                },
+                builder: (context, state){
+                  return Text(
+                    (state is ProfileStateLoaded) ? state.profile?.rating.toString() ?? "500" : "Loading",
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal),
+                  );
+                },
               ),
             ],
           ),
