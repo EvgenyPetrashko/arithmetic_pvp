@@ -109,7 +109,7 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                                 -(MediaQuery.of(context).size.width) / 3.3 +
                                     40),
                             child: Text(
-                              leaderboard[2],
+                              leaderboard[1],
                               style: const TextStyle(
                                   fontSize: 26, fontWeight: FontWeight.bold),
                             ),
@@ -131,7 +131,7 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                                 -(MediaQuery.of(context).size.width) / 3.3 +
                                     70),
                             child: Text(
-                              leaderboard[1],
+                              leaderboard[2],
                               style: const TextStyle(
                                   fontSize: 26, fontWeight: FontWeight.bold),
                             ),
