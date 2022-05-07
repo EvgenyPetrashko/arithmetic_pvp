@@ -40,7 +40,7 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
   }
 
   _handleState(context, state) {
-    log(state);
+    log(state.toString());
     if (state is RatingRoomStatisticStateReceived) {
       setState(() {
         goldChange = state.stats.coinReward;

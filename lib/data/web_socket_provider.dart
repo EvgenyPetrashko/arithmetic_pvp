@@ -77,7 +77,10 @@ class WebSocketProvider {
           }
         case 'refresh_stats':
           {
-            final List<int> leaderboard = response['leaderboard'];
+            final List<int> leaderboard = response['leaderboard']
+                .map((player) => player['player_id'])
+                .toList()
+                .cast<int>();
             return RatingRoomStatisticEventUpdateLeaderBoard(leaderboard);
           }
       }
