@@ -7,18 +7,17 @@ import 'package:arithmetic_pvp/data/web_socket_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-
-class RatingRoomGameBloc extends Bloc<RatingRoomGameEvent,
-      RatingRoomGameState>{
+class RatingRoomGameBloc
+    extends Bloc<RatingRoomGameEvent, RatingRoomGameState> {
   int taskIndex = 0;
   late final List<Task> tasks;
   late final WebSocketProvider webSocketProvider;
-  RatingRoomGameBloc() : super(RatingRoomGameStateInitial()) {
-    webSocketProvider =
-            GetIt.instance<WebSocketProvider>();
 
-    webSocketProvider.webSocketStream.listen( (event) {
-      if (event is RatingRoomGameEvent){
+  RatingRoomGameBloc() : super(RatingRoomGameStateInitial()) {
+    webSocketProvider = GetIt.instance<WebSocketProvider>();
+
+    webSocketProvider.webSocketStream.listen((event) {
+      if (event is RatingRoomGameEvent) {
         add(event);
       }
     });
@@ -29,16 +28,15 @@ class RatingRoomGameBloc extends Bloc<RatingRoomGameEvent,
     });
 
     on<RatingRoomGameEventTaskReport>((event, emit) {
-      if (event.taskReport.id != tasks[taskIndex].id){
+      if (event.taskReport.id != tasks[taskIndex].id) {
         log('Report to wrong task received');
         emit(RatingRoomGameStateShowTask(tasks[taskIndex], taskIndex));
-      }
-      else {
+      } else {
         if (event.taskReport.isCorrect) {
           taskIndex += 1;
-          if (taskIndex == tasks.length){
+          if (taskIndex == tasks.length) {
             emit(RatingRoomGameStateShowStatistic());
-          }else{
+          } else {
             emit(RatingRoomGameStateShowTask(tasks[taskIndex], taskIndex));
           }
         }
