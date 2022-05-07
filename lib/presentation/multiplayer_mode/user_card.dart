@@ -1,12 +1,12 @@
+import 'package:arithmetic_pvp/data/models/player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicators/progress_indicators.dart';
-import '../../data/models/user.dart';
 
 class UserCard extends StatelessWidget {
-  final Profile profile;
+  final Player player;
 
-  const UserCard({Key? key, required this.profile}) : super(key: key);
+  const UserCard({Key? key, required this.player}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class UserCard extends StatelessWidget {
                   child: CachedNetworkImage(
                     height: 48,
                     width: 48,
-                    imageUrl: profile.assetUrl ?? "",
+                    imageUrl: player.assetUrl ?? "",
                     placeholder: (context, url) => Center(
                       child: JumpingText(
                         '···',
@@ -39,7 +39,7 @@ class UserCard extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Center(
                     child: ListTile(
-                      title: Text(profile.user.username),
+                      title: Text(player.username),
                       subtitle: const Text('Joined', style: TextStyle(color: Colors.green),),
                     ),
                   ),
