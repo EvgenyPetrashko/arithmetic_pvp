@@ -1,9 +1,9 @@
 import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
 import 'package:arithmetic_pvp/data/models/rating_room_stats.dart';
 
-abstract class RatingRoomStatisticsEvent extends WebSocketEvent {}
+abstract class RatingRoomStatisticEvent extends WebSocketEvent {}
 
-class RatingRoomStatisticsEventReceived extends RatingRoomStatisticsEvent {
+class RatingRoomStatisticEventReceived extends RatingRoomStatisticEvent {
   final RatingRoomStats stats;
-  RatingRoomStatisticsEventReceived(this.stats);
+  RatingRoomStatisticEventReceived(this.stats);
 }
