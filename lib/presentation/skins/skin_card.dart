@@ -1,6 +1,7 @@
 import 'package:arithmetic_pvp/data/models/skin.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class ShopCard extends StatelessWidget {
@@ -44,22 +45,21 @@ class ShopCard extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8, right: 8),
         child: Wrap(
           children: [
-            Row(mainAxisSize: MainAxisSize.min, children: [
-              Text(
-                skin.cost.toString(),
-                style: const TextStyle(
-                  fontSize: 16,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  skin.cost.toString(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 3,
-              ),
-              const Icon(
-                Icons.monetization_on,
-                color: Colors.amber,
-                size: 20,
-              ),
-            ]),
+                const SizedBox(
+                  width: 3,
+                ),
+                SvgPicture.asset('assets/currency.svg', width: 20),
+              ],
+            ),
           ],
         ),
       );

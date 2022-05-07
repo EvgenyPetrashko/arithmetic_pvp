@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/events/profile_events.dart';
 import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,8 @@ import '../../bloc/profile_bloc.dart';
 class UsernameDialogConstants {
   UsernameDialogConstants._();
 
-  static const double topContainerPadding = 30;
-  static const double topContainerTopRadius = 25;
-  static const double topContainerBottomRadius = 40;
+  static const double topContainerPadding = 40;
+  static const double topContainerRadius = 20;
 
   static const double labelPadding = 20;
   static const double labelTopRadius = 30;
@@ -20,7 +20,7 @@ class UsernameDialogConstants {
   static const double bottomContainerPadding = 15;
   static const double bottomContainerRadius = 40;
 
-  static const double buttonRadius = 40;
+  static const double buttonRadius = 10;
   static const double buttonPadding = 20;
 }
 
@@ -45,7 +45,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     Navigator.pop(context);
   }
 
-submitUserName() {
+  submitUserName() {
     _profileBloc.add(ProfileEventChangeUsername(_userNameController.text));
   }
 
@@ -81,29 +81,15 @@ submitUserName() {
               right: UsernameDialogConstants.topContainerPadding,
               bottom: UsernameDialogConstants.topContainerPadding),
           margin: const EdgeInsets.only(
-              top: UsernameDialogConstants.labelPadding,
+              // top: UsernameDialogConstants.labelPadding,
               bottom: UsernameDialogConstants.buttonPadding +
                   UsernameDialogConstants.bottomContainerPadding),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Theme.of(context).dialogBackgroundColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(
-                  UsernameDialogConstants.topContainerTopRadius),
-              topRight: Radius.circular(
-                  UsernameDialogConstants.topContainerTopRadius),
-              bottomLeft: Radius.circular(
-                  UsernameDialogConstants.topContainerBottomRadius),
-              bottomRight: Radius.circular(
-                  UsernameDialogConstants.topContainerBottomRadius),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(UsernameDialogConstants.topContainerRadius),
             ),
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(
-                      0, UsernameDialogConstants.topContainerPadding / 2),
-                  blurRadius: UsernameDialogConstants.topContainerPadding),
-            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -144,76 +130,35 @@ submitUserName() {
           ),
         ),
         Positioned(
+          top: -8,
           left: 40,
           right: 40,
+          height: 40,
           child: Container(
-            height: UsernameDialogConstants.labelPadding * 2,
-            decoration: const BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.green,
-              borderRadius: BorderRadius.only(
-                topLeft:
-                    Radius.circular(UsernameDialogConstants.labelTopRadius),
-                topRight:
-                    Radius.circular(UsernameDialogConstants.labelTopRadius),
-                bottomLeft: Radius.circular(
-                    UsernameDialogConstants.labelBottomRadius),
-                bottomRight: Radius.circular(
-                    UsernameDialogConstants.labelBottomRadius),
-              ),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black,
-                    offset: Offset(0, 2),
-                    blurRadius: 15),
-              ],
-            ),
+            padding: const EdgeInsets.all(5),
             alignment: Alignment.center,
-            child: const ClipRect(
-              child: Text(
-                'Enter Your Name',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black),
+            decoration: const BoxDecoration(
+              color: Colors.blueGrey,
+              borderRadius: BorderRadius.all(
+                Radius.circular(UsernameDialogConstants.buttonRadius),
               ),
+            ),
+            child: const Text(
+              'Changing your nickname',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
             ),
           ),
         ),
         Positioned(
-          bottom: UsernameDialogConstants.buttonPadding,
-          left: 30,
-          right: 30,
-          height: UsernameDialogConstants.bottomContainerPadding * 2,
-          child: ClipRect(
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Theme.of(context).dialogBackgroundColor,
-                // color: Colors.grey,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(
-                      UsernameDialogConstants.bottomContainerRadius),
-                  bottomRight: Radius.circular(
-                      UsernameDialogConstants.bottomContainerRadius),
-                ),
-                // boxShadow: const [
-                //   BoxShadow(
-                //       color: Colors.black,
-                //       offset: Offset(0, UsernameDialogConstants.bottomContainerPadding),
-                //       blurRadius: 2),
-                // ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 80,
-          right: 80,
+          bottom: 15,
+          left: 200,
+          right: 20,
           height: UsernameDialogConstants.buttonPadding * 2,
           child: ClipRect(
-            child: OutlinedButton(
+            child: ElevatedButton(
               onPressed: (state is ProfileChangeUsernameStateLoading)
                   ? null
                   : submitUserName,
@@ -225,8 +170,7 @@ submitUserName() {
                     color: Colors.white),
               ),
               style: OutlinedButton.styleFrom(
-                // primary: Colors.white,
-                backgroundColor: Colors.lightGreen,
+                backgroundColor: const Color(0xff5da854),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(UsernameDialogConstants.buttonRadius),
@@ -236,24 +180,32 @@ submitUserName() {
             ),
           ),
         ),
-
-        // Positioned(
-        //   top: UsernameDialogConstants.topContainerPadding * 0.75,
-        //   right: 5,
-        //   // height: UsernameDialogConstants.buttonPadding * 2,
-        //   child: ClipRect(
-        //     child: IconButton(
-        //       icon: const Icon(
-        //         Icons.close,
-        //         color: Colors.black,
-        //         size: 20,
-        //       ),
-        //       onPressed: (state is ProfileChangeUsernameStateLoading)
-        //           ? null
-        //           : _dismissEditDialog,
-        //     ),
-        //   ),
-        // ),
+        Positioned(
+          bottom: 15,
+          left: 20,
+          right: 195,
+          height: UsernameDialogConstants.buttonPadding * 2,
+          child: ClipRect(
+            child: ElevatedButton(
+              onPressed: _dismissEditDialog,
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: const Color(0xffa85454),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(UsernameDialogConstants.buttonRadius),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

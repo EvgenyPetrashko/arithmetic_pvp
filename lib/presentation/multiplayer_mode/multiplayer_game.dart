@@ -1,3 +1,4 @@
+import 'package:animated_background/animated_background.dart';
 import 'dart:developer';
 
 import 'package:arithmetic_pvp/bloc/rating_room_game_bloc.dart';
@@ -10,6 +11,8 @@ import '../../bloc/events/rating_room_game_events.dart';
 import '../../bloc/states/rating_room_game_states.dart';
 import '../../data/models/player_progress.dart';
 
+import '../stats/stats_postgame.dart';
+
 class MultiplayerGamePage extends StatefulWidget {
   const MultiplayerGamePage({Key? key}) : super(key: key);
 
@@ -17,7 +20,8 @@ class MultiplayerGamePage extends StatefulWidget {
   State<MultiplayerGamePage> createState() => _MultiplayerGamePageState();
 }
 
-class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
+class _MultiplayerGamePageState extends State<MultiplayerGamePage>
+    with SingleTickerProviderStateMixin {
   final _ratingRoomGameBloc = RatingRoomGameBloc();
   String expression = "";
   String ans = '';
@@ -55,29 +59,33 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
           }
           break;
       }
-      if (oldAnswer != ans){
+      if (oldAnswer != ans) {
         _ratingRoomGameBloc.add(RatingRoomGameEventSubmitAnswer(ans));
       }
     });
   }
 
-  List<UserProgress> _constructProgressBars(state){
-    if (state is RatingRoomGameStateUpdateProgressbar){
+  List<UserProgress> _constructProgressBars(state) {
+    if (state is RatingRoomGameStateUpdateProgressbar) {
       setState(() {
         currentProgresses = state.playerProgresses;
         ans = "";
       });
     }
     List<UserProgress> userProgresses = [];
-    for (final progress in currentProgresses){
-      userProgresses.add(UserProgress(username: progress.id.toString(), value: progress.tasksSolved / 10));
+    for (final progress in currentProgresses) {
+      userProgresses.add(UserProgress(
+        username: progress.id.toString(),
+        value: progress.tasksSolved / 10,
+        color: Colors.redAccent,
+      ));
     }
     return userProgresses;
   }
 
   _handleState(context, state) {
     log(state.toString());
-    if (state is RatingRoomGameStateShowTask){
+    if (state is RatingRoomGameStateShowTask) {
       setState(() {
         expression = state.task.content;
       });
@@ -94,82 +102,105 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rating Game'),
-      ),
-      body: SafeArea(
-        child: BlocConsumer(
-            bloc: _ratingRoomGameBloc,
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Expanded(
-                    flex: 20,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        children: _constructProgressBars(state),
+        appBar: AppBar(
+          title: const Text('Rating Game'),
+          actions: [
+            TextButton(
+              child: const Text(
+                'Finish',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PostgameStatsPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: AnimatedBackground(
+            behaviour:
+                RacingLinesBehaviour(numLines: 5, direction: LineDirection.Ltr),
+            vsync: this,
+            child: BlocConsumer(
+                bloc: _ratingRoomGameBloc,
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        flex: 20,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          child: Column(
+                            children: _constructProgressBars(state),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 35,
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 55,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: Text(
-                              expression,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.bold),
+                      Expanded(
+                        flex: 35,
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 55,
+                              child: Container(
+                                margin: const EdgeInsets.all(5),
+                                child: Text(
+                                  expression,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 10,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: const Text(
-                              '=',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.bold),
+                            Expanded(
+                              flex: 10,
+                              child: Container(
+                                margin: const EdgeInsets.all(5),
+                                child: const Text(
+                                  '=',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 35,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: Text(
-                              ans,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.bold),
+                            Expanded(
+                              flex: 35,
+                              child: Container(
+                                margin: const EdgeInsets.all(5),
+                                child: Text(
+                                  ans,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 45,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Keyboard(
-                        onTap: updateAns,
                       ),
-                    ),
-                  ),
-                ],
-              );
-            },
-            listener: (context, state) => _handleState(context, state)),
-      ),
-    );
+                      Expanded(
+                        flex: 45,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          child: Keyboard(
+                            onTap: updateAns,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                listener: (context, state) => _handleState(context, state)),
+          ),
+        ));
   }
 }

@@ -51,6 +51,7 @@ dependencies:
   progress_indicators: ^1.0.0
   animated_background: ^2.0.0
   theme_provider: ^0.5.0
+  flutter_svg_provider: ^1.0.3
   web_socket_channel: ^2.2.0
 
 dev_dependencies:
