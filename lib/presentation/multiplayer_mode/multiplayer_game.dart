@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/events/rating_room_game_events.dart';
-import '../../bloc/states/rating_room_game_state.dart';
+import '../../bloc/states/rating_room_game_states.dart';
 import '../../data/models/player_progress.dart';
 
 class MultiplayerGamePage extends StatefulWidget {
