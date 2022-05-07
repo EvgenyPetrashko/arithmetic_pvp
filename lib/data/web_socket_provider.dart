@@ -8,7 +8,7 @@ import 'package:arithmetic_pvp/bloc/events/web_socket_events.dart';
 import 'package:arithmetic_pvp/data/models/join_room_response.dart';
 import 'package:arithmetic_pvp/data/models/player.dart';
 import 'package:arithmetic_pvp/data/models/player_progress.dart';
-import 'package:arithmetic_pvp/data/models/rating_room_stats.dart';
+import 'package:arithmetic_pvp/data/models/rating_room_stats_response.dart';
 import 'package:arithmetic_pvp/data/models/task_report.dart';
 
 import 'package:web_socket_channel/io.dart';
@@ -95,7 +95,7 @@ class WebSocketProvider {
           }
         case 'exit':
           {
-            final RatingRoomStats stats = RatingRoomStats.fromJson(response);
+            final RatingRoomStatsResponse stats = RatingRoomStatsResponse.fromJson(response);
             return RatingRoomStatisticEventReceived(stats);
           }
       }
