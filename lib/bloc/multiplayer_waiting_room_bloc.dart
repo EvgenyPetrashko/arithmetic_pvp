@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:arithmetic_pvp/bloc/states/waiting_room_states.dart';
 import 'package:arithmetic_pvp/data/web_socket_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,16 +14,21 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
 
   WaitingRoomBloc(this._joinGameResponse) : super(WaitingRoomStateInitial()) {
     final _storage = GetIt.instance<Storage>();
+    StreamSubscription? listener;
 
     on<WaitingRoomEventPlayerJoined>((event, emit) {
       emit(WaitingRoomStateUsersUpdate(event.playersWaiting));
     });
 
-    on<WaitingRoomEventStartGame>((event, emit) {
+    on<WaitingRoomEventStartGame>((event, emit) async {
+      await listener?.cancel();
+      log("Subscription Canceled");
       emit(WaitingRoomStateStartGame());
     });
 
     on<WaitingRoomEventReject>((event, emit) async {
+      await listener?.cancel();
+      log("Subscription Canceled");
       emit(WaitingRoomStateError());
     });
 
@@ -36,7 +44,8 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
               .round()));
     });
 
-    on<WaitingRoomEventInit>((event, emit) {
+    on<WaitingRoomEventInit>((event, emit) async {
+      await listener?.cancel();
       if (GetIt.instance.isRegistered<WebSocketProvider>()) {
         GetIt.instance.unregister<WebSocketProvider>();
       }
@@ -45,7 +54,7 @@ class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
       });
       GetIt.instance.registerSingleton<WebSocketProvider>(_webSocketProvider);
 
-      _webSocketProvider.webSocketStream.handleError((error) {
+      listener = _webSocketProvider.webSocketStream.handleError((error) {
         add(WaitingRoomEventReject());
       }).listen((event) {
         if (event is WaitingRoomEvent) {
