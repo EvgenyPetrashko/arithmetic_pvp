@@ -116,7 +116,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => const PostgameStatsPage()));
+              builder: (BuildContext context) => PostgameStatsPage(players: widget.players)));
     }
   }
 
@@ -142,7 +142,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PostgameStatsPage(),
+                    builder: (context) => PostgameStatsPage(players: widget.players),
                   ),
                 );
               },
