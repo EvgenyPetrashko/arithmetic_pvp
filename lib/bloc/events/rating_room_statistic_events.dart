@@ -9,3 +9,9 @@ class RatingRoomStatisticEventReceived extends RatingRoomStatisticEvent {
   final RatingRoomStatsResponse stats;
   RatingRoomStatisticEventReceived(this.stats);
 }
+
+class RatingRoomStatisticEventUpdateLeaderBoard
+    extends RatingRoomStatisticEvent {
+  final List<int> leaderboard;
+  RatingRoomStatisticEventUpdateLeaderBoard(this.leaderboard);
+}
