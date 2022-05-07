@@ -78,7 +78,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
     for (var player in widget.players){
       for (var progress in progresses){
         if (progress.id == player.playerId){
-          progressesList.add(progress.tasksSolved / 10);
+          progressesList.add(progress.tasksSolved / _ratingRoomGameBloc.tasks.length);
           break;
         }
       }
