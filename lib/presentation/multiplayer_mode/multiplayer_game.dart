@@ -87,6 +87,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
   @override
   void initState() {
     super.initState();
+    log("Request tasks");
     _ratingRoomGameBloc.add(RatingRoomGameGetTasks());
   }
 
