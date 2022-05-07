@@ -29,6 +29,7 @@ class _MultiplayerWaitingRoomPageState
   Timer? timer;
   List<Player> players = [];
   int secondsLeft = 59;
+  int backPressed = 0;
 
   @override
   void initState() {
@@ -82,51 +83,68 @@ class _MultiplayerWaitingRoomPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Waiting Room'),
-      ),
-      body: Stack(
-        children: [
-          SafeArea(
-            child: BlocConsumer(
-              bloc: _waitingRoomBloc,
-              listener: (context, state) => _handleState(context, state),
-              builder: (context, state) {
-                return ListView.builder(
-                  itemCount: players.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      UserCard(player: players[index]),
-                );
-              },
+    return WillPopScope(
+      onWillPop: () async {
+        if (backPressed == 0) {
+          setState(() {
+            backPressed += 1;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Press once again to exit"),
             ),
-          ),
-          Positioned(
-            right: 10.0,
-            bottom: 10.0,
-            child: Card(
-              elevation: 3,
-              child: SizedBox(
-                width: 80.0,
-                height: 60.0,
-                child: Center(
-                  child: Text(
-                    '00:${secondsLeft < 10 ? "0" + secondsLeft.toString() : secondsLeft}',
-                    style: TextStyle(
-                        color: (secondsLeft < 10) ? Colors.red : Colors.green,
-                        fontSize: 18),
+          );
+        } else {
+          Navigator.pop(context);
+        }
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Waiting Room'),
+        ),
+        body: Stack(
+          children: [
+            SafeArea(
+              child: BlocConsumer(
+                bloc: _waitingRoomBloc,
+                listener: (context, state) => _handleState(context, state),
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: players.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        UserCard(player: players[index]),
+                  );
+                },
+              ),
+            ),
+            Positioned(
+              right: 10.0,
+              bottom: 10.0,
+              child: Card(
+                elevation: 3,
+                child: SizedBox(
+                  width: 80.0,
+                  height: 60.0,
+                  child: Center(
+                    child: Text(
+                      '00:${secondsLeft < 10 ? "0" + secondsLeft.toString() : secondsLeft}',
+                      style: TextStyle(
+                          color: (secondsLeft < 10) ? Colors.red : Colors.green,
+                          fontSize: 18),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Center(
-            child: JumpingText(
-              "...",
-              style: const TextStyle(fontSize: 60),
+            Center(
+              child: JumpingText(
+                "...",
+                style: const TextStyle(fontSize: 60),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
