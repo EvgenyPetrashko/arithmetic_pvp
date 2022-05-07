@@ -7,6 +7,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
+import '../../bloc/events/multiplayer_game_start_events.dart';
 import '../utils/rain_particles.dart';
 import 'multiplayer_waiting_room.dart';
 
@@ -20,8 +21,8 @@ class MultiplayerGameStartPage extends StatefulWidget {
 
 class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
     with SingleTickerProviderStateMixin {
-  MultiplayerGameStartBloc _multiplayerGameStartBloc =
-  MultiplayerGameStartBloc();
+  final MultiplayerGameStartBloc _multiplayerGameStartBloc =
+      MultiplayerGameStartBloc();
 
   _handleState(context, state) {
     log(state.toString());
@@ -35,9 +36,8 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (_context) =>
-                  MultiplayerWaitingRoomPage(
-                      joinRoomResponse: state.joinGameResponse)));
+              builder: (_context) => MultiplayerWaitingRoomPage(
+                  joinRoomResponse: state.joinGameResponse)));
     }
   }
 
@@ -52,9 +52,7 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
             child: AnimatedBackground(
               behaviour: RainParticleBehaviour(
                 options: ParticleOptions(
-                  baseColor: Theme
-                      .of(context)
-                      .primaryColor,
+                  baseColor: Theme.of(context).primaryColor,
                   spawnOpacity: 0.0,
                   opacityChangeRate: 0.25,
                   minOpacity: 0.1,
@@ -75,30 +73,21 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
                   height: 150,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (
-                                context) => const MultiplayerWaitingRoomPage()),
-                      );
-                    },
+                    onTap: (state is! MultiplayerGameStartStateLoading)
+                        ? () {
+                            _multiplayerGameStartBloc
+                                .add(MultiplayerGameStartEvent());
+                          }
+                        : null,
                     child: SizedBox(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height,
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
                     ),
                   ),
                 ),
               ),
             ),
           );
-        }
-    );
+        });
   }
 }

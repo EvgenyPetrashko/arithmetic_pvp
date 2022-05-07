@@ -20,7 +20,8 @@ class MultiplayerGamePage extends StatefulWidget {
   State<MultiplayerGamePage> createState() => _MultiplayerGamePageState();
 }
 
-class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTickerProviderStateMixin {
+class _MultiplayerGamePageState extends State<MultiplayerGamePage>
+    with SingleTickerProviderStateMixin {
   final _ratingRoomGameBloc = RatingRoomGameBloc();
   String expression = "";
   String ans = '';
@@ -76,7 +77,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTi
       userProgresses.add(UserProgress(
         username: progress.id.toString(),
         value: progress.tasksSolved / 10,
-        color: Colors.redAccent,));
+        color: Colors.redAccent,
+      ));
     }
     return userProgresses;
   }
@@ -100,29 +102,29 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rating Game'),
-        actions: [
-          TextButton(
-            child: const Text(
-              'Finish',
-              style: TextStyle(fontSize: 16),
+        appBar: AppBar(
+          title: const Text('Rating Game'),
+          actions: [
+            TextButton(
+              child: const Text(
+                'Finish',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PostgameStatsPage(),
+                  ),
+                );
+              },
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PostgameStatsPage(),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: AnimatedBackground(
+          ],
+        ),
+        body: SafeArea(
+          child: AnimatedBackground(
             behaviour:
-            RacingLinesBehaviour(numLines: 5, direction: LineDirection.Ltr),
+                RacingLinesBehaviour(numLines: 5, direction: LineDirection.Ltr),
             vsync: this,
             child: BlocConsumer(
                 bloc: _ratingRoomGameBloc,
@@ -151,7 +153,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTi
                                   expression,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
-                                      fontSize: 40, fontWeight: FontWeight.bold),
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -163,7 +166,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTi
                                   '=',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 40, fontWeight: FontWeight.bold),
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -175,7 +179,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTi
                                   ans,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
-                                      fontSize: 40, fontWeight: FontWeight.bold),
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -195,7 +200,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> with SingleTi
                   );
                 },
                 listener: (context, state) => _handleState(context, state)),
-            ),
-        ),
+          ),
+        ));
   }
 }
