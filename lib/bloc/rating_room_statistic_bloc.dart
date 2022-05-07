@@ -44,7 +44,7 @@ class RatingRoomStatisticBloc
       }
 
       emit(RatingRoomStatisticStateReceived(RatingRoomStats(
-          stats.rating - rating, stats.gold - gold, leaderboard)));
+          stats.gold - gold, stats.rating - rating, leaderboard)));
     });
 
     on<RatingRoomStatisticEventUpdateLeaderBoard>((event, emit) {
