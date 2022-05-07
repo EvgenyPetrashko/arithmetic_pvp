@@ -24,7 +24,7 @@ class WebSocketProvider {
   WebSocketProvider(roomId, headers, [test = true]) {
     final String _url =
         "wss://arithmetic-pvp-backend.herokuapp.com/ws/rating_room/$roomId/";
-    final String _testUrl = "ws://192.168.31.116:8000/ws/rating_room/$roomId/";
+    final String _testUrl = "ws://192.168.31.124:8000/ws/rating_room/$roomId/";
     if (test) {
       webSocketChannel =
           IOWebSocketChannel.connect(Uri.parse(_testUrl), headers: headers);
@@ -50,8 +50,7 @@ class WebSocketProvider {
 
   _processServerResponse(response) {
     response = jsonDecode(response);
-    // log("Response from server ${response.toString()}");
-    // print(response);
+    log("Response from server ${response.toString()}");
     if (response.containsKey('action')) {
       switch (response['action']) {
         case 'player_joined':
@@ -64,7 +63,7 @@ class WebSocketProvider {
           }
         case 'all_players_joined':
           {
-            final room = JoinGameResponse.fromJson(response['room']);
+            final JoinGameResponse room = JoinGameResponse.fromJson(response['room']);
             return WaitingRoomEventAllPlayersJoined(room);
           }
         case 'task_solved':
@@ -78,27 +77,45 @@ class WebSocketProvider {
           }
       }
     }
-    switch (response['reponse_to']) {
-      case 'get_tasks':
-        {
-          final List<Task> tasks = response['tasks']
-              .map((task) => Task.fromJson(task))
-              .toList()
-              .cast<Task>();
-          return RatingRoomGameEventTasksReceived(tasks);
-        }
-      case 'submit':
-        {
-          response.remove('response_to');
-          final taskReport = TaskReport.fromJson(response);
-          return RatingRoomGameEventTaskReport(taskReport);
-        }
-      case 'exit':
-        {
-          response.remove('response_to');
-          final stats = RatingRoomStats.fromJson(response);
-          return RatingRoomStatisticEventReceived(stats);
-        }
+    if (response.containsKey('response_to')) {
+      switch (response['response_to']) {
+        case 'get_tasks':
+          {
+            final List<Task> tasks = response['tasks']
+                .map((task) => Task.fromJson(task))
+                .toList()
+                .cast<Task>();
+            return RatingRoomGameEventTasksReceived(tasks);
+          }
+        case 'submit':
+          {
+            final TaskReport taskReport = TaskReport.fromJson(response);
+            log(taskReport.toString());
+            return RatingRoomGameEventTaskReport(taskReport);
+          }
+        case 'exit':
+          {
+            final RatingRoomStats stats = RatingRoomStats.fromJson(response);
+            return RatingRoomStatisticEventReceived(stats);
+          }
+      }
+    }
+    if (response.containsKey('error')) {
+      log(response['error']);
+      switch (response['error']) {
+        case "The game didn't start yet":
+          {
+            return RatingRoomGameEventDidNotStart();
+          }
+        case "time is up":
+          {
+            return RatingRoomGameEventShowStatistic();
+          }
+        case "All tasks solved":
+          {
+            return RatingRoomGameEventShowStatistic();
+          }
+      }
     }
   }
 

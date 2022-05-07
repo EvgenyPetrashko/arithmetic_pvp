@@ -8,6 +8,6 @@ class TaskReport {
 
   factory TaskReport.fromJson(Map<String, dynamic> json) =>
       TaskReport(
-          id: json["id"] as int,
+          id: json["task_id"] as int,
           isCorrect: json["result"] as bool);
 }
