@@ -1,3 +1,4 @@
+import 'package:animated_background/animated_background.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/keyboard.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,8 @@ class MultiplayerGamePage extends StatefulWidget {
   State<MultiplayerGamePage> createState() => _MultiplayerGamePageState();
 }
 
-class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
+class _MultiplayerGamePageState extends State<MultiplayerGamePage>
+    with SingleTickerProviderStateMixin {
   final String expression = "2 + 2";
   String ans = '';
 
@@ -51,17 +53,11 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
     );
   }
 
-  int _counter = 0;
+  double _counter = 0;
 
-  void _incrementCounter() {
+  void _setCounter(double x) {
     setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
+      _counter = x;
     });
   }
 
@@ -88,96 +84,130 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 20,
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                child: Column(
-                  children: [
-                    const UserProgress(username: 'Aidar Khuzin', value: 1),
-                    UserProgress(
-                        username: 'Evgeny Petrashko',
-                        value: 0.3 + _counter / 10),
-                    UserProgress(
-                        username: 'Kamil Agliullin',
-                        value: 0.5 + _counter / 5),
-                    UserProgress(
-                        username: 'Dmitrii Shabalin',
-                        value: _counter / 100),
-                  ],
+        child: AnimatedBackground(
+          behaviour:
+              RacingLinesBehaviour(numLines: 5, direction: LineDirection.Ltr),
+          vsync: this,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 20,
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  child: Column(
+                    children: [
+                      UserProgress(
+                          username: 'Aidar Khuzin',
+                          value: _counter,
+                          color: Colors.redAccent),
+                      UserProgress(
+                          username: 'Evgeny Petrashko',
+                          value: _counter,
+                          color: Colors.purple),
+                      UserProgress(
+                          username: 'Kamil Agliullin',
+                          value: _counter,
+                          color: Colors.green),
+                      UserProgress(
+                          username: 'Dmitrii Shabalin',
+                          value: _counter,
+                          color: Colors.blueAccent),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: ElevatedButton(
-                onPressed: _incrementCounter,
-                child: Text('+0.1'),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: ElevatedButton(
-                onPressed: _decrementCounter,
-                child: Text('-0.1'),
-              ),
-            ),
-            Expanded(
-              flex: 35,
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 55,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Text(
-                        expression,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                  ElevatedButton(
+                    onPressed: () => _setCounter(0.0),
+                    child: const Text('0%'),
                   ),
-                  Expanded(
-                    flex: 10,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: const Text(
-                        '=',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                  const SizedBox(
+                    width: 5,
                   ),
-                  Expanded(
-                    flex: 35,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Text(
-                        ans,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                  ElevatedButton(
+                    onPressed: () => _setCounter(0.25),
+                    child: const Text('25%'),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _setCounter(0.5),
+                    child: const Text('50%'),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _setCounter(0.75),
+                    child: const Text('75%'),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _setCounter(1),
+                    child: const Text('100%'),
                   ),
                 ],
               ),
-            ),
-            Expanded(
-              flex: 45,
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                child: Keyboard(
-                  onTap: updateAns,
+              Expanded(
+                flex: 35,
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 55,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        child: Text(
+                          expression,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        child: const Text(
+                          '=',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 35,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        child: Text(
+                          ans,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 45,
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  child: Keyboard(
+                    onTap: updateAns,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
