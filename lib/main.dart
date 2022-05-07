@@ -26,20 +26,21 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.deepPurpleAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: Colors.blueGrey,
-            textStyle: const TextStyle(color: Colors.black),
+            primary: const Color(0xff70ABE2),
+            textStyle: const TextStyle(
+              color: Colors.black,
+                fontSize: 16, fontWeight: FontWeight.normal,
+            ),
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-              primary: Colors.black,
-            )
-        ),
+          primary: Colors.black,
+        )),
         textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            primary: Colors.black,
-          )
-        ),
+            style: TextButton.styleFrom(
+          primary: Colors.black,
+        )),
         appBarTheme: const AppBarTheme(
             // color: Color(0xff525252),
             color: Colors.blueGrey),
@@ -128,24 +129,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         child: Center(
           child: ScaleTransition(
             scale: _animation,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/dark_logo.svg",
-                    height: 128,
-                    width: 128,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Arithmetic PvP",
-                    style:
-                    TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                ]
-            ),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SvgPicture.asset(
+                "assets/dark_logo.svg",
+                height: 128,
+                width: 128,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Arithmetic PvP",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ]),
           ),
         ),
       ),

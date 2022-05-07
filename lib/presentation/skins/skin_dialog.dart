@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../data/models/skin.dart';
@@ -41,13 +42,14 @@ class SkinDialog extends StatelessWidget {
             bottom: Constants.padding),
         margin: const EdgeInsets.only(top: Constants.skinRadius),
         decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: Theme.of(context).dialogBackgroundColor,
-            borderRadius: BorderRadius.circular(Constants.padding),
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black, offset: Offset(0, 5), blurRadius: 15),
-            ]),
+          shape: BoxShape.rectangle,
+          color: Theme.of(context).dialogBackgroundColor,
+          borderRadius: BorderRadius.circular(Constants.padding),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black38, offset: Offset(0, 3), blurRadius: 7),
+          ],
+        ),
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           Text(
             skin.name,
@@ -72,7 +74,12 @@ class SkinDialog extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                  primary: Colors.green,
+                  primary: const Color(0xff5da854),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   buyButtonFunction(skin);
@@ -81,17 +88,13 @@ class SkinDialog extends StatelessWidget {
                   Text(
                     skin.cost.toString(),
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                     ),
                   ),
                   const SizedBox(
-                    width: 3,
+                    width: 5,
                   ),
-                  const Icon(
-                    Icons.monetization_on,
-                    color: Colors.amber,
-                    size: 20,
-                  ),
+                  SvgPicture.asset('assets/currency.svg', width: 18),
                 ]),
               ),
             ),

@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:animated_background/animated_background.dart';
 import 'package:arithmetic_pvp/presentation/stats/stats_appbar_postgame.dart';
 import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
