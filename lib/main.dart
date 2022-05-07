@@ -1,5 +1,6 @@
 import 'dart:developer';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:arithmetic_pvp/generated/l10n.dart';
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
 import 'package:arithmetic_pvp/presentation/authentication/login.dart';
@@ -57,6 +58,16 @@ class MyApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.system,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ru', ''),
+      ],
       home: const MyHomePage(),
     );
   }
