@@ -36,6 +36,13 @@ class RatingRoomStatisticBloc
     on<RatingRoomStatisticEventReceived>((event, emit) {
       final RatingRoomStatsResponse stats = event.stats;
       final List<String> leaderboard = getLeaderboard(stats.leaderboard, players);
+      final profile = storage.getProfile('user');
+      if (profile != null) {
+        profile.gold = stats.gold;
+        profile.rating = stats.rating;
+        storage.setProfile('user', profile);
+      }
+
       emit(RatingRoomStatisticStateReceived(RatingRoomStats(
           stats.rating - rating, stats.gold - gold, leaderboard)));
     });
@@ -47,23 +54,13 @@ class RatingRoomStatisticBloc
   }
 
   List<String> getLeaderboard(List<int> leaderboardIds, List<Player> players) {
-    log("ultrabegin");
     final a1 = leaderboardIds
         .map((playerId) =>
         players.firstWhere((player) => player.playerId == playerId)).toList();
-    log("begin");
-    log(a1.runtimeType.toString());
     final a2 = a1.map((player) => player.username).toList();
-    log(a2.runtimeType.toString());
 
     final leaderboardNicks = a2;
 
-    // List<String> leaderboardNicks = leaderboardIds
-    //     .map((playerId) =>
-    //         players.firstWhere((player) => player.playerId == playerId))
-    //     .map((player) => player.username)
-    //     .toList()
-    //     .cast<String>();
     for (int i = 0; i < 3; i++) {
       if (i >= leaderboardNicks.length) {
         leaderboardNicks.add('-');
