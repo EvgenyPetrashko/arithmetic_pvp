@@ -30,6 +30,7 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
   late Future futureAlbum;
   int goldChange = 0;
   int ratingChange = 0;
+  String ratingChangeAssetPath = "assets/rating_up.svg";
   List<String> leaderboard = ["-", "-", "-"];
 
   @override
@@ -46,6 +47,11 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
         goldChange = state.stats.coinReward;
         ratingChange = state.stats.ratingDelta;
         leaderboard = state.stats.leaderboard;
+        if (ratingChange > 0) {
+          ratingChangeAssetPath = "assets/rating_up.svg";
+        } else {
+          ratingChangeAssetPath = "assets/rating_down.svg";
+        }
       });
     } else if (state is RatingRoomStatisticStateUpdateLeaderboard) {
       setState(() {
@@ -184,28 +190,13 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                             ),
                             Row(
                               children: [
-                                const Text(
-                                  '+ 10 ',
-                                  style: TextStyle(
+                                Text(
+                                  ratingChange.toString(),
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SvgPicture.asset('assets/rating_up.svg',
-                                    height: 26),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                const Text(
-                                  'or - 10 ',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SvgPicture.asset('assets/rating_down.svg',
+                                SvgPicture.asset(ratingChangeAssetPath,
                                     height: 26),
                               ],
                             ),
