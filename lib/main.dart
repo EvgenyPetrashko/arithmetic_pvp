@@ -16,48 +16,59 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.dark);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.deepPurpleAccent,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xff70ABE2),
-            textStyle: const TextStyle(
-              color: Colors.black,
-                fontSize: 16, fontWeight: FontWeight.normal,
-            ),
-          ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-            style: OutlinedButton.styleFrom(
-          primary: Colors.black,
-        )),
-        textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-          primary: Colors.black,
-        )),
-        appBarTheme: const AppBarTheme(
-            // color: Color(0xff525252),
-            color: Colors.blueGrey),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.amber,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xff424242),
-            textStyle: const TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-      themeMode: ThemeMode.system,
-      home: const MyHomePage(),
-    );
+    final _mainBloc = MainBloc();
+
+    return BlocProvider(
+        create: (context) => _mainBloc,
+        child: ValueListenableBuilder<ThemeMode>(
+            valueListenable: themeNotifier,
+            builder: (_, ThemeMode currentMode, __) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  brightness: Brightness.light,
+                  primaryColor: Colors.deepPurpleAccent,
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xff70ABE2),
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  outlinedButtonTheme: OutlinedButtonThemeData(
+                      style: OutlinedButton.styleFrom(
+                    primary: Colors.black,
+                  )),
+                  textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                    primary: Colors.black,
+                  )),
+                  appBarTheme: const AppBarTheme(
+                      // color: Color(0xff525252),
+                      color: Colors.blueGrey),
+                ),
+                darkTheme: ThemeData(
+                  brightness: Brightness.dark,
+                  primaryColor: Colors.amber,
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(0xff424242),
+                      textStyle: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                themeMode: currentMode,
+                home: const MyHomePage(),
+              );
+            }));
   }
 }
 
@@ -69,7 +80,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  final _mainBloc = MainBloc();
+  late MainBloc _mainBloc;
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -77,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
+    _mainBloc = BlocProvider.of<MainBloc>(context);
     const _animationTimeSeconds = 2;
 
     _controller = AnimationController(
@@ -129,21 +141,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         child: Center(
           child: ScaleTransition(
             scale: _animation,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SvgPicture.asset(
-                "assets/dark_logo.svg",
-                height: 128,
-                width: 128,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                "Arithmetic PvP",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  "assets/dark_logo.svg",
+                  height: 128,
+                  width: 128,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Arithmetic PvP",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ),
       ),

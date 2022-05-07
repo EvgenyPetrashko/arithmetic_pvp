@@ -46,3 +46,11 @@ class ProfileBalanceStateLoaded extends ProfileBalanceState {
 }
 
 class ProfileBalanceStateError extends ProfileBalanceState {}
+
+class ProfileThemeState extends ProfileState {}
+
+class ProfileThemeChanged extends ProfileThemeState {
+  final bool isDark;
+
+  ProfileThemeChanged(this.isDark);
+}

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class ProfileSettings extends StatelessWidget {
   const ProfileSettings({Key? key}) : super(key: key);
 
@@ -10,7 +12,11 @@ class ProfileSettings extends StatelessWidget {
     }
 
     _showMaterialDialog() {
-      showDialog(
+      MyApp.themeNotifier.value =
+      MyApp.themeNotifier.value == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
+      /*showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -85,7 +91,7 @@ class ProfileSettings extends StatelessWidget {
             ],
           );
         },
-      );
+      );*/
     }
 
     return IconButton(
