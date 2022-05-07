@@ -24,6 +24,10 @@ class RatingRoomStatisticBloc extends Bloc<RatingRoomStatisticEvent,
       }
     });
 
+    on<RatingRoomStatisticEventGetStats>((event, emit) {
+      webSocketProvider.getStats();
+    });
+
     on<RatingRoomStatisticEventReceived>((event, emit) {
       emit(RatingRoomStatisticStateReceived(
           RatingRoomStats.fromRatingRoomStatsResponseAndPlayers(
