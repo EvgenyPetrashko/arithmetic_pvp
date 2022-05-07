@@ -21,7 +21,7 @@ class WebSocketProvider {
   final StreamController<WebSocketEvent> _webSocketStreamController =
       StreamController<WebSocketEvent>.broadcast();
 
-  WebSocketProvider(roomId, headers, [test = false]) {
+  WebSocketProvider(roomId, headers, [test = true]) {
     final String _url =
         "wss://arithmetic-pvp-backend.herokuapp.com/ws/rating_room/$roomId/";
     final String _testUrl = "ws://192.168.31.124:8000/ws/rating_room/$roomId/";

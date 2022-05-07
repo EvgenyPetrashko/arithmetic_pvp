@@ -8,7 +8,7 @@ class NetworkClient {
   late Dio api;
 
   NetworkClient(AuthInterceptor _authInterceptor) {
-    api = Dio(BaseOptions(baseUrl: _baseUrl));
+    api = Dio(BaseOptions(baseUrl: _baseUrlTest));
     api.interceptors
       ..clear()
       ..add(_authInterceptor);
