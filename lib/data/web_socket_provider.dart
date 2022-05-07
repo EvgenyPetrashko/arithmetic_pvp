@@ -97,7 +97,7 @@ class WebSocketProvider {
         {
           response.remove('response_to');
           final stats = RatingRoomStats.fromJson(response);
-          return RatingRoomStatisticsEventReceived(stats);
+          return RatingRoomStatisticEventReceived(stats);
         }
     }
   }

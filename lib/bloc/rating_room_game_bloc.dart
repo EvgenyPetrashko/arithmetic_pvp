@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:arithmetic_pvp/bloc/events/rating_room_game_events.dart';
-import 'package:arithmetic_pvp/bloc/states/rating_room_game_state.dart';
+import 'package:arithmetic_pvp/bloc/states/rating_room_game_states.dart';
 import 'package:arithmetic_pvp/data/models/task.dart';
 import 'package:arithmetic_pvp/data/web_socket_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 
 
 class RatingRoomGameBloc extends Bloc<RatingRoomGameEvent,
-    RatingRoomGameState>{
+      RatingRoomGameState>{
   int taskIndex = 0;
   late final List<Task> tasks;
   late final WebSocketProvider webSocketProvider;
