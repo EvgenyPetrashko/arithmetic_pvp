@@ -17,7 +17,7 @@ class RedirectToStats extends StatelessWidget {
           );
         },
         child: const Text(
-          "See all",
+          "See all", style: TextStyle(fontSize: 16),
         ),
       ),
       margin: const EdgeInsets.only(bottom: 20),

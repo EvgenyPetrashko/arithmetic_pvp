@@ -1,3 +1,4 @@
+import 'package:arithmetic_pvp/theme_switch.dart';
 import 'package:flutter/material.dart';
 
 class ProfileSettings extends StatelessWidget {
@@ -14,74 +15,35 @@ class ProfileSettings extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: const Color(0xff393939),
             title: const Text('Settings'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 1'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                  children: const [
+                    Text(
+                      'Switch Mode',
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 2'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                    SizedBox(
+                      width: 5,
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 3'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 4'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
-                    ),
+                    ThemeToggle(),
                   ],
                 ),
               ],
             ),
             actions: <Widget>[
-              TextButton(onPressed: _dismissDialog, child: const Text('Close')),
-              TextButton(
-                onPressed: _dismissDialog,
-                child: const Text('Apply'),
-              )
+              Container(
+                padding: const EdgeInsets.only(right: 5),
+                child: ElevatedButton(
+                  onPressed: _dismissDialog,
+                  child: const Text('Done'),
+                ),
+              ),
             ],
           );
         },

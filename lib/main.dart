@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
             primary: const Color(0xff70ABE2),
             textStyle: const TextStyle(
               color: Colors.black,
-                fontSize: 16, fontWeight: FontWeight.normal,
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
             ),
           ),
         ),
