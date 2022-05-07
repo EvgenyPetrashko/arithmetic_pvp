@@ -52,5 +52,14 @@ class RatingRoomGameBloc extends Bloc<RatingRoomGameEvent,
     on<RatingRoomGameEventSubmitAnswer>((event, emit) {
       webSocketProvider.submitAnswer(event.answer);
     });
+
+    on<RatingRoomGameEventDidNotStart>((event, emit) async {
+      Future.delayed(const Duration(seconds: 1));
+      webSocketProvider.getTasks();
+    });
+
+    on<RatingRoomGameEventShowStatistic>((event, emit) {
+      emit(RatingRoomGameStateShowStatistic());
+    });
   }
 }

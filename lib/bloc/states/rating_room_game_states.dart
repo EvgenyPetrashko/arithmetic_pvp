@@ -15,3 +15,5 @@ class RatingRoomGameStateUpdateProgressbar extends RatingRoomGameState {
   final List<PlayerProgress> playerProgresses;
   RatingRoomGameStateUpdateProgressbar(this.playerProgresses);
 }
+
+class RatingRoomGameStateShowStatistic extends RatingRoomGameState {}
