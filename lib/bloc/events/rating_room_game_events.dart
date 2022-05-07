@@ -27,3 +27,7 @@ class RatingRoomGameEventSubmitAnswer extends RatingRoomGameEvent {
   final String answer;
   RatingRoomGameEventSubmitAnswer(this.answer);
 }
+
+class RatingRoomGameEventDidNotStart extends RatingRoomGameEvent {}
+
+class RatingRoomGameEventShowStatistic extends RatingRoomGameEvent {}
