@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class ThemeToggle extends StatefulWidget {
-  const ThemeToggle({Key? key}) : super(key: key);
+class LangToggle extends StatefulWidget {
+  const LangToggle({Key? key}) : super(key: key);
 
   @override
-  State<ThemeToggle> createState() => _ThemeToggleState();
+  State<LangToggle> createState() => _LangToggleState();
 }
 
-class _ThemeToggleState extends State<ThemeToggle> {
-  final darkIcon = const Icon(
-    Icons.dark_mode,
-    color: Color(0xffffe78a),
-    size: 34,
-  );
-  final lightIcon = const Icon(
-    Icons.light_mode,
-    color: Color(0xffffc414),
-    size: 34,
-  );
+class _LangToggleState extends State<LangToggle> {
+  // final darkIcon = const Icon(
+  //   Icons.dark_mode,
+  //   color: Color(0xffffe78a),
+  //   size: 34,
+  // );
+  // final lightIcon = const Icon(
+  //   Icons.light_mode,
+  //   color: Color(0xffffc414),
+  //   size: 34,
+  // );
 
-  var _icon;
-  var _isDarkTheme;
+  // var _icon;
+  var _isEnglish;
 
   @override
   void initState() {
     super.initState();
-    _icon = lightIcon;
-    _isDarkTheme = false;
+    // _icon = lightIcon;
+    // _isDarkTheme = false;
   }
 
   // void _switchTheme() {
@@ -58,25 +58,21 @@ class _ThemeToggleState extends State<ThemeToggle> {
       inactiveBgColor: Colors.grey,
       inactiveFgColor: Colors.white,
       totalSwitches: 2,
-      icons: const [
-        Icons.dark_mode,
-        Icons.light_mode,
-      ],
+      labels: const ['RU', 'EN'],
       iconSize: 30.0,
       activeBgColors: const [
-        [Color(0xff1C1C78), Color(0xff0e122b)],
-        [Colors.yellow, Colors.orange]
+        [Color(0xff7a8fff), Color(0xff3b59ec)],
+        [Colors.greenAccent, Colors.green]
       ],
       animate: true,
       onToggle: (index) {
         print('switched to: $index');
         if (index == 0) {
-          _isDarkTheme = true;
+          _isEnglish = false;
+        } else {
+          _isEnglish = true;
         }
-        else{
-          _isDarkTheme = false;
-        }
-        print(_isDarkTheme);
+        print(_isEnglish);
       },
     );
   }

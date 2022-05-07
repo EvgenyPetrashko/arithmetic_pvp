@@ -63,29 +63,47 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                         offset: Offset(
                             -(MediaQuery.of(context).size.width) / 3.3,
                             -(MediaQuery.of(context).size.width) / 3.3 + 40),
-                        child: const Text(
-                          '123',
-                          style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.bold),
+                        child: const SizedBox(
+                          width: 150,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              '123456334245',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 32),
+                            ),
+                          ),
                         ),
                       ),
                       Transform.translate(
                         offset: Offset(0.0,
                             -(MediaQuery.of(context).size.width) / 3.3 - 30),
-                        child: const Text(
-                          'You',
-                          style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.bold),
+                        child: const SizedBox(
+                          width: 150,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'You',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 32),
+                            ),
+                          ),
                         ),
                       ),
                       Transform.translate(
                         offset: Offset(
                             (MediaQuery.of(context).size.width) / 3.3,
                             -(MediaQuery.of(context).size.width) / 3.3 + 70),
-                        child: const Text(
-                          'Player2',
-                          style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.bold),
+                        child: const SizedBox(
+                          width: 150,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'HelloWorld',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 32),
+                            ),
+                          ),
                         ),
                       ),
                     ],
