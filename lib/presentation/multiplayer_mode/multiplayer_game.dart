@@ -1,6 +1,14 @@
+import 'dart:developer';
+
+import 'package:arithmetic_pvp/bloc/rating_room_game_bloc.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/keyboard.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/events/rating_room_game_events.dart';
+import '../../bloc/states/rating_room_game_state.dart';
+import '../../data/models/player_progress.dart';
 
 class MultiplayerGamePage extends StatefulWidget {
   const MultiplayerGamePage({Key? key}) : super(key: key);
@@ -10,11 +18,14 @@ class MultiplayerGamePage extends StatefulWidget {
 }
 
 class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
-  final String expression = "2 + 2";
-  String ans = '_ _';
+  final _ratingRoomGameBloc = RatingRoomGameBloc();
+  String expression = "";
+  String ans = '';
+  List<PlayerProgress> currentProgresses = [];
 
   void updateAns(String command) {
     setState(() {
+      String oldAnswer = ans;
       switch (command) {
         case 'DEL':
           {
@@ -44,7 +55,40 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
           }
           break;
       }
+      if (oldAnswer != ans){
+        _ratingRoomGameBloc.add(RatingRoomGameEventSubmitAnswer(ans));
+      }
     });
+  }
+
+  List<UserProgress> _constructProgressBars(state){
+    if (state is RatingRoomGameStateUpdateProgressbar){
+      setState(() {
+        currentProgresses = state.playerProgresses;
+        ans = "";
+      });
+    }
+    List<UserProgress> userProgresses = [];
+    for (final progress in currentProgresses){
+      userProgresses.add(UserProgress(username: progress.id.toString(), value: progress.tasksSolved / 10));
+    }
+    return userProgresses;
+  }
+
+  _handleState(context, state) {
+    log(state.toString());
+    if (state is RatingRoomGameStateShowTask){
+      setState(() {
+        expression = state.task.content;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    log("Request tasks");
+    _ratingRoomGameBloc.add(RatingRoomGameGetTasks());
   }
 
   @override
@@ -54,77 +98,77 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage> {
         title: const Text('Rating Game'),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 20,
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                child: Column(
-                  children: [
-                    UserProgress(username: 'Aidar Khuzin', value: 1),
-                    UserProgress(username: 'Evgeny Petrashko', value: 0.5),
-                    UserProgress(username: 'Kamil Agliullin', value: 0.8),
-                    UserProgress(username: 'Dmitrii Shabalin', value: 0.3),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 35,
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
+        child: BlocConsumer(
+            bloc: _ratingRoomGameBloc,
+            builder: (context, state) {
+              return Column(
                 children: [
                   Expanded(
-                    flex: 55,
+                    flex: 20,
                     child: Container(
                       margin: const EdgeInsets.all(5),
-                      child: Text(
-                        expression,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 10,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: const Text(
-                        '=',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
+                      child: Column(
+                        children: _constructProgressBars(state),
                       ),
                     ),
                   ),
                   Expanded(
                     flex: 35,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 55,
+                          child: Container(
+                            margin: const EdgeInsets.all(5),
+                            child: Text(
+                              expression,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 40, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 10,
+                          child: Container(
+                            margin: const EdgeInsets.all(5),
+                            child: const Text(
+                              '=',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 40, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 35,
+                          child: Container(
+                            margin: const EdgeInsets.all(5),
+                            child: Text(
+                              ans,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 40, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 45,
                     child: Container(
                       margin: const EdgeInsets.all(5),
-                      child: Text(
-                        ans,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
+                      child: Keyboard(
+                        onTap: updateAns,
                       ),
                     ),
                   ),
                 ],
-              ),
-            ),
-            Expanded(
-              flex: 45,
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                child: Keyboard(
-                  onTap: updateAns,
-                ),
-              ),
-            ),
-          ],
-        ),
+              );
+            },
+            listener: (context, state) => _handleState(context, state)),
       ),
     );
   }

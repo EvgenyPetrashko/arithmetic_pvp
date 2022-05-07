@@ -10,11 +10,7 @@ class WaitingRoomStateUsersUpdate extends WaitingRoomState {
   WaitingRoomStateUsersUpdate(this.players);
 }
 
-class WaitingRoomStateError extends WaitingRoomState {
-  String error;
-
-  WaitingRoomStateError(this.error);
-}
+class WaitingRoomStateError extends WaitingRoomState {}
 
 class WaitingRoomStateStartGame extends WaitingRoomState {}
 
@@ -26,5 +22,6 @@ class WaitingRoomStateStartGameError extends WaitingRoomState {
 
 class WaitingRoomStateTimerUpdated extends WaitingRoomState {
   final int timeLeft;
+
   WaitingRoomStateTimerUpdated(this.timeLeft);
 }
