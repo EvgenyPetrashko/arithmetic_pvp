@@ -1,4 +1,8 @@
+import 'package:arithmetic_pvp/presentation/profile/theme_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'lang_switch.dart';
 
 import '../../main.dart';
 
@@ -20,74 +24,54 @@ class ProfileSettings extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Settings'),
+            backgroundColor: const Color(0xff393939),
+            title: Text(AppLocalizations.of(context)?.settings??'Settings', textAlign: TextAlign.center),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Setting 1'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                    Text(
+                      AppLocalizations.of(context)?.switch_mode??'Switch Mode',
+                      style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
                     ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const ThemeToggle(),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 2'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 3'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      'Language',
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('Setting 4'),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Set",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                    SizedBox(
+                      width: 5,
                     ),
+                    LangToggle(),
                   ],
                 ),
               ],
             ),
             actions: <Widget>[
-              TextButton(onPressed: _dismissDialog, child: const Text('Close')),
-              TextButton(
-                onPressed: _dismissDialog,
-                child: const Text('Apply'),
-              )
+              Container(
+                padding: const EdgeInsets.only(right: 5),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.black, elevation: 3),
+                  onPressed: _dismissDialog,
+                  child: Text(AppLocalizations.of(context)?.done??"Done"),
+                ),
+              ),
             ],
           );
         },

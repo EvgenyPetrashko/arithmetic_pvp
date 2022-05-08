@@ -11,6 +11,7 @@ import '../../bloc/events/rating_room_game_events.dart';
 import '../../bloc/states/rating_room_game_states.dart';
 import '../../data/models/player.dart';
 import '../../data/models/player_progress.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../stats/stats_postgame.dart';
 
@@ -129,9 +130,10 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Rating Game'),
+          title: Text(l?.rating_game_title??"Rating Game"),
           actions: [
             TextButton(
               child: const Text(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SkinsAppBar({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Skins'),
+      title: Text(AppLocalizations.of(context)?.skins_title??'Skins'),
       actions: [
         Center(
           child: Container(
@@ -44,7 +45,7 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ],
                       );
                     } else if (state is ProfileBalanceStateError) {
-                      return const Text("Error Loading Balance");
+                      return Text(AppLocalizations.of(context)?.error??"Error");
                     } else {
                       return JumpingText(
                         '···',

@@ -1,4 +1,5 @@
 import 'package:arithmetic_pvp/presentation/profile/stats_see_all_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,9 +18,9 @@ class ProfileStatsPreview extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          child: const Text(
-            'Stats',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          child: Text(
+            AppLocalizations.of(context)?.statistics_title??'Statistics',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         const SizedBox(
@@ -36,9 +37,9 @@ class ProfileStatsPreview extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Your Rating:  ',
-                style: TextStyle(fontSize: 18),
+              Text(
+                (AppLocalizations.of(context)?.rating_title??'Rating') + ": ",
+                style: const TextStyle(fontSize: 18),
               ),
               BlocBuilder(
                 bloc: _profileBloc,

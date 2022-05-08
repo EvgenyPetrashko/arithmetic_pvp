@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
 import 'package:arithmetic_pvp/presentation/authentication/login.dart';
@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _mainBloc = MainBloc();
-
     return BlocProvider(
         create: (context) => _mainBloc,
         child: ValueListenableBuilder<ThemeMode>(
@@ -61,11 +60,13 @@ class MyApp extends StatelessWidget {
                   elevatedButtonTheme: ElevatedButtonThemeData(
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xff424242),
-                      textStyle: const TextStyle(color: Colors.white),
+                      textStyle: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                 ),
                 themeMode: currentMode,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
                 home: const MyHomePage(),
               );
             }));
