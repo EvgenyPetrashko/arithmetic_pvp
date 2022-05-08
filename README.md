@@ -3,7 +3,7 @@
 Team ***Brawlers***
 
 ## About The Project
-Arithmetic PvP is a verbal counting online game. Players compete in calculating various expressions, starting from primitive ones, such as 2+2, ending with extremely hard containing several-digit numbers. There is also a single-player mode, where you can run the endless mode and constantly improve your skill, or play campain which has levels of increasing complexity. 
+Arithmetic PvP is a verbal counting online game. Players can compete in calculating various arithmetic expressions, analyze the overall statistics and statistics after each game, and also buy skins using the received coins.
 
 ### For Whom
 Play our game if you want to:
@@ -20,7 +20,7 @@ Play our game if you want to:
 ## Usage
 1) Clone the repo:
     ```
-    git clone https://github.com/EvgenyPetrashko/arithmetic_pvp.git
+    git clone https://github.com/epetrashko/arithmetic_pvp
     ```
 2) Check your flutter environment:
     ```
@@ -45,29 +45,23 @@ Play our game if you want to:
     ```
   with one of these parameters: apk, appbundle, ios
 
-### Get already built APK [here](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/app-release.apk)
+### Get already built APK [here](https://github.com/epetrashko/arithmetic_pvp/blob/master/app-release.apk)
 
 ## Features
 
-* Login and Register functionality (api calls to backend server)
-* Welcome Page (Users get to know the application)
-* Profile Page (Users can check own information (username, rating, money)) - beta
-* Achievements (User can can check own achievements)
-* Main Game (Template of the game) - beta
-
-### TODO
+* Login with Google
 * Multiplayer mode
-* Single-player mode
 * Rating system
-* Levels in single-player mode
-* Statistics after end of the game + Statistics for the whole period
-* Possibility to buy skins using in-game currency
+* Statistics after end of the game
+* Statistics for the whole period
+* Ability to buy skins using in-game currency
 * Multilanguage app
+* Dark mode
 
 
 ## Screenshots
 
-![Screenshots](https://github.com/EvgenyPetrashko/arithmetic_pvp/blob/master/screenshots/screens.png)
+![Screenshots](https://github.com/epetrashko/arithmetic_pvp/blob/master/screenshots/screens.png)
 
 
 ## Contacts
