@@ -89,9 +89,11 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                     alignment: Alignment.topCenter,
                     margin: const EdgeInsets.only(bottom: 20),
                     child: Text(
-                        AppLocalizations.of(context)?.leaderboard??'The Leaderboard',
-                        style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
+                      AppLocalizations.of(context)?.leaderboard ??
+                          'The Leaderboard',
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Center(
                     child: Container(
@@ -106,49 +108,54 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                                 -(MediaQuery.of(context).size.width) / 3.3,
                                 -(MediaQuery.of(context).size.width) / 3.3 +
                                     40),
-                            child: const SizedBox(
-                          width: 150,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              leaderboard[1],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 32),
-                            ),
-                          ),
+                            child: SizedBox(
+                              width: 150,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  leaderboard[1],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 32),
+                                ),
+                              ),
                             ),
                           ),
                           Transform.translate(
-                            offset: Offset(0.0,
-                            -(MediaQuery.of(context).size.width) / 3.3 - 30),
-                            child: const SizedBox(
-                          width: 150,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              leaderboard[0],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 32),
+                            offset: Offset(
+                                0.0,
+                                -(MediaQuery.of(context).size.width) / 3.3 -
+                                    30),
+                            child: SizedBox(
+                              width: 150,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  leaderboard[0],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 32),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
                           ),
                           Transform.translate(
                             offset: Offset(
                                 (MediaQuery.of(context).size.width) / 3.3,
                                 -(MediaQuery.of(context).size.width) / 3.3 +
                                     70),
-                            child: const SizedBox(
-                          width: 150,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              leaderboard[2],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 32),
+                            child: SizedBox(
+                              width: 150,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  leaderboard[2],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 32),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
                           ),
                         ],
                       ),

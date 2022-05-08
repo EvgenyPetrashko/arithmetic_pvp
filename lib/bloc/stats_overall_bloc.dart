@@ -22,19 +22,26 @@ class StatsOverallBloc extends Bloc<StatsOverallEvent, StatsOverallState> {
             timeSpent: overallStats.timeSpent,
             avgTimePerTask:
                 double.parse((overallStats.avgTimePerTask).toStringAsFixed(3)));
-        final duration = Duration(seconds: overallStats.avgTimePerTask.round());
+        final duration = Duration(seconds: overallStats.timeSpent.round());
+        int newSeconds = duration.inSeconds;
         String newOverallTime = "";
-        if (duration.inDays != 0) {
-          newOverallTime += "${duration.inDays} + D ";
+        if (duration.inDays > 0) {
+          newOverallTime += "${duration.inDays}D ";
+          newSeconds -= duration.inDays * 3600 * 24;
         }
-        if (duration.inHours != 0) {
-          newOverallTime += "${duration.inHours} + H ";
+        final duration1 = Duration(seconds: newSeconds);
+        if (duration1.inHours > 0) {
+          newOverallTime += "${duration.inHours}H ";
+          newSeconds -= duration1.inHours * 3600;
         }
-        if (duration.inMinutes != 0) {
-          newOverallTime += "${duration.inMinutes} + m ";
+        final duration2 = Duration(seconds: newSeconds);
+        if (duration2.inMinutes > 0) {
+          newOverallTime += "${duration.inMinutes}m ";
+          newSeconds -= duration2.inMinutes * 60;
         }
-        if (duration.inSeconds != 0) {
-          newOverallTime += "${duration.inSeconds} + s ";
+        final duration3 = Duration(seconds: newSeconds);
+        if (duration3.inSeconds > 0) {
+          newOverallTime += "${duration3.inSeconds}s ";
         }
         if (newOverallTime == ""){
           newOverallTime += "0 s";
