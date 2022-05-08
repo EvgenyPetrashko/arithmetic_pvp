@@ -90,9 +90,10 @@ class _MultiplayerWaitingRoomPageState
         await showDialog(
           context: context,
           builder: (context) => AlertDialog(
+            backgroundColor: ThemeData.dark().primaryColor,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
-                Radius.circular(20),
+                Radius.circular(10),
               ),
             ),
             // title: const Text('AlertDialog Title'),
@@ -110,41 +111,47 @@ class _MultiplayerWaitingRoomPageState
                 children: [
                   Align(
                     alignment: Alignment.bottomLeft,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 7),
-                        primary: const Color(0xffa85454),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 30),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 7),
+                          primary: const Color(0xffa85454),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                         ),
+                        child: Text(AppLocalizations.of(context)?.cancel??"Cancel"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      child: Text(AppLocalizations.of(context)?.cancel??"Cancel"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
                     ),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 7),
-                        primary: const Color(0xff5da854),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 30),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 7),
+                          primary: const Color(0xff5da854),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                         ),
+                        child: Text(AppLocalizations.of(context)?.quit??"Quit"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
                       ),
-                      child: Text(AppLocalizations.of(context)?.quit??"Quit"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
                     ),
                   ),
                 ],

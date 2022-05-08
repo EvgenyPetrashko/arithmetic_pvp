@@ -12,7 +12,7 @@ class UsernameDialogConstants {
   UsernameDialogConstants._();
 
   static const double topContainerPadding = 40;
-  static const double topContainerRadius = 20;
+  static const double topContainerRadius = 10;
 
   static const double labelPadding = 20;
   static const double labelTopRadius = 30;
@@ -102,7 +102,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         color: Colors.transparent,
@@ -114,7 +114,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                       child: TextField(
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                         controller: _userNameController,
                         maxLength: 30,
@@ -134,33 +134,26 @@ class _ProfileEditState extends State<ProfileEdit> {
           ),
         ),
         Positioned(
-          top: -8,
+          top: 10,
           left: 40,
           right: 40,
           height: 40,
           child: Container(
-            padding: const EdgeInsets.all(5),
+            // padding: const EdgeInsets.only(top:40),
             alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: BorderRadius.all(
-                Radius.circular(UsernameDialogConstants.buttonRadius),
-              ),
-            ),
             child: Text(
               AppLocalizations.of(context)?.changing_your_nickname ??
                   'Changing your nickname',
               style: const TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
+                  fontWeight: FontWeight.w600),
             ),
           ),
         ),
         Positioned(
           bottom: 15,
-          left: 200,
-          right: 20,
+          left: 100,
+          right: 100,
           height: UsernameDialogConstants.buttonPadding * 2,
           child: ClipRect(
             child: ElevatedButton(
@@ -168,40 +161,11 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ? null
                   : submitUserName,
               child: const Text(
-                'OK',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
+                'Done',
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff5da854),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(UsernameDialogConstants.buttonRadius),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 15,
-          left: 20,
-          right: 195,
-          height: UsernameDialogConstants.buttonPadding * 2,
-          child: ClipRect(
-            child: ElevatedButton(
-              onPressed: _dismissEditDialog,
-              child: Text(
-                AppLocalizations.of(context)?.cancel??'Cancel',
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-              style: OutlinedButton.styleFrom(
-                backgroundColor: const Color(0xffa85454),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(UsernameDialogConstants.buttonRadius),
@@ -224,18 +188,20 @@ class _ProfileEditState extends State<ProfileEdit> {
           bloc: _profileBloc,
           listener: (context, state) => _handleState(context, state),
           builder: (context, state) {
-            return StatefulBuilder(builder: (context, setState) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      UsernameDialogConstants.topContainerPadding),
-                ),
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                // backgroundColor: Colors.black,
-                child: _contentBox(context, state),
-              );
-            });
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        UsernameDialogConstants.topContainerPadding),
+                  ),
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  // backgroundColor: Colors.black,
+                  child: _contentBox(context, state),
+                );
+              },
+            );
           },
         );
       },

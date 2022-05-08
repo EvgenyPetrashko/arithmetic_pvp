@@ -49,10 +49,14 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.amber,
+        dialogBackgroundColor: ThemeData.dark().primaryColor,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             primary: const Color(0xff424242),
-            textStyle: const TextStyle(color: Colors.white),
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
           ),
         ),
       ),

@@ -22,7 +22,7 @@ class MultiplayerGameStartPage extends StatefulWidget {
 }
 
 class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   final MultiplayerGameStartBloc _multiplayerGameStartBloc =
       MultiplayerGameStartBloc();
 
@@ -54,7 +54,7 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
               "...",
               style: const TextStyle(fontSize: 60),
             ),
-            color: Colors.grey,
+            color: Colors.black45,
             isLoading: (state is MultiplayerGameStartStateLoading),
             child: AnimatedBackground(
               behaviour: RainParticleBehaviour(
