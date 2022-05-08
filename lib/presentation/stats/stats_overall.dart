@@ -3,12 +3,14 @@ import 'package:arithmetic_pvp/bloc/stats_overall_bloc.dart';
 import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:progress_indicators/progress_indicators.dart';
+
 import '../../bloc/events/stats_overall_events.dart';
 import '../../bloc/states/stats_overall_states.dart';
 import 'stats_appbar_overall.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OverallStatsPage extends StatefulWidget {
   const OverallStatsPage({Key? key}) : super(key: key);
@@ -68,6 +70,11 @@ class _OverallStatsPageState extends State<OverallStatsPage>
       appBar: const StatsAppBarOverall(),
       body: LoadingOverlay(
         isLoading: loading,
+        color: Colors.black45,
+        progressIndicator: JumpingText(
+          '···',
+          style: const TextStyle(fontSize: 60),
+        ),
         child: SafeArea(
           child: AnimatedBackground(
             behaviour: RainParticleBehaviour(
