@@ -1,18 +1,17 @@
-import 'package:animated_background/animated_background.dart';
 import 'dart:developer';
 
+import 'package:animated_background/animated_background.dart';
 import 'package:arithmetic_pvp/bloc/rating_room_game_bloc.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/keyboard.dart';
 import 'package:arithmetic_pvp/presentation/multiplayer_mode/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../bloc/events/rating_room_game_events.dart';
 import '../../bloc/states/rating_room_game_states.dart';
 import '../../data/models/player.dart';
 import '../../data/models/player_progress.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../stats/stats_postgame.dart';
 
 class MultiplayerGamePage extends StatefulWidget {
@@ -136,102 +135,86 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(l?.rating_game_title ?? "Rating Game"),
-          actions: [
-            TextButton(
-              child: const Text(
-                'Finish',
-                style: TextStyle(fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        PostgameStatsPage(players: widget.players),
+      appBar: AppBar(
+        title: Text(l?.rating_game_title ?? "Rating Game"),
+      ),
+      body: SafeArea(
+        child: AnimatedBackground(
+          behaviour:
+              RacingLinesBehaviour(numLines: 5, direction: LineDirection.Ltr),
+          vsync: this,
+          child: BlocListener(
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 20,
+                  child: Container(
+                    margin: const EdgeInsets.all(5),
+                    child: Column(
+                      children: _constructProgressBars(),
+                    ),
                   ),
-                );
-              },
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: AnimatedBackground(
-            behaviour:
-                RacingLinesBehaviour(numLines: 5, direction: LineDirection.Ltr),
-            vsync: this,
-            child: BlocListener(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 20,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Column(
-                        children: _constructProgressBars(),
+                ),
+                Expanded(
+                  flex: 35,
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 55,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          child: Text(
+                            expression.replaceFirst("*", "×"),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 35,
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 55,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: Text(
-                              expression.replaceFirst("*", "×"),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
-                            ),
+                      Expanded(
+                        flex: 10,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          child: const Text(
+                            '=',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Expanded(
-                          flex: 10,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: const Text(
-                              '=',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 35,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            child: Text(
-                              ans,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 45,
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      child: Keyboard(
-                        onTap: updateAns,
                       ),
+                      Expanded(
+                        flex: 35,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          child: Text(
+                            ans,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 45,
+                  child: Container(
+                    margin: const EdgeInsets.all(5),
+                    child: Keyboard(
+                      onTap: updateAns,
                     ),
                   ),
-                ],
-              ),
-              bloc: _ratingRoomGameBloc,
-              listener: (context, state) => _handleState(context, state),
+                ),
+              ],
             ),
+            bloc: _ratingRoomGameBloc,
+            listener: (context, state) => _handleState(context, state),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

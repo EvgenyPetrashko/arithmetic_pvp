@@ -16,6 +16,9 @@ class ProfileSettings extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
             title: Text(AppLocalizations.of(context)?.settings ?? 'Settings',
                 textAlign: TextAlign.center),
             content: Row(
@@ -38,7 +41,12 @@ class ProfileSettings extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.black, elevation: 3),
+                    shadowColor: Colors.black,
+                    elevation: 3,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                  ),
                   onPressed: _dismissDialog,
                   child: Text(AppLocalizations.of(context)?.done ?? "Done"),
                 ),

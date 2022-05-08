@@ -69,6 +69,9 @@ class MyApp extends StatelessWidget {
                   textStyle: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
+              dialogTheme: const DialogTheme(
+                backgroundColor: Color(0xff2b2b2b),
+              ),
             ),
             themeMode: currentMode,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -131,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       if (state.isLoginnedIn) {
         _redirectedWidget = const HomePage();
       } else {
-        _redirectedWidget = const LoginPage();
+        _redirectedWidget = const HomePage();
       }
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -153,15 +156,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MyApp.themeNotifier.value == ThemeMode.light ? SvgPicture.asset(
-                  "assets/dark_logo.svg",
-                  height: 128,
-                  width: 128,
-                ) : SvgPicture.asset(
-                  "assets/light_logo.svg",
-                  height: 128,
-                  width: 128,
-                ),
+                MyApp.themeNotifier.value == ThemeMode.light
+                    ? SvgPicture.asset(
+                        "assets/dark_logo.svg",
+                        height: 128,
+                        width: 128,
+                      )
+                    : SvgPicture.asset(
+                        "assets/light_logo.svg",
+                        height: 128,
+                        width: 128,
+                      ),
                 const SizedBox(
                   height: 10,
                 ),

@@ -100,7 +100,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.all(20),
@@ -138,7 +138,7 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                             ),
                             Text(
                               AppLocalizations.of(context)?.solved_problems ??
-                                  'Solved problems',
+                                  'Solved tasks',
                               style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(
