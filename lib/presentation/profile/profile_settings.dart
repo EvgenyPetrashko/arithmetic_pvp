@@ -2,9 +2,6 @@ import 'package:arithmetic_pvp/presentation/profile/theme_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'lang_switch.dart';
-
-import '../../main.dart';
 
 class ProfileSettings extends StatelessWidget {
   const ProfileSettings({Key? key}) : super(key: key);
@@ -16,50 +13,25 @@ class ProfileSettings extends StatelessWidget {
     }
 
     _showMaterialDialog() {
-      MyApp.themeNotifier.value =
-      MyApp.themeNotifier.value == ThemeMode.light
-          ? ThemeMode.dark
-          : ThemeMode.light;
-      /*showDialog(
+      showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             backgroundColor: const Color(0xff393939),
             title: Text(AppLocalizations.of(context)?.settings??'Settings', textAlign: TextAlign.center),
-            content: Column(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)?.switch_mode??'Switch Mode',
-                      style: const TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const ThemeToggle(),
-                  ],
+                Text(
+                  AppLocalizations.of(context)?.switch_mode??'Switch Mode',
+                  style: const TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  height: 20,
+                  width: 5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Language',
-                      style: TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    LangToggle(),
-                  ],
-                ),
+                ThemeToggle(),
               ],
             ),
             actions: <Widget>[
@@ -75,7 +47,7 @@ class ProfileSettings extends StatelessWidget {
             ],
           );
         },
-      );*/
+      );
     }
 
     return IconButton(

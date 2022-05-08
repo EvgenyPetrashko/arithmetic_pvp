@@ -4,12 +4,14 @@ import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:arithmetic_pvp/data/models/change_name_response.dart';
 import 'package:arithmetic_pvp/data/models/user.dart';
 import 'package:arithmetic_pvp/data/storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../data/api.dart';
 import '../data/auth.dart';
 import '../data/models/balance_response.dart';
+import '../main.dart';
 import 'events/profile_events.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
@@ -82,13 +84,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<ProfileEventChangeThemeMode>((event, emit) {
-
-      bool isDark = _storage.getBool("isDark", true);
-      if (isDark != event.isDark){
-        isDark = event.isDark;
-        _storage.setBool("isDark", event.isDark);
-      }
-      emit(ProfileThemeChanged(isDark));
+      MyApp.themeNotifier.value = event.isDark ? ThemeMode.dark : ThemeMode.light;
+      _storage.setBool("isDark", event.isDark);
     });
 
 
