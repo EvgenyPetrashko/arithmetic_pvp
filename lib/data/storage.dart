@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:arithmetic_pvp/data/models/cookie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'models/user.dart';
+import 'models/profile.dart';
 
 class Storage {
   static SharedPreferences? _futurePref;
@@ -15,6 +15,10 @@ class Storage {
 
   setBool(key, value) {
     _futurePref?.setBool(key, value);
+  }
+
+  bool getBool(key, bool value) {
+    return _futurePref?.getBool(key) ?? value;
   }
 
   setProfile(key, Profile value) {

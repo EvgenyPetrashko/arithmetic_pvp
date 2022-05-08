@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:arithmetic_pvp/data/models/balance_response.dart';
 import 'package:arithmetic_pvp/data/models/buy_response.dart';
 import 'package:arithmetic_pvp/data/models/join_room_response.dart';
+import 'package:arithmetic_pvp/data/models/overall_stats.dart';
 import 'package:arithmetic_pvp/data/models/select_response.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
-import 'package:arithmetic_pvp/data/models/user.dart';
+import 'package:arithmetic_pvp/data/models/profile.dart';
 import 'package:arithmetic_pvp/data/network_client.dart';
 import 'package:dio/dio.dart';
 
@@ -68,21 +69,34 @@ class Api {
       return null;
     }
   }
-  
-  Future<JoinGameResponse?> createGame() async {
+
+  Future<JoinRoomResponse?> createRoom() async {
     try {
       var response = await client.api.post("api/create_rating_room");
-      return JoinGameResponse.fromJson(Map<String, dynamic>.from(response.data));
+      return JoinRoomResponse.fromJson(
+          Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data: ${e.response}');
       return null;
     }
   }
 
-  Future<List<JoinGameResponse>?> getOpenGames() async {
-    try{
+  Future<List<JoinRoomResponse>?> getOpenRooms() async {
+    try {
       var response = await client.api.get("api/get_rating_rooms");
-      return (response.data as List<dynamic>).map((e) => JoinGameResponse.fromJson(Map<String, dynamic>.from(e))).toList();
+      return (response.data as List<dynamic>)
+          .map((e) => JoinRoomResponse.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    } on DioError catch (e) {
+      log('data: ${e.response}');
+      return null;
+    }
+  }
+
+  Future<OverallStats?> getOverallStats() async {
+    try {
+      var response = await client.api.get("api/get_overall_stats");
+      return OverallStats.fromJson(Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data: ${e.response}');
       return null;

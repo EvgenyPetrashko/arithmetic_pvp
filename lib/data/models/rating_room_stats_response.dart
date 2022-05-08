@@ -4,11 +4,7 @@ class RatingRoomStatsResponse {
   final List<int> leaderboard;
 
   RatingRoomStatsResponse(
-  {
-    required this.rating,
-    required this.gold,
-    required this.leaderboard
-  });
+      {required this.rating, required this.gold, required this.leaderboard});
 
   factory RatingRoomStatsResponse.fromJson(Map<String, dynamic> json) =>
       RatingRoomStatsResponse(
@@ -17,6 +13,5 @@ class RatingRoomStatsResponse {
           leaderboard: json["leaderboard"]
               .map((player) => player['player_id'])
               .toList()
-              .cast<int>()
-  );
+              .cast<int>());
 }

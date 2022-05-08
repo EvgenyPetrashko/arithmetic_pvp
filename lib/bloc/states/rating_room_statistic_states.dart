@@ -6,6 +6,13 @@ class RatingRoomStatisticStateInitial extends RatingRoomStatisticState {}
 
 class RatingRoomStatisticStateReceived extends RatingRoomStatisticState {
   final RatingRoomStats stats;
-  RatingRoomStatisticStateReceived(this.stats);
 
+  RatingRoomStatisticStateReceived(this.stats);
+}
+
+class RatingRoomStatisticStateUpdateLeaderboard
+    extends RatingRoomStatisticState {
+  final List<String> leaderboard;
+
+  RatingRoomStatisticStateUpdateLeaderboard(this.leaderboard);
 }

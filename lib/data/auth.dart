@@ -26,7 +26,8 @@ class Auth {
   Future<ChangeNameResponse> changeUsername(String username) async {
     try {
       var response = await client.api.put("auth/set_new_username/$username");
-      return ChangeNameResponse.fromJson(Map<String, dynamic>.from(response.data));
+      return ChangeNameResponse.fromJson(
+          Map<String, dynamic>.from(response.data));
     } on DioError catch (e) {
       log('data ${e.response}');
       return ChangeNameResponse(status: false, error: "Please try again later");

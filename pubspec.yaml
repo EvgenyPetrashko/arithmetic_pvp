@@ -29,6 +29,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
   flutter_svg: ^1.0.3
   dio: ^4.0.4
   shared_preferences: ^2.0.13
@@ -41,6 +44,7 @@ dependencies:
   json_annotation: ^4.4.0
   cached_network_image: ^3.2.0
   flutter_cache_manager: ^3.3.0
+  toggle_switch: ^2.0.1
   # google_sign_in: ^5.2.4
 
 
@@ -53,7 +57,10 @@ dependencies:
   theme_provider: ^0.5.0
   flutter_svg_provider: ^1.0.3
   web_socket_channel: ^2.2.0
-  toggle_switch: ^2.0.1
+
+flutter_intl:
+  main_locale: en_US
+  enabled: true
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +85,7 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+  generate: true
   uses-material-design: true
   assets:
     - assets/

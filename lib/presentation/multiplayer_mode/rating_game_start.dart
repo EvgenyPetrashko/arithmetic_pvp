@@ -1,17 +1,17 @@
 import 'dart:developer';
 
 import 'package:animated_background/animated_background.dart';
-import 'package:arithmetic_pvp/bloc/multiplayer_game_start_bloc.dart';
-import 'package:arithmetic_pvp/bloc/states/multiplayer_game_start_states.dart';
+import 'package:arithmetic_pvp/bloc/rating_room_start_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-import '../../bloc/events/multiplayer_game_start_events.dart';
+import '../../bloc/events/rating_room_start_events.dart';
+import '../../bloc/states/rating_room_start_states.dart';
 import '../utils/rain_particles.dart';
-import 'multiplayer_waiting_room.dart';
+import 'rating_waiting_room.dart';
 
 class MultiplayerGameStartPage extends StatefulWidget {
   const MultiplayerGameStartPage({Key? key}) : super(key: key);
@@ -23,23 +23,22 @@ class MultiplayerGameStartPage extends StatefulWidget {
 
 class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
     with TickerProviderStateMixin {
-  final MultiplayerGameStartBloc _multiplayerGameStartBloc =
-      MultiplayerGameStartBloc();
+  final RatingRoomStartBloc _multiplayerGameStartBloc = RatingRoomStartBloc();
 
   _handleState(context, state) {
     log(state.toString());
-    if (state is MultiplayerGameStartStateError) {
+    if (state is RatingRoomStartStateError) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(state.error),
         ),
       );
-    } else if (state is MultiplayerGameStartStateLoaded) {
+    } else if (state is RatingRoomStartStateLoaded) {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (_context) => MultiplayerWaitingRoomPage(
-                  joinRoomResponse: state.joinGameResponse)));
+                  joinRoomResponse: state.joinRoomResponse)));
     }
   }
 
@@ -55,7 +54,7 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
               style: const TextStyle(fontSize: 60),
             ),
             color: Colors.black45,
-            isLoading: (state is MultiplayerGameStartStateLoading),
+            isLoading: (state is RatingRoomStartStateLoading),
             child: AnimatedBackground(
               behaviour: RainParticleBehaviour(
                 options: ParticleOptions(
@@ -81,10 +80,10 @@ class _MultiplayerGameStartPageState extends State<MultiplayerGameStartPage>
                   height: 150,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(20),
-                    onTap: (state is! MultiplayerGameStartStateLoading)
+                    onTap: (state is! RatingRoomStartStateLoading)
                         ? () {
                             _multiplayerGameStartBloc
-                                .add(MultiplayerGameStartEvent());
+                                .add(RatingRoomStartEvent());
                           }
                         : null,
                     child: SizedBox(

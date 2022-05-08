@@ -1,20 +1,26 @@
 import 'package:arithmetic_pvp/presentation/profile/stats_see_all_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../bloc/profile_bloc.dart';
+import '../../bloc/states/profile_states.dart';
 
 class ProfileStatsPreview extends StatelessWidget {
   const ProfileStatsPreview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           alignment: Alignment.center,
-          child: const Text(
-            'Stats',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          child: Text(
+            AppLocalizations.of(context)?.statistics_title ?? 'Statistics',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         const SizedBox(
@@ -30,17 +36,27 @@ class ProfileStatsPreview extends StatelessWidget {
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
-                'Your Rating:  ',
-                style: TextStyle(fontSize: 18),
+                (AppLocalizations.of(context)?.rating_title ?? 'Rating') + ": ",
+                style: const TextStyle(fontSize: 18),
               ),
-              Text(
-                "3829",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal),
+              BlocBuilder(
+                bloc: _profileBloc,
+                buildWhen: (previous, current) {
+                  return current is ProfileStateLoaded;
+                },
+                builder: (context, state) {
+                  return Text(
+                    (state is ProfileStateLoaded)
+                        ? state.profile?.rating.toString() ?? "500"
+                        : "Loading",
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal),
+                  );
+                },
               ),
             ],
           ),

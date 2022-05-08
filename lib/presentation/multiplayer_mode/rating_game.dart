@@ -11,12 +11,15 @@ import '../../bloc/events/rating_room_game_events.dart';
 import '../../bloc/states/rating_room_game_states.dart';
 import '../../data/models/player.dart';
 import '../../data/models/player_progress.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../stats/stats_postgame.dart';
 
 class MultiplayerGamePage extends StatefulWidget {
   final List<Player> players;
-  const MultiplayerGamePage({Key? key, required this.players}) : super(key: key);
+
+  const MultiplayerGamePage({Key? key, required this.players})
+      : super(key: key);
 
   @override
   State<MultiplayerGamePage> createState() => _MultiplayerGamePageState();
@@ -73,12 +76,13 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
     });
   }
 
-  List<double> _progressByPlayers(progresses){
+  List<double> _progressByPlayers(progresses) {
     List<double> progressesList = [];
-    for (var player in widget.players){
-      for (var progress in progresses){
-        if (progress.id == player.playerId){
-          progressesList.add(progress.tasksSolved / 10);
+    for (var player in widget.players) {
+      for (var progress in progresses) {
+        if (progress.id == player.playerId) {
+          progressesList
+              .add(progress.tasksSolved / _ratingRoomGameBloc.tasks.length);
           break;
         }
       }
@@ -116,7 +120,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => const PostgameStatsPage()));
+              builder: (BuildContext context) =>
+                  PostgameStatsPage(players: widget.players)));
     }
   }
 
@@ -129,9 +134,10 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Rating Game'),
+          title: Text(l?.rating_game_title ?? "Rating Game"),
           actions: [
             TextButton(
               child: const Text(
@@ -142,7 +148,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PostgameStatsPage(),
+                    builder: (context) =>
+                        PostgameStatsPage(players: widget.players),
                   ),
                 );
               },

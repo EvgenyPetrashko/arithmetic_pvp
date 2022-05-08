@@ -70,7 +70,8 @@ class ProfileInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: SvgPicture.asset('assets/currency.svg', width: 32),
+                        child:
+                            SvgPicture.asset('assets/currency.svg', width: 32),
                         margin: const EdgeInsets.only(right: 5),
                       ),
                       Text(

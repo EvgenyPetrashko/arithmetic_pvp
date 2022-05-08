@@ -6,8 +6,9 @@ import 'package:arithmetic_pvp/presentation/skins/skins.dart';
 import 'package:arithmetic_pvp/presentation/skins/skins_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'multiplayer_mode/multiplayer_game_start.dart';
+import 'multiplayer_mode/rating_game_start.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,20 +45,23 @@ class _HomePageState extends State<HomePage> {
       create: (context) => _profileBloc,
       child: Scaffold(
         appBar: _appBars[_selectedIndex],
-        body: SafeArea(child: _children[_selectedIndex],),
+        body: SafeArea(
+          child: _children[_selectedIndex],
+        ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.gamepad),
-              label: 'Game',
+              icon: const Icon(Icons.gamepad),
+              label: AppLocalizations.of(context)?.game_page ?? 'Game',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.sentiment_very_satisfied),
-              label: 'Skins',
+              icon: const Icon(Icons.sentiment_very_satisfied),
+              label: AppLocalizations.of(context)?.skins_title ?? 'Skins',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Profile',
+              icon: const Icon(Icons.account_circle),
+              label:
+                  AppLocalizations.of(context)?.my_profile_title ?? 'Profile',
             ),
           ],
           currentIndex: _selectedIndex,

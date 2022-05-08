@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/profile_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UsernameDialogConstants {
   UsernameDialogConstants._();
@@ -55,14 +56,15 @@ class _ProfileEditState extends State<ProfileEdit> {
       if (state.changeNameResponse.status) {
         _dismissEditDialog();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Success"),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)?.success ?? "Success"),
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.changeNameResponse.error ??
+                AppLocalizations.of(context)?.try_again_later ??
                 "Error! Please try again later"),
           ),
         );
@@ -93,8 +95,6 @@ class _ProfileEditState extends State<ProfileEdit> {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -116,10 +116,12 @@ class _ProfileEditState extends State<ProfileEdit> {
                         ),
                         controller: _userNameController,
                         maxLength: 30,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           counterText: '',
                           border: InputBorder.none,
-                          hintText: 'New username',
+                          hintText:
+                              AppLocalizations.of(context)?.your_username ??
+                                  'Your username',
                         ),
                       ),
                     ),
@@ -137,9 +139,10 @@ class _ProfileEditState extends State<ProfileEdit> {
           child: Container(
             // padding: const EdgeInsets.only(top:40),
             alignment: Alignment.center,
-            child: const Text(
-              'Changing your nickname',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            child: Text(
+              AppLocalizations.of(context)?.changing_your_nickname ??
+                  'Changing your nickname',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -168,29 +171,6 @@ class _ProfileEditState extends State<ProfileEdit> {
             ),
           ),
         ),
-        // Positioned(
-        //   bottom: 15,
-        //   left: 20,
-        //   right: 195,
-        //   height: UsernameDialogConstants.buttonPadding * 2,
-        //   child: ClipRect(
-        //     child: ElevatedButton(
-        //       onPressed: _dismissEditDialog,
-        //       child: const Text(
-        //         'Cancel',
-        //         style: TextStyle(fontSize: 18, color: Colors.white),
-        //       ),
-        //       style: OutlinedButton.styleFrom(
-        //         backgroundColor: const Color(0xffa85454),
-        //         shape: const RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.all(
-        //             Radius.circular(UsernameDialogConstants.buttonRadius),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
@@ -198,7 +178,6 @@ class _ProfileEditState extends State<ProfileEdit> {
   _showEditDialog() {
     showDialog(
       context: context,
-      // barrierDismissible: false,
       builder: (context) {
         return BlocConsumer(
           bloc: _profileBloc,
@@ -213,7 +192,6 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  // backgroundColor: Colors.black,
                   child: _contentBox(context, state),
                 );
               },

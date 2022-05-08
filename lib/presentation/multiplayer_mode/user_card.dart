@@ -2,6 +2,7 @@ import 'package:arithmetic_pvp/data/models/player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserCard extends StatelessWidget {
   final Player player;
@@ -40,7 +41,10 @@ class UserCard extends StatelessWidget {
                   child: Center(
                     child: ListTile(
                       title: Text(player.username),
-                      subtitle: const Text('Joined', style: TextStyle(color: Colors.green),),
+                      subtitle: Text(
+                        AppLocalizations.of(context)?.joined_status ?? 'Joined',
+                        style: TextStyle(color: Colors.green),
+                      ),
                     ),
                   ),
                 ),

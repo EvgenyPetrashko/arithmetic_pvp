@@ -35,28 +35,22 @@ class _UserProgressState extends State<UserProgress> {
               ),
             ),
             Expanded(
-                flex: 75,
-                child: TweenAnimationBuilder<double>(
-                  tween: Tween<double>(begin: 0.0, end: widget.value),
-                  duration: const Duration(milliseconds: 500),
-                  builder: (context, value, _) => ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: LinearProgressIndicator(
-                      minHeight: 10,
-                      value: value,
-                      semanticsLabel: 'User progress',
-                      color: widget.color,
-                      backgroundColor: Colors.black12,
-                    ),
+              flex: 75,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0.0, end: widget.value),
+                duration: const Duration(milliseconds: 500),
+                builder: (context, value, _) => ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: LinearProgressIndicator(
+                    minHeight: 10,
+                    value: value,
+                    semanticsLabel: 'User progress',
+                    color: widget.color,
+                    backgroundColor: Colors.black12,
                   ),
-                )
-                // child: LinearProgressIndicator(
-                //   value: widget.value,
-                //   semanticsLabel: 'User progress',
-                //   color: Colors.black,
-                //   backgroundColor: Colors.black12,
-                // ),
                 ),
+              ),
+            ),
           ],
         ),
       ),

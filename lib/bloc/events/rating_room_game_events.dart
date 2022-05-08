@@ -8,16 +8,19 @@ abstract class RatingRoomGameEvent extends WebSocketEvent {}
 
 class RatingRoomGameEventTasksReceived extends RatingRoomGameEvent {
   final List<Task> tasks;
+
   RatingRoomGameEventTasksReceived(this.tasks);
 }
 
 class RatingRoomGameEventTaskReport extends RatingRoomGameEvent {
   final TaskReport taskReport;
+
   RatingRoomGameEventTaskReport(this.taskReport);
 }
 
 class RatingRoomGameEventUpdateProgressbar extends RatingRoomGameEvent {
   final List<PlayerProgress> playerProgresses;
+
   RatingRoomGameEventUpdateProgressbar(this.playerProgresses);
 }
 
@@ -25,6 +28,7 @@ class RatingRoomGameGetTasks extends RatingRoomGameEvent {}
 
 class RatingRoomGameEventSubmitAnswer extends RatingRoomGameEvent {
   final int answer;
+
   RatingRoomGameEventSubmitAnswer(this.answer);
 }
 

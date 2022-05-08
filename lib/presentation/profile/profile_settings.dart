@@ -1,7 +1,6 @@
 import 'package:arithmetic_pvp/presentation/profile/theme_switch.dart';
 import 'package:flutter/material.dart';
-
-import 'lang_switch.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileSettings extends StatelessWidget {
   const ProfileSettings({Key? key}) : super(key: key);
@@ -17,44 +16,22 @@ class ProfileSettings extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text(
-              'Settings',
-              textAlign: TextAlign.center,
-            ),
-            content: Column(
+            backgroundColor: const Color(0xff393939),
+            title: Text(AppLocalizations.of(context)?.settings ?? 'Settings',
+                textAlign: TextAlign.center),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Switch Mode',
-                      style: TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    ThemeToggle(),
-                  ],
+                Text(
+                  AppLocalizations.of(context)?.switch_mode ?? 'Switch Mode',
+                  style: const TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  height: 20,
+                  width: 5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Language',
-                      style: TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    LangToggle(),
-                  ],
-                ),
+                ThemeToggle(),
               ],
             ),
             actions: <Widget>[
@@ -64,7 +41,7 @@ class ProfileSettings extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       shadowColor: Colors.black, elevation: 3),
                   onPressed: _dismissDialog,
-                  child: const Text('Done'),
+                  child: Text(AppLocalizations.of(context)?.done ?? "Done"),
                 ),
               ),
             ],
