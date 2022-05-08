@@ -153,8 +153,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
+                MyApp.themeNotifier.value == ThemeMode.light ? SvgPicture.asset(
                   "assets/dark_logo.svg",
+                  height: 128,
+                  width: 128,
+                ) : SvgPicture.asset(
+                  "assets/light_logo.svg",
                   height: 128,
                   width: 128,
                 ),
