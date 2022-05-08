@@ -89,7 +89,6 @@ class _MultiplayerWaitingRoomPageState
         await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            backgroundColor: ThemeData.dark().primaryColor,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
