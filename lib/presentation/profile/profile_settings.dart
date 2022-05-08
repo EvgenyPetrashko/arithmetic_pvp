@@ -19,17 +19,16 @@ class ProfileSettings extends StatelessWidget {
         builder: (context) {
           return AlertDialog(
             backgroundColor: const Color(0xff393939),
-            title: Text(AppLocalizations.of(context)?.settings??'Settings'),
-            textAlign: TextAlign.center,
+            title: Text(AppLocalizations.of(context)?.settings??'Settings', textAlign: TextAlign.center),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       AppLocalizations.of(context)?.switch_mode??'Switch Mode',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
