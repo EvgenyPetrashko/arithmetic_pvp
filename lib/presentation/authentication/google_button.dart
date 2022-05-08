@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/events/auth_events.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({Key? key}) : super(key: key);
@@ -32,11 +33,12 @@ class GoogleButton extends StatelessWidget {
               width: 32,
               height: 32,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
               child: Text(
-                'Sign in with Google',
-                style: TextStyle(
+                AppLocalizations.of(context)?.sign_in_with_google ??
+                    "Sign in with Google",
+                style: const TextStyle(
                   fontSize: 20,
                   color: Colors.black54,
                   fontWeight: FontWeight.w600,

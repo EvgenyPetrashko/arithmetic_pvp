@@ -1,5 +1,6 @@
 import 'package:arithmetic_pvp/presentation/profile/theme_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'lang_switch.dart';
 
@@ -17,10 +18,9 @@ class ProfileSettings extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text(
-              'Settings',
-              textAlign: TextAlign.center,
-            ),
+            backgroundColor: const Color(0xff393939),
+            title: Text(AppLocalizations.of(context)?.settings??'Settings'),
+            textAlign: TextAlign.center,
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -28,14 +28,14 @@ class ProfileSettings extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
-                      'Switch Mode',
+                      AppLocalizations.of(context)?.switch_mode??'Switch Mode',
                       style: TextStyle(fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
-                    ThemeToggle(),
+                    const ThemeToggle(),
                   ],
                 ),
                 const SizedBox(
@@ -64,7 +64,7 @@ class ProfileSettings extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       shadowColor: Colors.black, elevation: 3),
                   onPressed: _dismissDialog,
-                  child: const Text('Done'),
+                  child: Text(AppLocalizations.of(context)?.done??"Done"),
                 ),
               ),
             ],

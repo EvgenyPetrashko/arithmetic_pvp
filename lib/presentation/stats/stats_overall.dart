@@ -5,6 +5,7 @@ import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'stats_appbar_overall.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OverallStatsPage extends StatefulWidget {
   const OverallStatsPage({Key? key}) : super(key: key);
@@ -53,9 +54,9 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Matches played',
-                          style: TextStyle(fontSize: 20),
+                        Text(
+                          AppLocalizations.of(context)?.matches_played??'Matches played',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,
@@ -77,9 +78,9 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Solved problems',
-                          style: TextStyle(fontSize: 20),
+                        Text(
+                          AppLocalizations.of(context)?.solved_problems??'Solved problems',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,
@@ -99,9 +100,9 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                   margin: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const Text(
-                        'Your Rating',
-                        style: TextStyle(fontSize: 32),
+                      Text(
+                        AppLocalizations.of(context)?.your_rating_title??'Your Rating',
+                        style: const TextStyle(fontSize: 32),
                       ),
                       const SizedBox(
                         height: 20,
@@ -135,9 +136,9 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Overall time',
-                          style: TextStyle(fontSize: 20),
+                        Text(
+                          AppLocalizations.of(context)?.overall_time??'Overall time',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,
@@ -158,9 +159,9 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Average time',
-                          style: TextStyle(fontSize: 20),
+                        Text(
+                          AppLocalizations.of(context)?.average_time??'Average time',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,

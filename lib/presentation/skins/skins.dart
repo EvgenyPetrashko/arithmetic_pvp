@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SkinsPage extends StatefulWidget {
   const SkinsPage({Key? key}) : super(key: key);
@@ -60,8 +61,8 @@ class _SkinsPageState extends State<SkinsPage> {
           },
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Success"),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)?.success??"Success"),
           ),
         );
       } else if (state is ShopBuyStateError) {
@@ -74,7 +75,6 @@ class _SkinsPageState extends State<SkinsPage> {
         _setLoading = true;
       }
       if (!_setLoading) {
-        // dismiss dialog
         Navigator.pop(context);
       }
       setState(
