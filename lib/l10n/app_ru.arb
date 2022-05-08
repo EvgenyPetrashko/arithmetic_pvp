@@ -1,3 +1,5 @@
 {
-  "helloWorld": "дарова заебал"
+  "hello": "Привет",
+  "sign_in_with_google": "Зайти с Google",
+  "game_page": "Игра"
 }
