@@ -39,7 +39,6 @@ class MainBloc extends Bloc<SplashScreenEvent, MainState> {
       await GetIt.instance.allReady();
 
       if (sessionCookie != "") {
-        // TODO : check if token is still valid (api call, for example: request profile info)
         emit(MainStateLoaded(true));
       } else {
         emit(MainStateLoaded(false));

@@ -8,7 +8,7 @@ class GameAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     return AppBar(
-      title: Text(l?.game_page??"Game"),
+      title: Text(l?.game_page ?? "Game"),
     );
   }
 

@@ -15,7 +15,7 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(AppLocalizations.of(context)?.skins_title??'Skins'),
+      title: Text(AppLocalizations.of(context)?.skins_title ?? 'Skins'),
       actions: [
         Center(
           child: Container(
@@ -45,7 +45,8 @@ class SkinsAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ],
                       );
                     } else if (state is ProfileBalanceStateError) {
-                      return Text(AppLocalizations.of(context)?.error??"Error");
+                      return Text(
+                          AppLocalizations.of(context)?.error ?? "Error");
                     } else {
                       return JumpingText(
                         '···',

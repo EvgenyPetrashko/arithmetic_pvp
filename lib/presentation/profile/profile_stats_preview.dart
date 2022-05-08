@@ -19,7 +19,7 @@ class ProfileStatsPreview extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           child: Text(
-            AppLocalizations.of(context)?.statistics_title??'Statistics',
+            AppLocalizations.of(context)?.statistics_title ?? 'Statistics',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
@@ -38,7 +38,7 @@ class ProfileStatsPreview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                (AppLocalizations.of(context)?.rating_title??'Rating') + ": ",
+                (AppLocalizations.of(context)?.rating_title ?? 'Rating') + ": ",
                 style: const TextStyle(fontSize: 18),
               ),
               BlocBuilder(
@@ -46,9 +46,11 @@ class ProfileStatsPreview extends StatelessWidget {
                 buildWhen: (previous, current) {
                   return current is ProfileStateLoaded;
                 },
-                builder: (context, state){
+                builder: (context, state) {
                   return Text(
-                    (state is ProfileStateLoaded) ? state.profile?.rating.toString() ?? "500" : "Loading",
+                    (state is ProfileStateLoaded)
+                        ? state.profile?.rating.toString() ?? "500"
+                        : "Loading",
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

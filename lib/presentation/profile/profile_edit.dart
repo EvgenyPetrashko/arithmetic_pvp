@@ -95,8 +95,6 @@ class _ProfileEditState extends State<ProfileEdit> {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -144,9 +142,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             child: Text(
               AppLocalizations.of(context)?.changing_your_nickname ??
                   'Changing your nickname',
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -182,7 +178,6 @@ class _ProfileEditState extends State<ProfileEdit> {
   _showEditDialog() {
     showDialog(
       context: context,
-      // barrierDismissible: false,
       builder: (context) {
         return BlocConsumer(
           bloc: _profileBloc,
@@ -197,7 +192,6 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  // backgroundColor: Colors.black,
                   child: _contentBox(context, state),
                 );
               },

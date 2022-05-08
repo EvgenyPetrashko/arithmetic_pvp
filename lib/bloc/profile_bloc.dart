@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:arithmetic_pvp/bloc/states/profile_states.dart';
 import 'package:arithmetic_pvp/data/models/change_name_response.dart';
-import 'package:arithmetic_pvp/data/models/user.dart';
+import 'package:arithmetic_pvp/data/models/profile.dart';
 import 'package:arithmetic_pvp/data/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

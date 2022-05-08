@@ -1,62 +1,52 @@
 import 'package:flutter/material.dart';
 
-class Keyboard extends StatefulWidget {
+class Keyboard extends StatelessWidget {
   final void Function(String) onTap;
 
   const Keyboard({Key? key, required this.onTap}) : super(key: key);
 
   @override
-  State<Keyboard> createState() => _KeyboardState();
-}
-
-class _KeyboardState extends State<Keyboard> {
-  @override
   Widget build(BuildContext context) {
     return Column(children: [
       Expanded(
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          KeyboardButton(val: '7', onTap: widget.onTap),
-          KeyboardButton(val: '8', onTap: widget.onTap),
-          KeyboardButton(val: '9', onTap: widget.onTap),
+          KeyboardButton(val: '7', onTap: onTap),
+          KeyboardButton(val: '8', onTap: onTap),
+          KeyboardButton(val: '9', onTap: onTap),
         ]),
       ),
       Expanded(
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          KeyboardButton(val: '4', onTap: widget.onTap),
-          KeyboardButton(val: '5', onTap: widget.onTap),
-          KeyboardButton(val: '6', onTap: widget.onTap),
+          KeyboardButton(val: '4', onTap: onTap),
+          KeyboardButton(val: '5', onTap: onTap),
+          KeyboardButton(val: '6', onTap: onTap),
         ]),
       ),
       Expanded(
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          KeyboardButton(val: '1', onTap: widget.onTap),
-          KeyboardButton(val: '2', onTap: widget.onTap),
-          KeyboardButton(val: '3', onTap: widget.onTap),
+          KeyboardButton(val: '1', onTap: onTap),
+          KeyboardButton(val: '2', onTap: onTap),
+          KeyboardButton(val: '3', onTap: onTap),
         ]),
       ),
       Expanded(
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           // KeyboardButton(val: '-', onTap: widget.onTap),
-          KeyboardButton(val: '0', onTap: widget.onTap),
-          KeyboardButton(val: 'DEL', onTap: widget.onTap),
+          KeyboardButton(val: '0', onTap: onTap),
+          KeyboardButton(val: 'DEL', onTap: onTap),
         ]),
       ),
     ]);
   }
 }
 
-class KeyboardButton extends StatefulWidget {
+class KeyboardButton extends StatelessWidget {
   final String val;
   final void Function(String) onTap;
 
   const KeyboardButton({Key? key, required this.val, required this.onTap})
       : super(key: key);
 
-  @override
-  _KeyboardButtonState createState() => _KeyboardButtonState();
-}
-
-class _KeyboardButtonState extends State<KeyboardButton> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -68,10 +58,10 @@ class _KeyboardButtonState extends State<KeyboardButton> {
             textStyle: const TextStyle(fontSize: 24),
           ),
           onPressed: () {
-            widget.onTap(widget.val);
+            onTap(val);
           },
           child: Text(
-            widget.val,
+            val,
             textAlign: TextAlign.center,
           ),
         ),

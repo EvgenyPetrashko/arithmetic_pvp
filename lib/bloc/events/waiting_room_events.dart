@@ -8,11 +8,13 @@ class WaitingRoomEventInit extends WaitingRoomEvent {}
 
 class WaitingRoomEventPlayerJoined extends WaitingRoomEvent {
   final List<Player> playersWaiting;
+
   WaitingRoomEventPlayerJoined(this.playersWaiting);
 }
 
 class WaitingRoomEventAllPlayersJoined extends WaitingRoomEvent {
-  final JoinGameResponse room;
+  final JoinRoomResponse room;
+
   WaitingRoomEventAllPlayersJoined(this.room);
 }
 
@@ -22,5 +24,6 @@ class WaitingRoomEventReject extends WaitingRoomEvent {}
 
 class WaitingRoomEventTimerUpdate extends WaitingRoomEvent {
   final int timeLeft;
+
   WaitingRoomEventTimerUpdate(this.timeLeft);
 }

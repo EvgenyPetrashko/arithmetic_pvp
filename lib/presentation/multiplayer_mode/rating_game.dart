@@ -17,7 +17,9 @@ import '../stats/stats_postgame.dart';
 
 class MultiplayerGamePage extends StatefulWidget {
   final List<Player> players;
-  const MultiplayerGamePage({Key? key, required this.players}) : super(key: key);
+
+  const MultiplayerGamePage({Key? key, required this.players})
+      : super(key: key);
 
   @override
   State<MultiplayerGamePage> createState() => _MultiplayerGamePageState();
@@ -74,12 +76,13 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
     });
   }
 
-  List<double> _progressByPlayers(progresses){
+  List<double> _progressByPlayers(progresses) {
     List<double> progressesList = [];
-    for (var player in widget.players){
-      for (var progress in progresses){
-        if (progress.id == player.playerId){
-          progressesList.add(progress.tasksSolved / _ratingRoomGameBloc.tasks.length);
+    for (var player in widget.players) {
+      for (var progress in progresses) {
+        if (progress.id == player.playerId) {
+          progressesList
+              .add(progress.tasksSolved / _ratingRoomGameBloc.tasks.length);
           break;
         }
       }
@@ -117,7 +120,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => PostgameStatsPage(players: widget.players)));
+              builder: (BuildContext context) =>
+                  PostgameStatsPage(players: widget.players)));
     }
   }
 
@@ -133,7 +137,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
     final l = AppLocalizations.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text(l?.rating_game_title??"Rating Game"),
+          title: Text(l?.rating_game_title ?? "Rating Game"),
           actions: [
             TextButton(
               child: const Text(
@@ -144,7 +148,8 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PostgameStatsPage(players: widget.players),
+                    builder: (context) =>
+                        PostgameStatsPage(players: widget.players),
                   ),
                 );
               },

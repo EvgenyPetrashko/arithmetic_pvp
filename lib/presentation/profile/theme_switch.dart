@@ -7,6 +7,7 @@ import '../../main.dart';
 
 class ThemeToggle extends StatelessWidget {
   final _profileBloc = ProfileBloc();
+
   ThemeToggle({Key? key}) : super(key: key);
 
   @override
@@ -39,5 +40,4 @@ class ThemeToggle extends StatelessWidget {
       },
     );
   }
-
 }

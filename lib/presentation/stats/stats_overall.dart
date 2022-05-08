@@ -105,7 +105,8 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                               height: 10,
                             ),
                             Text(
-                              AppLocalizations.of(context)?.matches_played??'Matches played',
+                              AppLocalizations.of(context)?.matches_played ??
+                                  'Matches played',
                               style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(
@@ -129,7 +130,8 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                               height: 10,
                             ),
                             Text(
-                              AppLocalizations.of(context)?.solved_problems??'Solved problems',
+                              AppLocalizations.of(context)?.solved_problems ??
+                                  'Solved problems',
                               style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(
@@ -151,7 +153,8 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                       child: Column(
                         children: [
                           Text(
-                            AppLocalizations.of(context)?.your_rating_title??'Your Rating',
+                            AppLocalizations.of(context)?.your_rating_title ??
+                                'Your Rating',
                             style: const TextStyle(fontSize: 32),
                           ),
                           const SizedBox(
@@ -188,7 +191,8 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                               height: 10,
                             ),
                             Text(
-                              AppLocalizations.of(context)?.overall_time??'Overall time',
+                              AppLocalizations.of(context)?.overall_time ??
+                                  'Overall time',
                               style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(
@@ -200,7 +204,6 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
-
                         ),
                       ),
                       Container(
@@ -212,7 +215,8 @@ class _OverallStatsPageState extends State<OverallStatsPage>
                               height: 10,
                             ),
                             Text(
-                               AppLocalizations.of(context)?.average_time??'Average time',
+                              AppLocalizations.of(context)?.average_time ??
+                                  'Average time',
                               style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(

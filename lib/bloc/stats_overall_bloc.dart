@@ -43,7 +43,7 @@ class StatsOverallBloc extends Bloc<StatsOverallEvent, StatsOverallState> {
         if (duration3.inSeconds > 0) {
           newOverallTime += "${duration3.inSeconds}s ";
         }
-        if (newOverallTime == ""){
+        if (newOverallTime == "") {
           newOverallTime += "0 s";
         }
         emit(StatsOverallStateLoaded(newOverallStats, newOverallTime));

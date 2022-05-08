@@ -41,7 +41,10 @@ class UserCard extends StatelessWidget {
                   child: Center(
                     child: ListTile(
                       title: Text(player.username),
-                      subtitle: Text(AppLocalizations.of(context)?.joined_status??'Joined', style: TextStyle(color: Colors.green),),
+                      subtitle: Text(
+                        AppLocalizations.of(context)?.joined_status ?? 'Joined',
+                        style: TextStyle(color: Colors.green),
+                      ),
                     ),
                   ),
                 ),

@@ -1,6 +1,6 @@
 import 'package:arithmetic_pvp/data/models/change_name_response.dart';
 
-import '../../data/models/user.dart';
+import '../../data/models/profile.dart';
 import '../../data/models/balance_response.dart';
 
 abstract class ProfileState {}

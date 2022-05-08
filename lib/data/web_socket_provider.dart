@@ -63,7 +63,8 @@ class WebSocketProvider {
           }
         case 'all_players_joined':
           {
-            final JoinGameResponse room = JoinGameResponse.fromJson(response['room']);
+            final JoinRoomResponse room =
+                JoinRoomResponse.fromJson(response['room']);
             return WaitingRoomEventAllPlayersJoined(room);
           }
         case 'task_solved':
@@ -103,7 +104,8 @@ class WebSocketProvider {
           }
         case 'get_stats':
           {
-            final RatingRoomStatsResponse stats = RatingRoomStatsResponse.fromJson(response);
+            final RatingRoomStatsResponse stats =
+                RatingRoomStatsResponse.fromJson(response);
             return RatingRoomStatisticEventReceived(stats);
           }
       }
@@ -132,7 +134,8 @@ class WebSocketProvider {
   }
 
   submitAnswer(answer) {
-    webSocketChannel.sink.add(jsonEncode({'action': 'submit', 'answer': answer}));
+    webSocketChannel.sink
+        .add(jsonEncode({'action': 'submit', 'answer': answer}));
   }
 
   getStats() {

@@ -8,7 +8,9 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Text(AppLocalizations.of(context)?.my_profile_title??'My Profile'), actions: const [ProfileSettings()]);
+        title: Text(
+            AppLocalizations.of(context)?.my_profile_title ?? 'My Profile'),
+        actions: const [ProfileSettings()]);
   }
 
   @override

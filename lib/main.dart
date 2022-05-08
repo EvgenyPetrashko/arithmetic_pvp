@@ -60,7 +60,8 @@ class MyApp extends StatelessWidget {
                   elevatedButtonTheme: ElevatedButtonThemeData(
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xff424242),
-                      textStyle: const TextStyle(color: Colors.white, fontSize: 16),
+                      textStyle:
+                          const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                 ),
@@ -123,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       if (state.isLoginnedIn) {
         _redirectedWidget = const HomePage();
       } else {
-        _redirectedWidget = const LoginPage();
+        _redirectedWidget = LoginPage();
       }
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

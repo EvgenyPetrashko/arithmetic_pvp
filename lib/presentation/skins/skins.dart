@@ -1,8 +1,8 @@
 import 'dart:developer';
-import 'package:arithmetic_pvp/bloc/events/shop_events.dart';
+import 'package:arithmetic_pvp/bloc/events/skin_events.dart';
 import 'package:arithmetic_pvp/bloc/profile_bloc.dart';
 import 'package:arithmetic_pvp/bloc/shop_bloc.dart';
-import 'package:arithmetic_pvp/bloc/states/shop_states.dart';
+import 'package:arithmetic_pvp/bloc/states/skin_states.dart';
 import 'package:arithmetic_pvp/data/models/skin.dart';
 import 'package:arithmetic_pvp/presentation/skins/skin_card.dart';
 import 'package:arithmetic_pvp/presentation/skins/skin_dialog.dart';
@@ -31,25 +31,25 @@ class _SkinsPageState extends State<SkinsPage> {
     _shopBloc.add(SkinsEventLoading());
   }
 
-  _handleState(BuildContext context, ShopState state) {
+  _handleState(BuildContext context, SkinState state) {
     log(state.toString());
-    if (state is ShopSkinsState) {
-      if (state is ShopSkinsStateLoaded) {
+    if (state is SkinsShopState) {
+      if (state is SkinsStateShopLoaded) {
         setState(
           () {
             _skins = state.skins;
           },
         );
-      } else if (state is ShopSkinsStateError) {
+      } else if (state is SkinsStateShopError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.error),
           ),
         );
       }
-    } else if (state is ShopBuySkinState) {
+    } else if (state is SkinBuyState) {
       bool _setLoading = false;
-      if (state is ShopBuyStateLoaded) {
+      if (state is SkinBuyStateLoaded) {
         setState(
           () {
             for (var skin in _skins) {
@@ -62,10 +62,10 @@ class _SkinsPageState extends State<SkinsPage> {
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)?.success??"Success"),
+            content: Text(AppLocalizations.of(context)?.success ?? "Success"),
           ),
         );
-      } else if (state is ShopBuyStateError) {
+      } else if (state is SkinBuyStateError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.error),
@@ -82,9 +82,9 @@ class _SkinsPageState extends State<SkinsPage> {
           _loading = _setLoading;
         },
       );
-    } else if (state is ShopSelectSkinState) {
+    } else if (state is SkinSelectState) {
       bool _setLoading = false;
-      if (state is ShopSelectSkinLoaded) {
+      if (state is SkinSelectLoaded) {
         setState(
           () {
             if (state.isSuccess) {
@@ -98,7 +98,7 @@ class _SkinsPageState extends State<SkinsPage> {
             }
           },
         );
-      } else if (state is ShopSelectSkinError) {
+      } else if (state is SkinSelectError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.error),
@@ -128,8 +128,7 @@ class _SkinsPageState extends State<SkinsPage> {
     return showDialog(
       context: context,
       builder: (context) {
-        return SkinDialog(
-            skin: skin, buyButtonFunction: _buyButtonFunction);
+        return SkinDialog(skin: skin, buyButtonFunction: _buyButtonFunction);
       },
     );
   }
@@ -145,7 +144,7 @@ class _SkinsPageState extends State<SkinsPage> {
     return SafeArea(
       child: BlocListener(
         bloc: _shopBloc,
-        listener: (context, ShopState state) => _handleState(context, state),
+        listener: (context, SkinState state) => _handleState(context, state),
         child: LoadingOverlay(
           isLoading: _loading,
           color: Colors.black45,

@@ -10,7 +10,7 @@ import '../data/storage.dart';
 import 'events/waiting_room_events.dart';
 
 class WaitingRoomBloc extends Bloc<WaitingRoomEvent, WaitingRoomState> {
-  final JoinGameResponse _joinGameResponse;
+  final JoinRoomResponse _joinGameResponse;
 
   WaitingRoomBloc(this._joinGameResponse) : super(WaitingRoomStateInitial()) {
     final _storage = GetIt.instance<Storage>();
