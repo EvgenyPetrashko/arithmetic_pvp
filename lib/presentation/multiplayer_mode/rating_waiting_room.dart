@@ -185,7 +185,7 @@ class _MultiplayerWaitingRoomPageState
                     width: 10,
                   ),
                   SizedBox(
-                    width: 80.0,
+                    width: 100.0,
                     height: 60.0,
                     child: Center(
                       child: Text(
