@@ -16,7 +16,6 @@ class ProfileSettings extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: const Color(0xff393939),
             title: Text(AppLocalizations.of(context)?.settings ?? 'Settings',
                 textAlign: TextAlign.center),
             content: Row(

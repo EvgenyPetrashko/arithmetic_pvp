@@ -1,11 +1,12 @@
 import 'dart:developer';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:arithmetic_pvp/bloc/events/main_events.dart';
 import 'package:arithmetic_pvp/bloc/states/main_states.dart';
 import 'package:arithmetic_pvp/presentation/authentication/login.dart';
 import 'package:arithmetic_pvp/presentation/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'bloc/main_bloc.dart';
@@ -23,54 +24,57 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final _mainBloc = MainBloc();
     return BlocProvider(
-        create: (context) => _mainBloc,
-        child: ValueListenableBuilder<ThemeMode>(
-            valueListenable: themeNotifier,
-            builder: (_, ThemeMode currentMode, __) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  brightness: Brightness.light,
-                  primaryColor: Colors.deepPurpleAccent,
-                  elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff70ABE2),
-                      textStyle: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                  outlinedButtonTheme: OutlinedButtonThemeData(
-                      style: OutlinedButton.styleFrom(
-                    primary: Colors.black,
-                  )),
-                  textButtonTheme: TextButtonThemeData(
-                      style: TextButton.styleFrom(
-                    primary: Colors.black,
-                  )),
-                  appBarTheme: const AppBarTheme(
-                      // color: Color(0xff525252),
-                      color: Colors.blueGrey),
-                ),
-                darkTheme: ThemeData(
-                  brightness: Brightness.dark,
-                  primaryColor: Colors.amber,
-                  elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff424242),
-                      textStyle:
-                          const TextStyle(color: Colors.white, fontSize: 16),
-                    ),
+      create: (context) => _mainBloc,
+      child: ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              primaryColor: Colors.deepPurpleAccent,
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff70ABE2),
+                  textStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
-                themeMode: currentMode,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                home: const MyHomePage(),
-              );
-            }));
+              ),
+              outlinedButtonTheme: OutlinedButtonThemeData(
+                style: OutlinedButton.styleFrom(
+                  primary: Colors.black,
+                ),
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: Colors.black,
+                ),
+              ),
+              appBarTheme: const AppBarTheme(
+                  // color: Color(0xff525252),
+                  color: Colors.blueGrey),
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              primaryColor: Colors.amber,
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff424242),
+                  textStyle: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+            themeMode: currentMode,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const MyHomePage(),
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -124,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       if (state.isLoginnedIn) {
         _redirectedWidget = const HomePage();
       } else {
-        _redirectedWidget = LoginPage();
+        _redirectedWidget = const LoginPage();
       }
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
