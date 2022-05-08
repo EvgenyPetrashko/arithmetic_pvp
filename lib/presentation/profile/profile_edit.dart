@@ -156,9 +156,9 @@ class _ProfileEditState extends State<ProfileEdit> {
               onPressed: (state is ProfileChangeUsernameStateLoading)
                   ? null
                   : submitUserName,
-              child: const Text(
-                'Done',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+              child: Text(
+                AppLocalizations.of(context)?.done??'Done',
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff5da854),
@@ -208,9 +208,9 @@ class _ProfileEditState extends State<ProfileEdit> {
       margin: const EdgeInsets.only(bottom: 5),
       child: ElevatedButton(
         onPressed: _showEditDialog,
-        child: const Text(
-          "Edit profile",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+        child: Text(
+          AppLocalizations.of(context)?.edit_profile??"Edit profile",
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
         ),
       ),
     );

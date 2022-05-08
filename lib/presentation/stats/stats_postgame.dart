@@ -172,9 +172,9 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                              'Coin reward',
-                              style: TextStyle(fontSize: 20),
+                            Text(
+                              AppLocalizations.of(context)?.coin_reward??'Coin reward',
+                              style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(
                               height: 10,
@@ -202,9 +202,9 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                              'Rating',
-                              style: TextStyle(fontSize: 20),
+                            Text(
+                              AppLocalizations.of(context)?.rating_title??'Rating',
+                              style: const TextStyle(fontSize: 20),
                             ),
                             const SizedBox(
                               height: 10,
