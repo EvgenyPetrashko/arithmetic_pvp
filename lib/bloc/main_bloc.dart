@@ -15,18 +15,14 @@ import '../main.dart';
 class MainBloc extends Bloc<SplashScreenEvent, MainState> {
   MainBloc() : super(MainStateLoading()) {
     on<SplashScreenEventStartLoading>((event, emit) async {
-      if (Firebase.apps.isNotEmpty){
-        await Firebase.initializeApp(
-            options: const FirebaseOptions(
-              apiKey: "AIzaSyD7MGUz4zwAixSE8M_vyd9wjRcbFs43jYs",
-              appId: "1:325644095359:web:15001e47b0caa290b4544a",
-              messagingSenderId: "325644095359",
-              projectId: "arithmetic-pvp-cf666",
-            )
-        );
-      }else{
-        await Firebase.initializeApp();
-      }
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyD7MGUz4zwAixSE8M_vyd9wjRcbFs43jYs",
+          appId: "1:325644095359:web:15001e47b0caa290b4544a",
+          messagingSenderId: "325644095359",
+          projectId: "arithmetic-pvp-cf666",
+        ),
+      );
 
       final _getIt = GetIt.instance;
 
