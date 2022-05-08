@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/profile_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UsernameDialogConstants {
   UsernameDialogConstants._();
@@ -55,14 +56,15 @@ class _ProfileEditState extends State<ProfileEdit> {
       if (state.changeNameResponse.status) {
         _dismissEditDialog();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Success"),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)?.success ?? "Success"),
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.changeNameResponse.error ??
+                AppLocalizations.of(context)?.try_again_later ??
                 "Error! Please try again later"),
           ),
         );
@@ -116,10 +118,12 @@ class _ProfileEditState extends State<ProfileEdit> {
                         ),
                         controller: _userNameController,
                         maxLength: 30,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           counterText: '',
                           border: InputBorder.none,
-                          hintText: 'Your username',
+                          hintText:
+                              AppLocalizations.of(context)?.your_username ??
+                                  'Your username',
                         ),
                       ),
                     ),
@@ -143,9 +147,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                 Radius.circular(UsernameDialogConstants.buttonRadius),
               ),
             ),
-            child: const Text(
-              'Changing your nickname',
-              style: TextStyle(
+            child: Text(
+              AppLocalizations.of(context)?.changing_your_nickname ??
+                  'Changing your nickname',
+              style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.white),
@@ -188,9 +193,9 @@ class _ProfileEditState extends State<ProfileEdit> {
           child: ClipRect(
             child: ElevatedButton(
               onPressed: _dismissEditDialog,
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)?.cancel??'Cancel',
+                style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: Colors.white),

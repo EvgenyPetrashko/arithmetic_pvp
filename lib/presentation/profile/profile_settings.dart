@@ -1,5 +1,6 @@
 import 'package:arithmetic_pvp/theme_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileSettings extends StatelessWidget {
   const ProfileSettings({Key? key}) : super(key: key);
@@ -16,22 +17,22 @@ class ProfileSettings extends StatelessWidget {
         builder: (context) {
           return AlertDialog(
             backgroundColor: const Color(0xff393939),
-            title: const Text('Settings'),
+            title: Text(AppLocalizations.of(context)?.settings??'Settings'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
+                  children: [
                     Text(
-                      'Switch Mode',
+                      AppLocalizations.of(context)?.switch_mode??'Switch Mode',
                       style: TextStyle(fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
-                    ThemeToggle(),
+                    const ThemeToggle(),
                   ],
                 ),
               ],
@@ -41,7 +42,7 @@ class ProfileSettings extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5),
                 child: ElevatedButton(
                   onPressed: _dismissDialog,
-                  child: const Text('Done'),
+                  child: Text(AppLocalizations.of(context)?.done??"Done"),
                 ),
               ),
             ],

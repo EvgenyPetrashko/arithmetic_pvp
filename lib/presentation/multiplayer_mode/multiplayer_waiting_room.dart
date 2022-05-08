@@ -10,6 +10,7 @@ import 'package:arithmetic_pvp/presentation/multiplayer_mode/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'multiplayer_game.dart';
 
@@ -73,8 +74,8 @@ class _MultiplayerWaitingRoomPageState
     } else if (state is WaitingRoomStateError) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("You can't join this room"),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)?.cant_join_room_msg??"You can't join this room"),
         ),
       );
     } else if (state is WaitingRoomStateTimerUpdated) {
@@ -97,9 +98,8 @@ class _MultiplayerWaitingRoomPageState
             // title: const Text('AlertDialog Title'),
             content: Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: const Text(
-                'You will not be able to rejoin. Quit anyway?',
-                style: TextStyle(
+              child: Text(AppLocalizations.of(context)?.waiting_room_dialog_quit??"You will not be able to rejoin. Quit anyway?",
+                style: const TextStyle(
                   fontSize: 20,
                 ),
                 textAlign: TextAlign.center,
@@ -121,7 +121,7 @@ class _MultiplayerWaitingRoomPageState
                           ),
                         ),
                       ),
-                      child: const Text('Cancel'),
+                      child: Text(AppLocalizations.of(context)?.cancel??"Cancel"),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -140,7 +140,7 @@ class _MultiplayerWaitingRoomPageState
                           ),
                         ),
                       ),
-                      child: const Text('Quit'),
+                      child: Text(AppLocalizations.of(context)?.quit??"Quit"),
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pop(context);
@@ -156,7 +156,7 @@ class _MultiplayerWaitingRoomPageState
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Waiting Room'),
+          title: Text(AppLocalizations.of(context)?.waiting_room??"Waiting Room"),
         ),
         body: Column(
           children: [

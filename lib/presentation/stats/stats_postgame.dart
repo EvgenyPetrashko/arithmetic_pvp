@@ -1,5 +1,3 @@
-// place | rating change | coins change
-
 import 'dart:async';
 
 import 'package:animated_background/animated_background.dart';
@@ -7,6 +5,7 @@ import 'package:arithmetic_pvp/presentation/stats/stats_appbar_postgame.dart';
 import 'package:arithmetic_pvp/presentation/utils/rain_particles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostgameStatsPage extends StatefulWidget {
   const PostgameStatsPage({Key? key}) : super(key: key);
@@ -46,9 +45,9 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
               Container(
                 alignment: Alignment.topCenter,
                 margin: const EdgeInsets.only(bottom: 20),
-                child: const Text(
-                  'The Leaderboard',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                child: Text(
+                  AppLocalizations.of(context)?.leaderboard??'The Leaderboard',
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               Center(
@@ -103,9 +102,9 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Coin reward',
-                          style: TextStyle(fontSize: 20),
+                        Text(
+                          AppLocalizations.of(context)?.coin_reward??'Coin reward',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,
@@ -131,9 +130,9 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Rating',
-                          style: TextStyle(fontSize: 20),
+                        Text(
+                          AppLocalizations.of(context)?.rating_title??'Rating',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,
