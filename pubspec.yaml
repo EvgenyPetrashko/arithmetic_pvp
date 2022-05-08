@@ -67,6 +67,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.1.6
   build_runner: ^2.1.10
+  mockito: ^5.1.0
   #email_validator: '^1.0.6' good lib, but I need to unsound-null-safety
 
   # The "flutter_lints" package below contains a set of recommended lints to
