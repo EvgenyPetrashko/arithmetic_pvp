@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       if (state.isLoginnedIn) {
         _redirectedWidget = const HomePage();
       } else {
-        _redirectedWidget = const HomePage();
+        _redirectedWidget = const LoginPage();
       }
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
