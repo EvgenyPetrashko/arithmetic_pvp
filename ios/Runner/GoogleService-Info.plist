@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>325644095359-hjde9evbbcaspmedfqi8lgr6on7dbm1i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.325644095359-hjde9evbbcaspmedfqi8lgr6on7dbm1i</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>325644095359-2i6sujg6v1m6osf6lrji65858id4ohio.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBBCVGbdYOsBKhcLm9SORtCfztMfdsTmc8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>325644095359</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.brawlers.ArithmeticPvP</string>
+	<key>PROJECT_ID</key>
+	<string>arithmetic-pvp-cf666</string>
+	<key>STORAGE_BUCKET</key>
+	<string>arithmetic-pvp-cf666.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:325644095359:ios:ff4fdb8e38eeed6bb4544a</string>
+</dict>
+</plist>
