@@ -85,16 +85,6 @@ class _PostgameStatsPageState extends State<PostgameStatsPage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    alignment: Alignment.topCenter,
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      AppLocalizations.of(context)?.leaderboard ??
-                          'The Leaderboard',
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   Center(
                     child: Container(
                       padding: const EdgeInsets.only(left: 10, right: 10),
