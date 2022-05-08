@@ -80,5 +80,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(ProfileBalanceStateError());
       }
     });
+
+    on<ProfileEventChangeThemeMode>((event, emit) {
+
+      bool isDark = _storage.getBool("isDark", true);
+      if (isDark != event.isDark){
+        isDark = event.isDark;
+        _storage.setBool("isDark", event.isDark);
+      }
+      emit(ProfileThemeChanged(isDark));
+    });
+
+
   }
 }

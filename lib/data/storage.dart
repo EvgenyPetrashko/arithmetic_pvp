@@ -17,6 +17,10 @@ class Storage {
     _futurePref?.setBool(key, value);
   }
 
+  bool getBool(key, bool value) {
+    return _futurePref?.getBool(key) ?? value;
+  }
+
   setProfile(key, Profile value) {
     _futurePref?.setString(key, jsonEncode(value.toJson()));
   }

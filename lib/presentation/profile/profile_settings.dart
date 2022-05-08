@@ -4,6 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'lang_switch.dart';
 
+import '../../main.dart';
+
 class ProfileSettings extends StatelessWidget {
   const ProfileSettings({Key? key}) : super(key: key);
 
@@ -14,7 +16,11 @@ class ProfileSettings extends StatelessWidget {
     }
 
     _showMaterialDialog() {
-      showDialog(
+      MyApp.themeNotifier.value =
+      MyApp.themeNotifier.value == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
+      /*showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -69,7 +75,7 @@ class ProfileSettings extends StatelessWidget {
             ],
           );
         },
-      );
+      );*/
     }
 
     return IconButton(

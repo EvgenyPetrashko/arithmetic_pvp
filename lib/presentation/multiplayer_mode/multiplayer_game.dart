@@ -79,7 +79,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
     for (var player in widget.players){
       for (var progress in progresses){
         if (progress.id == player.playerId){
-          progressesList.add(progress.tasksSolved / 10);
+          progressesList.add(progress.tasksSolved / _ratingRoomGameBloc.tasks.length);
           break;
         }
       }
@@ -117,7 +117,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => const PostgameStatsPage()));
+              builder: (BuildContext context) => PostgameStatsPage(players: widget.players)));
     }
   }
 
@@ -144,7 +144,7 @@ class _MultiplayerGamePageState extends State<MultiplayerGamePage>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PostgameStatsPage(),
+                    builder: (context) => PostgameStatsPage(players: widget.players),
                   ),
                 );
               },

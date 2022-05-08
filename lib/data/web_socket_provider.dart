@@ -75,6 +75,14 @@ class WebSocketProvider {
                 .cast<PlayerProgress>();
             return RatingRoomGameEventUpdateProgressbar(playerProgresses);
           }
+        case 'refresh_stats':
+          {
+            final List<int> leaderboard = response['leaderboard']
+                .map((player) => player['player_id'])
+                .toList()
+                .cast<int>();
+            return RatingRoomStatisticEventUpdateLeaderBoard(leaderboard);
+          }
       }
     }
     if (response.containsKey('response_to')) {
@@ -93,7 +101,7 @@ class WebSocketProvider {
             log(taskReport.toString());
             return RatingRoomGameEventTaskReport(taskReport);
           }
-        case 'exit':
+        case 'get_stats':
           {
             final RatingRoomStatsResponse stats = RatingRoomStatsResponse.fromJson(response);
             return RatingRoomStatisticEventReceived(stats);
